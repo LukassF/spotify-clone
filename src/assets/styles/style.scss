@@ -1,0 +1,26 @@
+@use './vars' as *;
+
+@font-face {
+    font-family: spotifyFont;
+    src: url('../fonts/GothamMedium.ttf');
+  }
+  body{
+    font-family: spotifyFont;
+    background-color: $main-background-color;
+    padding: 0;
+    margin: 0;
+  }
+  .main-layout{
+    // background-color: red;
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+
+    aside{
+        background-color: transparent;
+    }
+    .router-view{
+        background-color: $secondary-background-color;
+        color:white;
+    }
+  }

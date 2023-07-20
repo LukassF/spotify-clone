@@ -1,0 +1,23 @@
+@font-face {
+  font-family: spotifyFont;
+  src: url("../fonts/GothamMedium.ttf");
+}
+body {
+  font-family: spotifyFont;
+  background-color: black;
+  padding: 0;
+  margin: 0;
+}
+
+.main-layout {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+}
+.main-layout aside {
+  background-color: transparent;
+}
+.main-layout .router-view {
+  background-color: #111111;
+  color: white;
+}/*# sourceMappingURL=style.css.map */
