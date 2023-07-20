@@ -1,3 +1,108 @@
+aside {
+  background-color: transparent;
+  max-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+}
+aside nav {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+  padding: 10px;
+}
+aside nav a {
+  padding: 15px 20px;
+  border-radius: 5px;
+  text-decoration: none;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 20px;
+  color: rgb(150, 148, 148);
+}
+aside nav a i {
+  font-size: 1.4em;
+}
+aside nav a:hover {
+  background-color: #111111;
+  color: white;
+  transition: all 0.3s;
+}
+aside nav .nav-buttons {
+  margin-top: 15px;
+}
+aside nav .nav-buttons div {
+  padding: 10px 15px;
+  color: rgb(150, 148, 148);
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+aside nav .nav-buttons div:hover {
+  background-color: #111111;
+  color: white;
+  transition: all 0.3s;
+}
+aside nav .nav-buttons div p {
+  width: 30px;
+  aspect-ratio: 1/1;
+  background: rgb(150, 148, 148);
+  display: grid;
+  place-content: center;
+  color: black;
+  margin: 0;
+}
+aside nav .nav-buttons div:last-child p {
+  color: white;
+  background: linear-gradient(135deg, rgb(107, 7, 128), rgb(189, 187, 187));
+}
+aside hr {
+  margin: 5px 20px;
+  transform: scaleY(0.5);
+}
+aside ul {
+  color: rgb(150, 148, 148);
+  padding: 0px 10px;
+  list-style: none;
+  scrollbar-width: none;
+  scrollbar-color: rgb(150, 148, 148) transparent;
+  overflow-y: auto;
+}
+aside ul::-webkit-scrollbar {
+  width: 7px;
+}
+aside ul::-webkit-scrollbar-track-piece {
+  background-color: transparent;
+}
+aside ul::-webkit-scrollbar-thumb:vertical {
+  border-radius: 10px;
+  background-color: transparent;
+}
+aside ul:hover {
+  scrollbar-width: thin;
+}
+aside ul:hover::-webkit-scrollbar-thumb:vertical {
+  background-color: rgb(150, 148, 148);
+}
+aside ul li {
+  padding: 10px 20px;
+  cursor: pointer;
+}
+aside ul li:hover {
+  color: white;
+}
+aside .bottom-padding {
+  height: 120px;
+}
+
 @font-face {
   font-family: spotifyFont;
   src: url("../fonts/GothamMedium.ttf");
@@ -7,15 +112,13 @@ body {
   background-color: black;
   padding: 0;
   margin: 0;
+  overflow-x: hidden;
 }
 
 .main-layout {
   min-height: 100vh;
   display: grid;
   grid-template-columns: 1fr 4fr;
-}
-.main-layout aside {
-  background-color: transparent;
 }
 .main-layout .router-view {
   background-color: #111111;
