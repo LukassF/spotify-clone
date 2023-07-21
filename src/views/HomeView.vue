@@ -29,7 +29,7 @@
 import PlaylistCard from '@/components/PlaylistCard.vue'
 import SpotifyFooter from '@/components/SpotifyFooter.vue'
 import playlists from '@/assets/data/playlists.json'
-import { ref, onMounted } from 'vue'
+import { ref} from 'vue'
 
 export default {
   name: 'HomeView',

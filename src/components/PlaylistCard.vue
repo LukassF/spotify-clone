@@ -1,8 +1,8 @@
 <template>
-  <div class="playlist-card">
+  <div @click="routeWithData()" class="playlist-card">
     <div class="image-container">
       <img :src="image"/>
-      <button><i class="fa fa-play"></i></button>
+      <button class="play-button-home"><i class="fa fa-play"></i></button>
     </div>
     <h4>{{ name }}</h4>
     <p>{{ desc }}</p>
@@ -16,6 +16,11 @@ export default {
     name:'',
     image:'',
     desc:''
+  },
+  methods:{
+    routeWithData(){
+      this.$router.push({name:'playlist', query:{name:this.name,image:this.image,desc:this.desc}})
+    }
   }
  
 }

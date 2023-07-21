@@ -238,7 +238,9 @@ footer#spotify-footer p {
     grid-template-columns: repeat(2, 1fr);
   }
 }
-.home .focus div.playlist-card, .home article.spotify-playlists div.playlist-card {
+.home .focus .playlist-card, .home article.spotify-playlists .playlist-card {
+  color: white;
+  text-decoration: none;
   position: relative;
   cursor: pointer;
   padding: 15px;
@@ -251,14 +253,14 @@ footer#spotify-footer p {
   align-items: center;
   transition: background-color 0.3s;
 }
-.home .focus div.playlist-card:hover, .home article.spotify-playlists div.playlist-card:hover {
+.home .focus .playlist-card:hover, .home article.spotify-playlists .playlist-card:hover {
   background-color: #272727;
 }
-.home .focus div.playlist-card:hover .image-container button, .home article.spotify-playlists div.playlist-card:hover .image-container button {
+.home .focus .playlist-card:hover .image-container button, .home article.spotify-playlists .playlist-card:hover .image-container button {
   opacity: 1;
   transform: translateY(0);
 }
-.home .focus div.playlist-card .image-container, .home article.spotify-playlists div.playlist-card .image-container {
+.home .focus .playlist-card .image-container, .home article.spotify-playlists .playlist-card .image-container {
   overflow: hidden;
   position: relative;
   width: 100%;
@@ -268,10 +270,10 @@ footer#spotify-footer p {
   place-content: center;
   box-shadow: 2px 2px 20px 2px rgb(14, 14, 14);
 }
-.home .focus div.playlist-card .image-container img, .home article.spotify-playlists div.playlist-card .image-container img {
+.home .focus .playlist-card .image-container img, .home article.spotify-playlists .playlist-card .image-container img {
   width: 160%;
 }
-.home .focus div.playlist-card .image-container button, .home article.spotify-playlists div.playlist-card .image-container button {
+.home .focus .playlist-card .image-container .play-button-home, .home article.spotify-playlists .playlist-card .image-container .play-button-home {
   position: absolute;
   bottom: 10px;
   right: 10px;
@@ -288,14 +290,14 @@ footer#spotify-footer p {
   transform: translateY(20%);
   transition: opacity 0.2s, transform 0.2s;
 }
-.home .focus div.playlist-card h4, .home article.spotify-playlists div.playlist-card h4 {
+.home .focus .playlist-card h4, .home article.spotify-playlists .playlist-card h4 {
   text-align: left;
   width: 100%;
   font-weight: 200;
   margin: 0;
   margin-top: 15px;
 }
-.home .focus div.playlist-card p, .home article.spotify-playlists div.playlist-card p {
+.home .focus .playlist-card p, .home article.spotify-playlists .playlist-card p {
   margin: 0;
   margin-top: 10px;
   line-height: 20px;
@@ -310,7 +312,7 @@ footer#spotify-footer p {
   text-overflow: ellipsis;
 }
 .header-all {
-  background-color: #220C12;
+  background-color: #1d1d1d;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -390,6 +392,268 @@ footer#spotify-footer p {
 }
 .header-all div:last-child .auth-buttons:last-child:hover {
   background-color: rgb(245, 245, 245);
+}
+
+.playlist-page {
+  min-height: 100%;
+  position: relative;
+}
+.playlist-page .gradient {
+  width: 100%;
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  left: 0;
+  height: 70vh;
+}
+.playlist-page header {
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  grid-column-gap: 25px;
+  padding: 30px;
+}
+.playlist-page header div.image-container {
+  z-index: 2;
+  align-self: flex-end;
+  overflow: hidden;
+  min-width: 170px;
+  aspect-ratio: 1/1;
+  box-shadow: 2px 2px 20px 2px black;
+}
+.playlist-page header div.image-container img {
+  width: 150%;
+}
+.playlist-page header .header-contents {
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+}
+.playlist-page header .header-contents h1 {
+  margin: 0;
+  font-family: spotifyFontBold;
+  font-size: 5em;
+}
+@media screen and (max-width: 1250px) {
+  .playlist-page header .header-contents h1 {
+    font-size: 3em;
+  }
+}
+@media screen and (max-width: 1050px) {
+  .playlist-page header .header-contents h1 {
+    font-size: 2em;
+  }
+}
+.playlist-page header .header-contents p {
+  margin: 0;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  opacity: 0.8;
+  font-family: spotifyFontLight;
+  font-size: 0.9em;
+}
+@media screen and (max-width: 800px) {
+  .playlist-page header .header-contents p {
+    font-size: 0.8rem;
+  }
+}
+.playlist-page header .header-contents .playlist-stats {
+  cursor: default;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+@media screen and (max-width: 800px) {
+  .playlist-page header .header-contents .playlist-stats {
+    font-size: 0.8rem;
+  }
+}
+.playlist-page header .header-contents .playlist-stats h5 {
+  font-family: spotifyFontLight;
+  margin: 0;
+}
+.playlist-page header .header-contents .playlist-stats ul {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 15px;
+  font-size: 0.8em;
+  padding-left: 10px;
+  margin: 0;
+  flex-wrap: wrap;
+}
+@media screen and (max-width: 800px) {
+  .playlist-page header .header-contents .playlist-stats ul {
+    gap: 5px;
+  }
+}
+.playlist-page header .header-contents .playlist-stats ul li {
+  flex-shrink: 0;
+}
+.playlist-page header .header-contents .playlist-stats ul span {
+  color: rgb(175, 175, 175);
+}
+
+section.song-section {
+  width: 100%;
+  background-color: rgba(10, 10, 10, 0.3);
+}
+section.song-section header {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 35px;
+}
+section.song-section header button {
+  border: none;
+  background-color: transparent;
+  color: rgb(190, 190, 190);
+  font-size: 2.4em;
+  cursor: pointer;
+  z-index: 2;
+}
+section.song-section header button:hover {
+  color: white;
+}
+section.song-section header .play-button-playlist {
+  width: 60px;
+  color: black;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+  background-color: #1FDF64;
+  display: grid;
+  place-content: center;
+  font-size: 1.3em;
+}
+section.song-section header .play-button-playlist:hover {
+  color: black;
+}
+section.song-section table {
+  width: 100%;
+  padding: 0px 30px;
+}
+section.song-section table thead, section.song-section table tbody {
+  font-family: spotifyFontLight;
+  font-size: 0.9rem;
+  color: rgb(185, 185, 185);
+}
+section.song-section table thead tr, section.song-section table tbody tr {
+  border-bottom: solid rgb(68, 68, 68) 1px;
+  padding-bottom: 5px;
+  display: grid;
+  grid-template-columns: 1fr 6fr 5fr 4fr 2fr;
+}
+@media screen and (max-width: 1100px) {
+  section.song-section table thead tr, section.song-section table tbody tr {
+    grid-template-columns: 1fr 6fr 4fr 2fr;
+  }
+}
+@media screen and (max-width: 900px) {
+  section.song-section table thead tr, section.song-section table tbody tr {
+    grid-template-columns: 1fr 8fr 2fr;
+  }
+}
+section.song-section table thead tr th, section.song-section table tbody tr th {
+  text-align: left;
+}
+section.song-section table thead tr th:first-child, section.song-section table tbody tr th:first-child, section.song-section table thead tr th:last-child, section.song-section table tbody tr th:last-child {
+  text-align: center;
+}
+@media screen and (max-width: 1100px) {
+  section.song-section table thead tr th:nth-child(4), section.song-section table tbody tr th:nth-child(4) {
+    display: none;
+  }
+}
+@media screen and (max-width: 900px) {
+  section.song-section table thead tr th:nth-child(3), section.song-section table tbody tr th:nth-child(3) {
+    display: none;
+  }
+}
+section.song-section table tbody {
+  cursor: default;
+}
+section.song-section table tbody tr {
+  border: none;
+  padding: 10px 0px;
+  border-radius: 5px;
+}
+section.song-section table tbody tr:hover {
+  background-color: rgba(82, 82, 82, 0.6);
+}
+section.song-section table tbody td {
+  position: relative;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+section.song-section table tbody td:last-child i {
+  font-size: 1.1em;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+}
+section.song-section table tbody td:last-child i:hover {
+  color: white;
+  cursor: pointer;
+}
+section.song-section table tbody td:nth-child(3), section.song-section table tbody td:nth-child(4) {
+  align-items: flex-start;
+}
+@media screen and (max-width: 1100px) {
+  section.song-section table tbody td:nth-child(4) {
+    display: none;
+  }
+}
+@media screen and (max-width: 900px) {
+  section.song-section table tbody td:nth-child(3) {
+    display: none;
+  }
+}
+section.song-section table tbody td.title-and-artist {
+  justify-content: flex-start;
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  grid-template-areas: "image title" "image artist";
+  grid-column-gap: 15px;
+}
+section.song-section table tbody td.title-and-artist div {
+  grid-area: image;
+  width: 40px;
+  aspect-ratio: 1/1;
+  overflow: hidden;
+}
+section.song-section table tbody td.title-and-artist div img {
+  width: 150%;
+}
+section.song-section table tbody td.title-and-artist h4 {
+  margin: 0;
+  color: white;
+  text-overflow: ellipsis;
+  overflow: hidden !important;
+  white-space: nowrap;
+  max-width: 100%;
+}
+section.song-section table tbody td.title-and-artist p {
+  margin: 0;
+}
+section.song-section table tbody .album {
+  max-width: 300px;
+  overflow: hidden !important;
+}
+section.song-section table tbody .album div {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100%;
+  overflow: hidden !important;
 }
 
 @font-face {

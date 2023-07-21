@@ -38,6 +38,6 @@
         </article>
     </section>
     <hr>
-    <p>© 2023 Spotify AB</p>
+    <p>© 2023 Spotify CD</p>
     </footer>
 </template>

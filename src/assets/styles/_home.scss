@@ -53,7 +53,9 @@
             }
         }
 
-        div.playlist-card{
+        .playlist-card{
+            color:white;
+            text-decoration: none;
             position: relative;
             cursor: pointer;
             padding: 15px;
@@ -88,7 +90,7 @@
                     width: 160%;
                 }
 
-                button{
+                .play-button-home{
                     position: absolute;
                     bottom:10px;
                     right:10px;
