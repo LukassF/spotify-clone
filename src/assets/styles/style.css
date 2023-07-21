@@ -1,10 +1,11 @@
 aside {
   background-color: transparent;
-  max-height: 100vh;
+  grid-area: aside;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: stretch;
+  min-width: 290px;
 }
 aside nav {
   display: flex;
@@ -31,6 +32,9 @@ aside nav a:hover {
   background-color: #111111;
   color: white;
   transition: all 0.3s;
+}
+aside nav a.router-link-exact-active {
+  color: rgb(255, 255, 255);
 }
 aside nav .nav-buttons {
   margin-top: 15px;
@@ -99,28 +103,349 @@ aside ul li {
 aside ul li:hover {
   color: white;
 }
-aside .bottom-padding {
-  height: 120px;
+
+footer#song-player {
+  width: 100%;
+  grid-area: footer;
+  background-color: #171717;
+}
+
+footer#spotify-footer {
+  margin-top: 100px;
+  padding-bottom: 40px;
+  width: 100%;
+}
+footer#spotify-footer section {
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+footer#spotify-footer section article {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+footer#spotify-footer section article div {
+  flex-shrink: 0;
+  padding: 10px 30px;
+}
+footer#spotify-footer section article div h4 {
+  margin: 0;
+}
+footer#spotify-footer section article div ul {
+  list-style: none;
+  padding: 0;
+  line-height: 30px;
+  font-family: spotifyFontLight;
+}
+footer#spotify-footer section article div ul li {
+  color: rgb(170, 167, 167);
+  cursor: pointer;
+}
+footer#spotify-footer section article div ul li:hover {
+  color: white;
+  text-decoration: underline;
+}
+footer#spotify-footer section article:last-child div {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 20px;
+}
+footer#spotify-footer section article:last-child div a {
+  width: 40px;
+  aspect-ratio: 1/1;
+  background-color: #272727;
+  display: grid;
+  place-content: center;
+  font-size: 1.1em;
+  border-radius: 50%;
+}
+footer#spotify-footer section article:last-child div a:hover {
+  background-color: rgb(82, 82, 82);
+}
+footer#spotify-footer hr {
+  transform: scaleY(0.5);
+  margin: 30px;
+}
+footer#spotify-footer p {
+  width: 100%;
+  text-align: center;
+  color: rgb(170, 167, 167);
+}
+
+.home {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+.home .focus, .home article.spotify-playlists {
+  padding: 0px 30px;
+  padding-bottom: 20px;
+}
+.home .focus header, .home article.spotify-playlists header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.home .focus header h2, .home article.spotify-playlists header h2, .home .focus header p, .home article.spotify-playlists header p {
+  color: rgb(255, 255, 255);
+  cursor: pointer;
+}
+.home .focus header h2:hover, .home article.spotify-playlists header h2:hover, .home .focus header p:hover, .home article.spotify-playlists header p:hover {
+  text-decoration: underline;
+}
+.home .focus header p, .home article.spotify-playlists header p {
+  color: rgb(156, 154, 154);
+}
+.home .focus div.playlist-card-container, .home article.spotify-playlists div.playlist-card-container {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: 1fr;
+  overflow-y: hidden;
+  grid-column-gap: 15px;
+  grid-auto-rows: 0;
+}
+.home .focus div.playlist-card-container.show-all, .home article.spotify-playlists div.playlist-card-container.show-all {
+  grid-auto-rows: 1fr;
+  grid-row-gap: 15px;
+}
+@media screen and (max-width: 1500px) {
+  .home .focus div.playlist-card-container, .home article.spotify-playlists div.playlist-card-container {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+@media screen and (max-width: 1340px) {
+  .home .focus div.playlist-card-container, .home article.spotify-playlists div.playlist-card-container {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+@media screen and (max-width: 1000px) {
+  .home .focus div.playlist-card-container, .home article.spotify-playlists div.playlist-card-container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media screen and (max-width: 800px) {
+  .home .focus div.playlist-card-container, .home article.spotify-playlists div.playlist-card-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+.home .focus div.playlist-card, .home article.spotify-playlists div.playlist-card {
+  position: relative;
+  cursor: pointer;
+  padding: 15px;
+  border-radius: 5px;
+  aspect-ratio: 6.5/10;
+  background-color: #181818;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.3s;
+}
+.home .focus div.playlist-card:hover, .home article.spotify-playlists div.playlist-card:hover {
+  background-color: #272727;
+}
+.home .focus div.playlist-card:hover .image-container button, .home article.spotify-playlists div.playlist-card:hover .image-container button {
+  opacity: 1;
+  transform: translateY(0);
+}
+.home .focus div.playlist-card .image-container, .home article.spotify-playlists div.playlist-card .image-container {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1/1;
+  border-radius: inherit;
+  display: grid;
+  place-content: center;
+  box-shadow: 2px 2px 20px 2px rgb(14, 14, 14);
+}
+.home .focus div.playlist-card .image-container img, .home article.spotify-playlists div.playlist-card .image-container img {
+  width: 160%;
+}
+.home .focus div.playlist-card .image-container button, .home article.spotify-playlists div.playlist-card .image-container button {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  width: 50px;
+  border: none;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+  background-color: #1FDF64;
+  display: grid;
+  place-content: center;
+  font-size: 1.2em;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(20%);
+  transition: opacity 0.2s, transform 0.2s;
+}
+.home .focus div.playlist-card h4, .home article.spotify-playlists div.playlist-card h4 {
+  text-align: left;
+  width: 100%;
+  font-weight: 200;
+  margin: 0;
+  margin-top: 15px;
+}
+.home .focus div.playlist-card p, .home article.spotify-playlists div.playlist-card p {
+  margin: 0;
+  margin-top: 10px;
+  line-height: 20px;
+  font-family: spotifyFontLight;
+  color: rgb(175, 173, 173);
+  font-size: 0.9em;
+  display: -webkit-box;
+  max-width: 100%;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden !important;
+  text-overflow: ellipsis;
+}
+.header-all {
+  background-color: #220C12;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 30px;
+}
+.header-all div:first-child {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+.header-all div:first-child div {
+  position: relative;
+}
+.header-all div:first-child .router-arrows {
+  background-color: black;
+  font-size: 1.1em;
+  width: 35px;
+  color: rgb(172, 170, 170);
+  aspect-ratio: 1/1;
+  display: grid;
+  place-content: center;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+}
+.header-all div:first-child .tooltip {
+  width: auto;
+  margin: 0;
+  color: white;
+  font-family: spotifyFontLight;
+  padding: 8px 6px;
+  border-radius: 6px;
+  position: absolute;
+  bottom: -35px;
+  min-width: 80px;
+  font-size: 0.8em;
+  text-align: center;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  cursor: default;
+  background-color: rgb(39, 39, 39);
+  box-shadow: 2px 2px 10px black;
+}
+.header-all div:first-child .back:hover .tooltip, .header-all div:first-child .forward:hover .tooltip {
+  opacity: 1;
+  transition: all 0.3s;
+  transition-delay: 0.3s;
+}
+.header-all div:last-child {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 25px;
+}
+.header-all div:last-child .auth-buttons {
+  border: none;
+  font-family: spotifyFont;
+  font-size: 1.03em;
+  cursor: pointer;
+}
+.header-all div:last-child .auth-buttons:first-child {
+  background-color: transparent;
+  color: rgb(206, 206, 206);
+}
+.header-all div:last-child .auth-buttons:first-child:hover {
+  color: white;
+}
+.header-all div:last-child .auth-buttons:last-child {
+  background-color: white;
+  padding: 10px 20px;
+  border-radius: 500px;
+}
+.header-all div:last-child .auth-buttons:last-child:hover {
+  background-color: rgb(245, 245, 245);
 }
 
 @font-face {
   font-family: spotifyFont;
   src: url("../fonts/GothamMedium.ttf");
 }
+@font-face {
+  font-family: spotifyFontLight;
+  src: url("../fonts/GothamLight.ttf");
+}
+@font-face {
+  font-family: spotifyFontBold;
+  src: url("../fonts/GothamBold.ttf");
+}
 body {
   font-family: spotifyFont;
   background-color: black;
   padding: 0;
   margin: 0;
-  overflow-x: hidden;
+  overflow-y: hidden;
 }
 
 .main-layout {
-  min-height: 100vh;
+  height: 100vh;
   display: grid;
   grid-template-columns: 1fr 4fr;
+  grid-template-rows: 2fr 20fr 3fr;
+  grid-template-areas: "aside header" "aside content" "footer footer";
 }
 .main-layout .router-view {
   background-color: #111111;
   color: white;
+  grid-area: content;
+  overflow-x: hidden;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+}
+@media screen and (max-width: 790px) {
+  .main-layout .router-view {
+    min-width: 390px;
+  }
+}
+.main-layout .router-view::-webkit-scrollbar {
+  width: 7px;
+}
+.main-layout .router-view::-webkit-scrollbar-track-piece {
+  background-color: transparent;
+}
+.main-layout .router-view::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: transparent;
+}
+.main-layout .router-view:hover {
+  scrollbar-color: rgb(150, 148, 148) transparent;
+}
+.main-layout .router-view:hover::-webkit-scrollbar-thumb {
+  background-color: rgb(150, 148, 148);
 }/*# sourceMappingURL=style.css.map */

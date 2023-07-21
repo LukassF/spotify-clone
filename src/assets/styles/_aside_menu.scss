@@ -3,8 +3,9 @@
 
 aside{
     background-color: transparent;
-    max-height: 100vh;
+    grid-area: aside;
     @include flex(column,center,stretch);
+    min-width: 290px;
 
     nav{
         @include flex(column,center,stretch);
@@ -26,6 +27,9 @@ aside{
                 background-color: $secondary-background-color;
                 color:white;
                 transition: all 0.3s;
+            }
+            &.router-link-exact-active{
+                color:rgb(255, 255, 255);
             }
         }
 
@@ -107,8 +111,5 @@ aside{
                 color:white;
             }
         }
-    }
-    .bottom-padding{
-        height:120px;
     }
 }

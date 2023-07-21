@@ -2,7 +2,7 @@
   <main class="main-layout">
   <aside>
   <nav>
-    <router-link to="/"><i class="fa fa-home"></i>Home</router-link>
+    <router-link to="/"><i class="fa fa-house"></i>Home</router-link>
     <router-link to="/about"><i class="fa fa-magnifying-glass"></i>Search</router-link>
     <router-link to="/library"><i class="fa-solid fa-layer-group"></i>Your Library</router-link>
     <div class="nav-buttons">
@@ -32,11 +32,34 @@
   </ul>
   <div class="bottom-padding"></div>
   </aside>
+  <header class="header-all">
+    <div>
+      <div class="back">
+        <button @click="$router.go(-1)" class="router-arrows"><i class="fa fa-chevron-left"></i></button>
+        <p class="tooltip">Go back</p>
+      </div>
+      <div class="forward">
+        <button @click="$router.go(1)" class="router-arrows"><i class="fa fa-chevron-right"></i></button>
+        <p class="tooltip">Go forward</p>
+      </div>
+  </div>
+
+    <div>
+      <button class="auth-buttons">Sign up</button>
+      <button class="auth-buttons">Log In</button>
+    </div>
+  </header>
   <router-view class="router-view"/>
+
+  <footer id="song-player"></footer>
 </main>
 </template>
 
-<style>
+<script>
+export default{
+  methods:{
+  }
+}
 
-</style>
+</script>
 

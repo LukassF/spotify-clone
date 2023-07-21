@@ -1,27 +1,73 @@
 @use './vars' as *;
 @use './mixins' as *;
 @use './aside_menu';
+@use './footer';
+@use './home';
+@use './main_header';
 
 @font-face {
     font-family: spotifyFont;
     src: url('../fonts/GothamMedium.ttf');
+  }
+  @font-face {
+    font-family: spotifyFontLight;
+    src: url('../fonts/GothamLight.ttf');
+  }
+  @font-face {
+    font-family: spotifyFontBold;
+    src: url('../fonts/GothamBold.ttf');
   }
   body{
     font-family: spotifyFont;
     background-color: $main-background-color;
     padding: 0;
     margin: 0;
-    overflow-x: hidden;
+    overflow-y: hidden;
   }
   .main-layout{
-    // background-color: red;
-    min-height: 100vh;
+
+    height: 100vh;
     display: grid;
     grid-template-columns: 1fr 4fr;
+    grid-template-rows: 2fr 20fr 3fr;
+    grid-template-areas: 
+    'aside header'
+    'aside content'
+    'footer footer'
+    ;
 
-  
+   
     .router-view{
         background-color: $secondary-background-color;
         color:white;
+        grid-area: content;
+        overflow-x: hidden;
+        overflow-y: auto;
+        scrollbar-width: thin;
+        scrollbar-color: transparent transparent;
+
+        @media screen and (max-width:790px) {
+          min-width: 390px;
+        }
+        
+        &::-webkit-scrollbar {
+            width: 7px;
+        }
+          
+        &::-webkit-scrollbar-track-piece {
+            background-color: transparent;
+        }
+        
+        &::-webkit-scrollbar-thumb {
+            border-radius: 10px;
+            background-color: transparent;  
+        }
+
+        &:hover{
+            &::-webkit-scrollbar-thumb {
+                background-color: $nav-ambient-color;
+            }
+            scrollbar-color: $nav-ambient-color transparent;
+        }
     }
   }
