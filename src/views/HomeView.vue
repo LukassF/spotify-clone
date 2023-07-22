@@ -2,11 +2,18 @@
   <section class="home">
     <article class="focus">
       <header>
-        <h2 @click="toggleAll('first')">Focus</h2>
+        <h2 @click="toggleAll('first')" v-if="genres">{{ genres[1].name }}</h2>
         <p @click="toggleAll('first')">See all</p>
       </header>
       <div class="playlist-card-container" ref="showAllRef1">
-        <PlaylistCard v-for="(item,i) in playlists.focus" :name="item.name" :image="item.image" :desc="item.desc" :key="i"/>
+        <PlaylistCard
+          v-if="playlistsHome[0]"
+          v-for="(item, i) in playlistsHome[0]"
+          :name="item.name"
+          :image="item.images[0].url"
+          :desc="item.description"
+          :key="i"
+        />
       </div>
     </article>
 
@@ -16,56 +23,57 @@
         <p @click="toggleAll('second')">See all</p>
       </header>
       <div class="playlist-card-container" ref="showAllRef2">
-      <PlaylistCard v-for="(item,i) in playlists.trending" :name="item.name" :image="item.image" :desc="item.desc" :key="i"/>
+        <PlaylistCard
+          v-if="playlistsHome[1]"
+          v-for="(item, i) in playlistsHome[1]"
+          :name="item.name"
+          :image="item.images[0].url"
+          :desc="item.description"
+          :key="i"
+        />
       </div>
     </article>
-    
-    <SpotifyFooter />
 
+    <SpotifyFooter />
   </section>
 </template>
 
 <script>
-import PlaylistCard from '@/components/PlaylistCard.vue'
-import SpotifyFooter from '@/components/SpotifyFooter.vue'
-import playlists from '@/assets/data/playlists.json'
-import { ref} from 'vue'
+import PlaylistCard from "@/components/PlaylistCard.vue";
+import SpotifyFooter from "@/components/SpotifyFooter.vue";
+import { ref } from "vue";
 
 export default {
-  name: 'HomeView',
-  data(){
-    return{
-      playlists:playlists
-    }
-  },
+  name: "HomeView",
+  props: ["playlistsHome", "genres"],
   components: {
     PlaylistCard,
-    SpotifyFooter
+    SpotifyFooter,
   },
-  methods:{
-    toggleAll(target){
-      switch(target){
-        case 'first':
-          this.showAllRef1.classList.toggle('show-all')
+  methods: {
+    toggleAll(target) {
+      switch (target) {
+        case "first":
+          this.showAllRef1.classList.toggle("show-all");
           break;
 
-        case 'second':
-          this.showAllRef2.classList.toggle('show-all')
+        case "second":
+          this.showAllRef2.classList.toggle("show-all");
           break;
 
         default:
           break;
       }
-      
-    }
+    },
   },
-  setup(){
-    const showAllRef1 = ref(null)
-    const showAllRef2= ref(null)
+  setup() {
+    const showAllRef1 = ref(null);
+    const showAllRef2 = ref(null);
 
-    return{
-      showAllRef1,showAllRef2
-    }
-  }
-}
+    return {
+      showAllRef1,
+      showAllRef2,
+    };
+  },
+};
 </script>

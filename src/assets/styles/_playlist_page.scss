@@ -1,114 +1,103 @@
-@use './mixins';
-@use './vars';
+@use "./mixins";
+@use "./vars";
 
+.playlist-page {
+  min-height: 100%;
+  position: relative;
 
+  .gradient {
+    width: 100%;
+    position: absolute;
+    z-index: 0;
+    top: 0;
+    left: 0;
+    height: 70vh;
+    // background: linear-gradient(vars.$gradient-color-4,transparent);
+  }
 
-.playlist-page{
-    
-    min-height: 100%;
-    position: relative;
+  header {
+    display: grid;
+    // background-color: red;
+    grid-template-columns: 1fr 4fr;
+    grid-column-gap: 25px;
+    padding: 30px;
+    div.image-container {
+      z-index: 2;
+      align-self: flex-end;
+      overflow: hidden;
+      min-width: 170px;
+      aspect-ratio: 1/1;
+      box-shadow: 2px 2px 20px 2px black;
 
-    .gradient{
+      img {
         width: 100%;
-        position: absolute;
-        z-index: 0;
-        top:0;
-        left:0;
-        height:70vh;
-        // background: linear-gradient(vars.$gradient-color-4,transparent);
+      }
     }
+    .header-contents {
+      z-index: 2;
+      @include mixins.flex(column, flex-end, flex-start);
+      h1 {
+        margin: 0;
+        font-family: spotifyFontBold;
+        font-size: 5em;
 
-    header{
-        display: grid;
-        // background-color: red;
-        grid-template-columns: 1fr 4fr;
-        grid-column-gap: 25px;
-        padding: 30px;
-        div.image-container{
-            z-index: 2;
-            align-self: flex-end;
-            overflow: hidden;
-            min-width: 170px;
-            aspect-ratio: 1/1;
-            box-shadow: 2px 2px 20px 2px black;
-
-            img{
-                width:150%;
-            }
+        @media screen and (max-width: 1250px) {
+          font-size: 3em;
         }
-        .header-contents{
-            z-index: 2;
-            @include mixins.flex(column,flex-end,flex-start);
-            h1{
-                margin:0;
-                font-family: spotifyFontBold;
-                font-size: 5em;
-    
-                @media screen and (max-width:1250px){
-                    font-size: 3em;
-                }
-                @media screen and (max-width:1050px){
-                    font-size: 2em;
-                }
-            }
-            p{
-                margin: 0;
-                margin-top: 20px;
-                margin-bottom: 10px;
-                opacity:0.8;
-                font-family: spotifyFontLight;
-                font-size: 0.9em;
+        @media screen and (max-width: 1050px) {
+          font-size: 2em;
+        }
+      }
+      p {
+        margin: 0;
+        margin-top: 20px;
+        margin-bottom: 10px;
+        opacity: 0.8;
+        font-family: spotifyFontLight;
+        font-size: 0.9em;
 
-                @media screen and (max-width:800px) {
-                    font-size: 0.8rem;
-                }
+        @media screen and (max-width: 800px) {
+          font-size: 0.8rem;
+        }
+      }
 
-            }
-    
-            .playlist-stats{
-                cursor: default;
-                @include mixins.flex(row,flex-start,center);
-                flex-wrap: wrap;
-                @media screen and (max-width:800px) {
-                    font-size: 0.8rem;
-                }
-
-            
-                gap:5px;
-                h5{
-                    font-family: spotifyFontLight;
-                    margin: 0;
-                    // margin-left: -10px;
-
-                }
-    
-                ul{
-                    @include mixins.flex(row,flex-start,center);
-                    gap:15px;
-                    font-size: 0.8em;
-                    padding-left: 10px;
-
-                    @media screen and (max-width:800px) {
-                        gap:5px;
-                    }
-
-                    margin: 0;
-                    flex-wrap: wrap;
-
-                    li{
-                        flex-shrink: 0;
-                    }
-    
-                    span{
-                        color:rgb(175, 175, 175);
-                    }
-                }
-            }
-
+      .playlist-stats {
+        cursor: default;
+        @include mixins.flex(row, flex-start, center);
+        flex-wrap: wrap;
+        @media screen and (max-width: 800px) {
+          font-size: 0.8rem;
         }
 
-       
-    }
+        gap: 5px;
+        h5 {
+          font-family: spotifyFontLight;
+          margin: 0;
+          // margin-left: -10px;
+        }
 
-    
+        ul {
+          @include mixins.flex(row, flex-start, center);
+          gap: 15px;
+          font-size: 0.8em;
+          padding-left: 10px;
+
+          @media screen and (max-width: 800px) {
+            gap: 5px;
+          }
+
+          margin: 0;
+          flex-wrap: wrap;
+
+          li {
+            flex-shrink: 0;
+          }
+
+          span {
+            color: rgb(175, 175, 175);
+          }
+        }
+      }
+    }
+  }
 }
