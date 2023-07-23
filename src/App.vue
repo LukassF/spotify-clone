@@ -41,11 +41,13 @@
       </ul>
       <div class="bottom-padding"></div>
     </aside>
+
     <Header />
     <router-view
       class="router-view"
       :playlistsHome="playlistsHome"
       :genres="genres"
+      :token="token"
     />
 
     <footer id="song-player"></footer>
@@ -88,12 +90,11 @@ export default {
         method: "POST",
       });
       this.token = response.data.access_token;
-      // console.log(this.token);
     },
 
     async getGenres() {
       const genresResponse = await axios(
-        "https://api.spotify.com/v1/browse/categories?locale=us_US",
+        "https://api.spotify.com/v1/browse/categories?locale=en_US",
         {
           method: "GET",
           headers: {

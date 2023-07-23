@@ -1,22 +1,29 @@
-$main-background-color:black;
-$secondary-background-color:#111111;
+$main-background-color: black;
+$secondary-background-color: #111111;
 
-$nav-ambient-color:rgb(150, 148, 148);
+$nav-ambient-color: rgb(150, 148, 148);
 
-$header-color:#1d1d1d;
+$header-color: #1d1d1d;
 
-// :root{
-//     --gradient-color-1:rgba(164, 30, 43,0.7);
-//     --gradient-color-2:rgba(126, 154, 168,0.7);
-//     --gradient-color-3:rgba(57, 57, 50,0.7);
-//     --gradient-color-4:rgba(119, 119, 121,0.7);
-//     --gradient-color-5:rgba(23, 30, 56,0.7);
-//     --gradient-color-6:rgba(55, 151, 106,0.7);
-// }
-
-// // $gradient-color-1:rgba(164, 30, 43,0.7);
-// // $gradient-color-2:rgba(126, 154, 168,0.7);
-// // $gradient-color-3:rgba(57, 57, 50,0.7);
-// // $gradient-color-4:rgba(119, 119, 121,0.7);
-// // $gradient-color-5:rgba(23, 30, 56,0.7);
-// // $gradient-color-6:rgba(55, 151, 106,0.7);
+$genres-colors: (
+  #da3200,
+  #7358ff,
+  #1e3264,
+  #e8115b,
+  #27856a,
+  #944905,
+  #148a08,
+  #8d67ab,
+  #b02897,
+  #e1118c,
+  #6c6c6c,
+  #056952,
+  #0d73ec,
+  #1e3264,
+  #e61e32,
+  #5179a1,
+  #7d4b32,
+  #503750,
+  #f3729e,
+  #8c1932
+);

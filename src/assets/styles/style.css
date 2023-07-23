@@ -322,6 +322,7 @@ footer#spotify-footer p {
   justify-content: space-between;
   align-items: center;
   padding: 10px 30px;
+  width: calc(100% - 60px);
 }
 .header-all div:first-child {
   display: flex;
@@ -392,6 +393,16 @@ footer#spotify-footer p {
   padding: 0px 40px;
   caret-color: white;
   outline: none;
+}
+@media screen and (max-width: 1000px) {
+  .header-all .input-div input {
+    width: 150px;
+  }
+}
+@media screen and (max-width: 900px) {
+  .header-all .input-div input {
+    width: 100px;
+  }
 }
 .header-all .input-div input:focus {
   box-shadow: 0px 0px 0px 2px white;
@@ -587,7 +598,7 @@ section.song-section header .play-button-playlist {
   color: black;
   aspect-ratio: 1/1;
   border-radius: 50%;
-  background-color: #1FDF64;
+  background-color: #1fdf64;
   display: grid;
   place-content: center;
   font-size: 1.3em;
@@ -595,62 +606,63 @@ section.song-section header .play-button-playlist {
 section.song-section header .play-button-playlist:hover {
   color: black;
 }
-section.song-section table {
+
+table {
   width: 100%;
   padding: 0px 30px;
 }
-section.song-section table thead, section.song-section table tbody {
+table thead, table tbody {
   font-family: spotifyFontLight;
   font-size: 0.9rem;
   color: rgb(185, 185, 185);
 }
-section.song-section table thead tr, section.song-section table tbody tr {
+table thead tr, table tbody tr {
   border-bottom: solid rgb(68, 68, 68) 1px;
   padding-bottom: 5px;
   display: grid;
   grid-template-columns: 1fr 6fr 5fr 4fr 2fr;
 }
 @media screen and (max-width: 1100px) {
-  section.song-section table thead tr, section.song-section table tbody tr {
+  table thead tr, table tbody tr {
     grid-template-columns: 1fr 6fr 4fr 2fr;
   }
 }
 @media screen and (max-width: 900px) {
-  section.song-section table thead tr, section.song-section table tbody tr {
+  table thead tr, table tbody tr {
     grid-template-columns: 1fr 8fr 2fr;
   }
 }
-section.song-section table thead tr th, section.song-section table tbody tr th {
+table thead tr th, table tbody tr th {
   text-align: left;
 }
-section.song-section table thead tr th:first-child, section.song-section table tbody tr th:first-child, section.song-section table thead tr th:last-child, section.song-section table tbody tr th:last-child {
+table thead tr th:first-child, table tbody tr th:first-child, table thead tr th:last-child, table tbody tr th:last-child {
   text-align: center;
 }
 @media screen and (max-width: 1100px) {
-  section.song-section table thead tr th:nth-child(4), section.song-section table tbody tr th:nth-child(4) {
+  table thead tr th:nth-child(4), table tbody tr th:nth-child(4) {
     display: none;
   }
 }
 @media screen and (max-width: 900px) {
-  section.song-section table thead tr th:nth-child(3), section.song-section table tbody tr th:nth-child(3) {
+  table thead tr th:nth-child(3), table tbody tr th:nth-child(3) {
     display: none;
   }
 }
-section.song-section table tbody {
+table tbody {
   cursor: default;
 }
-section.song-section table tbody tr {
+table tbody tr {
   border: none;
   padding: 10px 0px;
   border-radius: 5px;
 }
-section.song-section table tbody tr:hover {
+table tbody tr:hover {
   background-color: rgba(82, 82, 82, 0.6);
 }
-section.song-section table tbody tr:first-child {
+table tbody tr:first-child {
   margin-top: 15px;
 }
-section.song-section table tbody td {
+table tbody td {
   position: relative;
   text-align: left;
   display: flex;
@@ -658,47 +670,47 @@ section.song-section table tbody td {
   justify-content: center;
   align-items: center;
 }
-section.song-section table tbody td:last-child i {
+table tbody td:last-child i {
   font-size: 1.1em;
   position: absolute;
   top: 50%;
   left: 0;
   transform: translateY(-50%);
 }
-section.song-section table tbody td:last-child i:hover {
+table tbody td:last-child i:hover {
   color: white;
   cursor: pointer;
 }
-section.song-section table tbody td:nth-child(3), section.song-section table tbody td:nth-child(4) {
+table tbody td:nth-child(3), table tbody td:nth-child(4) {
   align-items: flex-start;
 }
 @media screen and (max-width: 1100px) {
-  section.song-section table tbody td:nth-child(4) {
+  table tbody td:nth-child(4) {
     display: none;
   }
 }
 @media screen and (max-width: 900px) {
-  section.song-section table tbody td:nth-child(3) {
+  table tbody td:nth-child(3) {
     display: none;
   }
 }
-section.song-section table tbody td.title-and-artist {
+table tbody td.title-and-artist {
   justify-content: flex-start;
   display: grid;
   grid-template-rows: 1fr 1fr;
   grid-template-areas: "image title" "image artist";
   grid-column-gap: 15px;
 }
-section.song-section table tbody td.title-and-artist div {
+table tbody td.title-and-artist div {
   grid-area: image;
   width: 40px;
   aspect-ratio: 1/1;
   overflow: hidden;
 }
-section.song-section table tbody td.title-and-artist div img {
+table tbody td.title-and-artist div img {
   width: 150%;
 }
-section.song-section table tbody td.title-and-artist h4 {
+table tbody td.title-and-artist h4 {
   margin: 0;
   color: white;
   text-overflow: ellipsis;
@@ -706,18 +718,312 @@ section.song-section table tbody td.title-and-artist h4 {
   white-space: nowrap;
   max-width: 100%;
 }
-section.song-section table tbody td.title-and-artist p {
+table tbody td.title-and-artist p {
   margin: 0;
 }
-section.song-section table tbody .album {
+table tbody .album {
   max-width: 300px;
   overflow: hidden !important;
 }
-section.song-section table tbody .album div {
+table tbody .album div {
   text-overflow: ellipsis;
   white-space: nowrap;
   width: 100%;
   overflow: hidden !important;
+}
+
+section.search {
+  padding: 0px 30px;
+}
+section.search .search-header {
+  padding-top: 20px;
+}
+section.search .search-header h2 {
+  margin: 0;
+}
+section.search .categories-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+  padding: 20px;
+}
+section.search .categories-header button {
+  font-family: spotifyFont;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 500px;
+  color: white;
+  background-color: #2a2a2a;
+  cursor: pointer;
+}
+section.search .categories-header button:hover {
+  background-color: #3a3a3a;
+}
+section.search .genres-section {
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 20px;
+}
+@media screen and (max-width: 1400px) {
+  section.search .genres-section {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+@media screen and (max-width: 1170px) {
+  section.search .genres-section {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+@media screen and (max-width: 970px) {
+  section.search .genres-section {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+section.search .genres-section .genre-card {
+  overflow: hidden;
+  position: relative;
+  border-radius: 10px;
+  aspect-ratio: 1/1;
+  cursor: pointer;
+}
+section.search .genres-section .genre-card:nth-child(1) {
+  background-color: #da3200;
+}
+section.search .genres-section .genre-card:nth-child(2) {
+  background-color: #7358ff;
+}
+section.search .genres-section .genre-card:nth-child(3) {
+  background-color: #1e3264;
+}
+section.search .genres-section .genre-card:nth-child(4) {
+  background-color: #e8115b;
+}
+section.search .genres-section .genre-card:nth-child(5) {
+  background-color: #27856a;
+}
+section.search .genres-section .genre-card:nth-child(6) {
+  background-color: #944905;
+}
+section.search .genres-section .genre-card:nth-child(7) {
+  background-color: #148a08;
+}
+section.search .genres-section .genre-card:nth-child(8) {
+  background-color: #8d67ab;
+}
+section.search .genres-section .genre-card:nth-child(9) {
+  background-color: #b02897;
+}
+section.search .genres-section .genre-card:nth-child(10) {
+  background-color: #e1118c;
+}
+section.search .genres-section .genre-card:nth-child(11) {
+  background-color: #6c6c6c;
+}
+section.search .genres-section .genre-card:nth-child(12) {
+  background-color: #056952;
+}
+section.search .genres-section .genre-card:nth-child(13) {
+  background-color: #0d73ec;
+}
+section.search .genres-section .genre-card:nth-child(14) {
+  background-color: #1e3264;
+}
+section.search .genres-section .genre-card:nth-child(15) {
+  background-color: #e61e32;
+}
+section.search .genres-section .genre-card:nth-child(16) {
+  background-color: #5179a1;
+}
+section.search .genres-section .genre-card:nth-child(17) {
+  background-color: #7d4b32;
+}
+section.search .genres-section .genre-card:nth-child(18) {
+  background-color: #503750;
+}
+section.search .genres-section .genre-card:nth-child(19) {
+  background-color: #f3729e;
+}
+section.search .genres-section .genre-card:nth-child(20) {
+  background-color: #8c1932;
+}
+section.search .genres-section .genre-card h2 {
+  padding: 0px 20px;
+  word-break: break-all;
+}
+section.search .genres-section .genre-card .genre-card-image-container {
+  overflow: hidden;
+  width: 120px;
+  aspect-ratio: 1/1;
+  position: absolute;
+  right: -20px;
+  bottom: -20px;
+  transform: rotate(30deg);
+}
+@media screen and (max-width: 970px) {
+  section.search .genres-section .genre-card .genre-card-image-container {
+    width: 200px;
+    right: -50px;
+    bottom: -50px;
+  }
+}
+section.search .genres-section .genre-card .genre-card-image-container img {
+  width: 100%;
+  aspect-ratio: 1/1;
+}
+section.search .top-results {
+  display: grid;
+  grid-template-columns: 3fr 4fr;
+}
+@media screen and (max-width: 1000px) {
+  section.search .top-results {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+  }
+}
+section.search .top-results h1 {
+  margin: 0;
+  font-size: 1.3rem;
+}
+section.search .top-results.artist {
+  display: block;
+  padding: 20px;
+}
+section.search .top-results.artist div {
+  position: relative;
+  cursor: pointer;
+  margin-top: 20px;
+  padding: 30px 20px;
+  background-color: #181818;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 15px;
+  transition: background-color 0.2s;
+}
+section.search .top-results.artist div:hover button {
+  transform: none;
+  opacity: 1;
+}
+section.search .top-results.artist div:hover {
+  background-color: #282828;
+}
+section.search .top-results.artist div .artist-image-container {
+  aspect-ratio: 1/1;
+  width: 100px;
+  border-radius: 50%;
+  box-shadow: 2px 2px 10px 2px black;
+  overflow: hidden;
+}
+section.search .top-results.artist div .artist-image-container img {
+  width: 100%;
+}
+section.search .top-results.artist div h1 {
+  font-size: 2em;
+  font-family: spotifyFontBold;
+}
+section.search .top-results.artist div a {
+  padding: 6px 10px;
+  font-size: 0.9em;
+  background-color: rgb(14, 13, 13);
+  border-radius: 500px;
+}
+section.search .top-results.artist div button {
+  position: absolute;
+  bottom: 25px;
+  right: 25px;
+  width: 50px;
+  border: none;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+  background-color: #1fdf64;
+  display: grid;
+  place-content: center;
+  font-size: 1.2em;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(20%);
+  transition: opacity 0.2s, transform 0.2s;
+}
+section.search .top-results.tracks {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  gap: 3px;
+}
+section.search .top-results.tracks h1 {
+  margin-bottom: 20px;
+}
+
+.song-card-loose {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  padding: 10px;
+  border-radius: 5px;
+  overflow: hidden;
+  cursor: pointer;
+  font-family: spotifyFontLight;
+}
+.song-card-loose:hover {
+  background-color: #2a2a2a;
+}
+.song-card-loose .title-and-artist {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  grid-template-areas: "image title" "image artist";
+  grid-column-gap: 15px;
+}
+.song-card-loose .title-and-artist div {
+  grid-area: image;
+  width: 40px;
+  aspect-ratio: 1/1;
+  overflow: hidden;
+}
+.song-card-loose .title-and-artist div img {
+  width: 150%;
+}
+.song-card-loose .title-and-artist h4 {
+  grid-area: title;
+  margin: 0;
+  max-width: 100%;
+  text-overflow: ellipsis;
+  overflow: hidden !important;
+  white-space: nowrap;
+}
+.song-card-loose .title-and-artist p {
+  grid-area: artist;
+  margin: 0;
+  color: rgb(170, 168, 168);
+  max-width: 100%;
+  text-overflow: ellipsis;
+  overflow: hidden !important;
+  white-space: nowrap;
+}
+.song-card-loose .title-and-artist p span {
+  padding: 0;
+}
+.song-card-loose span {
+  position: relative;
+  padding: 0px 0px 0px 50px;
+  color: rgb(170, 168, 168);
+}
+.song-card-loose span i {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.song-card-loose span i:hover {
+  color: white;
 }
 
 @font-face {
@@ -732,12 +1038,17 @@ section.song-section table tbody .album div {
   font-family: spotifyFontBold;
   src: url("../fonts/GothamBold.ttf");
 }
+[v-cloak] {
+  display: none;
+}
+
 body {
   font-family: spotifyFont;
   background-color: black;
   padding: 0;
   margin: 0;
   overflow-y: hidden;
+  height: 100vh;
 }
 
 .main-layout {
@@ -756,9 +1067,9 @@ body {
   scrollbar-width: thin;
   scrollbar-color: transparent transparent;
 }
-@media screen and (max-width: 790px) {
+@media screen and (max-width: 900px) {
   .main-layout .router-view {
-    min-width: 390px;
+    min-width: 500px;
   }
 }
 .main-layout .router-view::-webkit-scrollbar {

@@ -6,6 +6,8 @@
 @use "./main_header";
 @use "./playlist_page";
 @use "./playlist_song_section";
+@use "./search_page";
+@use "./song_card_loose";
 
 @font-face {
   font-family: spotifyFont;
@@ -29,6 +31,7 @@ body {
   padding: 0;
   margin: 0;
   overflow-y: hidden;
+  height: 100vh;
 }
 .main-layout {
   height: 100vh;
@@ -49,8 +52,8 @@ body {
     scrollbar-width: thin;
     scrollbar-color: transparent transparent;
 
-    @media screen and (max-width: 790px) {
-      min-width: 390px;
+    @media screen and (max-width: 900px) {
+      min-width: 500px;
     }
 
     &::-webkit-scrollbar {

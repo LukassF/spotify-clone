@@ -1,0 +1,184 @@
+@use "./mixins";
+@use "./vars";
+
+section.search {
+  padding: 0px 30px;
+  .search-header {
+    padding-top: 20px;
+
+    h2 {
+      margin: 0;
+    }
+  }
+
+  .categories-header {
+    // background-color: red;
+    @include mixins.flex(row, flex-start, center);
+    gap: 10px;
+    padding: 20px;
+
+    button {
+      font-family: spotifyFont;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 500px;
+      color: white;
+      background-color: #2a2a2a;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #3a3a3a;
+      }
+    }
+  }
+
+  .genres-section {
+    margin-top: 40px;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+
+    @media screen and (max-width: 1400px) {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+    @media screen and (max-width: 1170px) {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    @media screen and (max-width: 970px) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    gap: 20px;
+    .genre-card {
+      overflow: hidden;
+      position: relative;
+      border-radius: 10px;
+      aspect-ratio: 1/1;
+      //   background-color: #e13300;
+      cursor: pointer;
+
+      @for $i from 1 through 20 {
+        &:nth-child(#{$i}) {
+          background-color: nth(vars.$genres-colors, $i);
+        }
+      }
+
+      h2 {
+        padding: 0px 20px;
+        word-break: break-all;
+      }
+
+      .genre-card-image-container {
+        overflow: hidden;
+        width: 120px;
+        aspect-ratio: 1/1;
+        // background-color: red;
+        position: absolute;
+        right: -20px;
+        bottom: -20px;
+        transform: rotate(30deg);
+
+        @media screen and (max-width: 970px) {
+          width: 200px;
+          right: -50px;
+          bottom: -50px;
+        }
+
+        img {
+          width: 100%;
+          aspect-ratio: 1/1;
+        }
+      }
+    }
+  }
+
+  .top-results {
+    display: grid;
+    grid-template-columns: 3fr 4fr;
+
+    @media screen and (max-width: 1000px) {
+      grid-template-columns: 1fr;
+      grid-template-rows: 1fr 1fr;
+    }
+    h1 {
+      margin: 0;
+      font-size: 1.3rem;
+    }
+
+    &.artist {
+      // background-color: red;
+      display: block;
+      padding: 20px;
+
+      div {
+        position: relative;
+        cursor: pointer;
+        margin-top: 20px;
+        padding: 30px 20px;
+        background-color: #181818;
+        border-radius: 10px;
+        @include mixins.flex(column, center, flex-start);
+        gap: 15px;
+        transition: background-color 0.2s;
+
+        &:hover {
+          button {
+            transform: none;
+            opacity: 1;
+          }
+        }
+
+        &:hover {
+          background-color: #282828;
+        }
+
+        .artist-image-container {
+          aspect-ratio: 1/1;
+          width: 100px;
+          border-radius: 50%;
+          box-shadow: 2px 2px 10px 2px black;
+          overflow: hidden;
+          img {
+            width: 100%;
+          }
+        }
+
+        h1 {
+          font-size: 2em;
+          font-family: spotifyFontBold;
+        }
+        a {
+          padding: 6px 10px;
+          font-size: 0.9em;
+          background-color: rgb(14, 13, 13);
+          border-radius: 500px;
+        }
+
+        button {
+          position: absolute;
+          bottom: 25px;
+          right: 25px;
+          width: 50px;
+          border: none;
+          aspect-ratio: 1/1;
+          border-radius: 50%;
+          background-color: #1fdf64;
+          display: grid;
+          place-content: center;
+          font-size: 1.2em;
+          cursor: pointer;
+          opacity: 0;
+          transform: translateY(20%);
+          transition: opacity 0.2s, transform 0.2s;
+        }
+      }
+    }
+    &.tracks {
+      padding: 20px;
+      @include mixins.flex(column, flex-start, stretch);
+      gap: 3px;
+
+      h1 {
+        margin-bottom: 20px;
+      }
+    }
+  }
+}
