@@ -17,7 +17,7 @@
               alt="spotify-logo"
               style="width: 25px"
             />
-            <h5>Spotify</h5>
+            <h5>{{ data.owner }}</h5>
             <ul>
               <li>
                 {{
@@ -31,15 +31,13 @@
         </div>
       </header>
 
-      <SongSection />
+      <SongSection :id="data.id" :token="data.token" />
     </article>
   </section>
 </template>
 
 <script>
 import SongSection from "@/components/SongsSection.vue";
-import Header from "@/components/Header.vue";
-import { onMounted } from "vue";
 
 export default {
   name: "PlaylistView",

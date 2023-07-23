@@ -6,13 +6,14 @@
   >
     <div class="title-and-artist">
       <div>
-        <img
-          src="https://d1csarkz8obe9u.cloudfront.net/posterpreviews/hidden-person-drawing-song-cover-art-design-template-282b63df9b406616957370a2ee880bac_screen.jpg?ts=1635262136"
-        />
+        <img :src="image" />
+        <i v-show="isHovering" class="fa fa-play"></i>
       </div>
       <h4>{{ name }}</h4>
       <p>
-        <span v-for="artist in artist" :key="artist">{{ artist.name }}, </span>
+        <span v-for="(artist, i) in artists" :key="i"
+          >{{ artists[i + 1] ? `${artist.name}, ` : `${artist.name}` }}
+        </span>
       </p>
     </div>
 
@@ -27,6 +28,6 @@ export default {
       isHovering: false,
     };
   },
-  props: ["name", "artist", "duration"],
+  props: ["name", "artists", "duration", "image"],
 };
 </script>

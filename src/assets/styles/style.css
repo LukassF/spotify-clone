@@ -700,6 +700,7 @@ table tbody td.title-and-artist {
   grid-template-rows: 1fr 1fr;
   grid-template-areas: "image title" "image artist";
   grid-column-gap: 15px;
+  padding-right: 20px;
 }
 table tbody td.title-and-artist div {
   grid-area: image;
@@ -720,6 +721,10 @@ table tbody td.title-and-artist h4 {
 }
 table tbody td.title-and-artist p {
   margin: 0;
+  text-overflow: ellipsis;
+  overflow: hidden !important;
+  white-space: nowrap;
+  max-width: 100%;
 }
 table tbody .album {
   max-width: 300px;
@@ -976,6 +981,9 @@ section.search .top-results.tracks h1 {
 .song-card-loose:hover {
   background-color: #2a2a2a;
 }
+.song-card-loose:hover img {
+  filter: brightness(20%);
+}
 .song-card-loose .title-and-artist {
   display: grid;
   grid-template-rows: 1fr 1fr;
@@ -987,9 +995,16 @@ section.search .top-results.tracks h1 {
   width: 40px;
   aspect-ratio: 1/1;
   overflow: hidden;
+  position: relative;
 }
 .song-card-loose .title-and-artist div img {
   width: 150%;
+}
+.song-card-loose .title-and-artist div i {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 .song-card-loose .title-and-artist h4 {
   grid-area: title;

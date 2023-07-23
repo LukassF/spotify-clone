@@ -41,8 +41,9 @@
           v-for="(track, i) in tracks.slice(0, 4)"
           :key="i"
           :name="track.name"
-          :artist="track.artists"
-          :duration="track.duration"
+          :artists="track.artists"
+          :duration="track.duration_ms"
+          :image="images[Math.floor(Math.random() * 19)]"
         />
       </div>
       <!-- <h1 v-if="artists[0]">{{ artists[0].name }}</h1> -->
@@ -58,7 +59,7 @@
 <script>
 import GenreCard from "@/components/GenreCard.vue";
 import SpotifyFooter from "@/components/SpotifyFooter.vue";
-// import SongCard from "@/components/SongCard.vue";
+import images from "@/assets/data/images.json";
 import SongCardLoose from "@/components/SongCardLoose.vue";
 import axios from "axios";
 export default {
@@ -68,6 +69,7 @@ export default {
       tracks: [],
       albums: [],
       playlists: [],
+      images: images.images,
     };
   },
   props: ["genres", "token"],

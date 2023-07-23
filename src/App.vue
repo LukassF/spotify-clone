@@ -44,6 +44,7 @@
 
     <Header />
     <router-view
+      v-if="token !== ''"
       class="router-view"
       :playlistsHome="playlistsHome"
       :genres="genres"
@@ -118,25 +119,26 @@ export default {
           )
         )
         .then((res) => {
-          res.map((dataItem) =>
-            this.playlistsHome.push(dataItem.data.playlists.items)
-          );
+          res.map((dataItem) => {
+            // console.log(dataItem);
+            this.playlistsHome.push(dataItem.data.playlists.items);
+          });
         });
     },
 
-    async getTracks() {
-      const tracksResult = await axios(
-        `https://api.spotify.com/v1/playlists/${this.playlists[0].id}/tracks`,
-        {
-          method: "GET",
-          headers: {
-            Authorization: "Bearer " + this.token,
-          },
-        }
-      );
-      console.log(tracksResult.data.items[0]);
-      this.tracks = tracksResult.data.tracks;
-    },
+    // async getTracks() {
+    //   const tracksResult = await axios(
+    //     `https://api.spotify.com/v1/playlists/${this.playlists[0].id}/tracks`,
+    //     {
+    //       method: "GET",
+    //       headers: {
+    //         Authorization: "Bearer " + this.token,
+    //       },
+    //     }
+    //   );
+    //   console.log(tracksResult.data.items[0]);
+    //   this.tracks = tracksResult.data.tracks;
+    // },
   },
 };
 </script>

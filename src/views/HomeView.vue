@@ -13,6 +13,9 @@
           :image="item.images[0].url"
           :desc="item.description"
           :key="i"
+          :id="item.id"
+          :token="this.token"
+          :owner="item.owner.display_name"
         />
       </div>
     </article>
@@ -30,6 +33,9 @@
           :image="item.images[0].url"
           :desc="item.description"
           :key="i"
+          :id="item.id"
+          :token="this.token"
+          :owner="item.owner.display_name"
         />
       </div>
     </article>
@@ -45,7 +51,7 @@ import { ref } from "vue";
 
 export default {
   name: "HomeView",
-  props: ["playlistsHome", "genres"],
+  props: ["playlistsHome", "genres", "token"],
   components: {
     PlaylistCard,
     SpotifyFooter,
@@ -74,6 +80,9 @@ export default {
       showAllRef1,
       showAllRef2,
     };
+  },
+  mounted() {
+    console.log(this.playlistsHome);
   },
 };
 </script>

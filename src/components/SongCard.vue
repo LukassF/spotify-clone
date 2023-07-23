@@ -1,17 +1,24 @@
 <template>
   <tr @mouseover="isHovering = true" @mouseleave="isHovering = false">
-    <td><span v-if="!isHovering">1</span><i v-else class="fa fa-play"></i></td>
+    <td>
+      <span v-if="!isHovering">{{ index + 1 }}</span
+      ><i v-else class="fa fa-play"></i>
+    </td>
     <td class="title-and-artist">
       <div>
-        <img
-          src="https://d1csarkz8obe9u.cloudfront.net/posterpreviews/hidden-person-drawing-song-cover-art-design-template-282b63df9b406616957370a2ee880bac_screen.jpg?ts=1635262136"
-        />
+        <img :src="image" />
       </div>
-      <h4>Whatever something</h4>
-      <p>Abba</p>
+      <h4>{{ name }}</h4>
+      <p>
+        <span v-for="(artist, i) in artists.slice(0, 3)" :key="i"
+          >{{
+            artists.slice(0, 3)[i + 1] ? `${artist.name}, ` : `${artist.name}`
+          }}
+        </span>
+      </p>
     </td>
     <td class="album">
-      <div>Lorem ipsum assumenda ducimu rgthjkljhtrgwetrghyjkuyjthrgef</div>
+      <div>{{ album }}</div>
     </td>
     <td>3 days ago</td>
     <td><i v-if="isHovering" class="far fa-heart"></i>2:34</td>
@@ -25,5 +32,15 @@ export default {
       isHovering: false,
     };
   },
+  props: [
+    "added",
+    "id",
+    "album",
+    "artists",
+    "name",
+    "duration",
+    "index",
+    "image",
+  ],
 };
 </script>

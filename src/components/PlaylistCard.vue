@@ -16,12 +16,22 @@ export default {
     name: "",
     image: "",
     desc: "",
+    id: "",
+    token: "",
+    owner: "",
   },
   methods: {
     routeWithData() {
       this.$router.push({
         name: "playlist",
-        query: { name: this.name, image: this.image, desc: this.desc },
+        query: {
+          name: this.name,
+          image: this.image,
+          desc: this.desc,
+          id: this.id,
+          token: this.token,
+          owner: this.owner,
+        },
       });
     },
   },

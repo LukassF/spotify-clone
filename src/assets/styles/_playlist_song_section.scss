@@ -143,6 +143,7 @@ table {
           "image title"
           "image artist";
         grid-column-gap: 15px;
+        padding-right: 20px;
         div {
           grid-area: image;
           width: 40px;
@@ -164,6 +165,10 @@ table {
         }
         p {
           margin: 0;
+          text-overflow: ellipsis;
+          overflow: hidden !important;
+          white-space: nowrap;
+          max-width: 100%;
         }
         // background-color: red;
       }
