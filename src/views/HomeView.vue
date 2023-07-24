@@ -6,7 +6,7 @@
         <p @click="toggleAll('first')">See all</p>
       </header>
       <div class="playlist-card-container" ref="showAllRef1">
-        <PlaylistCard
+        <AllPurposeCard
           v-if="playlistsHome[0]"
           v-for="(item, i) in playlistsHome[0]"
           :name="item.name"
@@ -16,6 +16,8 @@
           :id="item.id"
           :token="this.token"
           :owner="item.owner.display_name"
+          :total="item.tracks.total"
+          type="Playlist"
         />
       </div>
     </article>
@@ -26,7 +28,7 @@
         <p @click="toggleAll('second')">See all</p>
       </header>
       <div class="playlist-card-container" ref="showAllRef2">
-        <PlaylistCard
+        <AllPurposeCard
           v-if="playlistsHome[1]"
           v-for="(item, i) in playlistsHome[1]"
           :name="item.name"
@@ -34,18 +36,29 @@
           :desc="item.description"
           :key="i"
           :id="item.id"
-          :token="this.token"
           :owner="item.owner.display_name"
+          :total="item.tracks.total"
+          :token="this.token"
+          type="Playlist"
         />
       </div>
     </article>
+
+    <div v-if="true" class="loader-container">
+      <div class="lds-ellipsis">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
 
     <SpotifyFooter />
   </section>
 </template>
 
 <script>
-import PlaylistCard from "@/components/PlaylistCard.vue";
+import AllPurposeCard from "@/components/AllPurposeCard.vue";
 import SpotifyFooter from "@/components/SpotifyFooter.vue";
 import { ref } from "vue";
 
@@ -53,8 +66,9 @@ export default {
   name: "HomeView",
   props: ["playlistsHome", "genres", "token"],
   components: {
-    PlaylistCard,
+    AllPurposeCard,
     SpotifyFooter,
+    AllPurposeCard,
   },
   methods: {
     toggleAll(target) {
@@ -82,7 +96,7 @@ export default {
     };
   },
   mounted() {
-    console.log(this.playlistsHome);
+    console.log(this.playlistsHome !== null);
   },
 };
 </script>

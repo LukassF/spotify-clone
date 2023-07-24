@@ -68,6 +68,7 @@ export default {
       tracks: [],
       ClientId: "b022c35e77404e43b5c82be9bc4cee67",
       ClientSecret: "84ea6f3098a64a1ca8980a5e8f5a5bc2",
+      showLoader: true,
     };
   },
   components: {
@@ -76,7 +77,7 @@ export default {
   async mounted() {
     await this.getToken();
     await this.getGenres();
-    await this.getPlaylist([this.genres[1].id, this.genres[2].id]);
+    await this.getPlaylistsHome([this.genres[1].id, this.genres[2].id]);
     // await this.getTracks();
   },
   methods: {
@@ -106,7 +107,7 @@ export default {
       this.genres = genresResponse.data.categories.items;
     },
 
-    async getPlaylist(chosenGenres) {
+    async getPlaylistsHome(chosenGenres) {
       axios
         .all(
           chosenGenres.map((genre) =>
@@ -120,25 +121,10 @@ export default {
         )
         .then((res) => {
           res.map((dataItem) => {
-            // console.log(dataItem);
             this.playlistsHome.push(dataItem.data.playlists.items);
           });
         });
     },
-
-    // async getTracks() {
-    //   const tracksResult = await axios(
-    //     `https://api.spotify.com/v1/playlists/${this.playlists[0].id}/tracks`,
-    //     {
-    //       method: "GET",
-    //       headers: {
-    //         Authorization: "Bearer " + this.token,
-    //       },
-    //     }
-    //   );
-    //   console.log(tracksResult.data.items[0]);
-    //   this.tracks = tracksResult.data.tracks;
-    // },
   },
 };
 </script>

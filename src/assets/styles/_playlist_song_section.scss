@@ -53,6 +53,22 @@ table {
       display: grid;
       grid-template-columns: 1fr 6fr 5fr 4fr 2fr;
 
+      &.album-table-head {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 15fr) minmax(0, 2fr);
+
+        @media screen and (max-width: 1100px) {
+          grid-template-columns: minmax(0, 1fr) minmax(0, 8fr) minmax(0, 2fr);
+        }
+
+        th {
+          @media screen and (max-width: 900px) {
+            &:nth-child(3) {
+              display: block;
+            }
+          }
+        }
+      }
+
       @media screen and (max-width: 1100px) {
         grid-template-columns: 1fr 6fr 4fr 2fr;
       }
@@ -85,6 +101,50 @@ table {
   tbody {
     @extend thead;
     cursor: default;
+
+    //--------------------------------
+
+    &.album-table-body {
+      tr {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 15fr) minmax(0, 2fr);
+
+        @media screen and (max-width: 1100px) {
+          grid-template-columns: minmax(0, 1fr) minmax(0, 8fr) minmax(0, 2fr);
+        }
+      }
+      td:nth-child(3) {
+        @include mixins.flex(column, center, center);
+
+        @media screen and (max-width: 900px) {
+          td:nth-child(3) {
+            display: block;
+          }
+        }
+      }
+      .title-and-artist {
+        @include mixins.flex(column, center, flex-start);
+        gap: 5px;
+        position: relative;
+
+        h4 {
+          margin: 0;
+          color: white;
+          text-overflow: ellipsis;
+          overflow: hidden !important;
+          white-space: nowrap;
+          width: 90%;
+        }
+        p {
+          margin: 0;
+          text-overflow: ellipsis;
+          overflow: hidden !important;
+          white-space: nowrap;
+          width: 100%;
+        }
+      }
+    }
+
+    //--------------------------------------
 
     tr {
       border: none;

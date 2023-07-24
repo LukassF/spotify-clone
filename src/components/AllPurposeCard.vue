@@ -1,7 +1,9 @@
 <template>
   <div @click="routeWithData()" class="playlist-card">
     <div class="image-container">
-      <img :src="image" />
+      <div>
+        <img :src="image" />
+      </div>
       <button class="play-button-home"><i class="fa fa-play"></i></button>
     </div>
     <h4>{{ name }}</h4>
@@ -19,6 +21,8 @@ export default {
     id: "",
     token: "",
     owner: "",
+    total: "",
+    type: "",
   },
   methods: {
     routeWithData() {
@@ -31,9 +35,14 @@ export default {
           id: this.id,
           token: this.token,
           owner: this.owner,
+          total: this.total,
+          type: this.type,
         },
       });
     },
   },
+  // mounted() {
+  //   console.log(this.type);
+  // },
 };
 </script>

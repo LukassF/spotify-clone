@@ -17,7 +17,10 @@
       </p>
     </div>
 
-    <span><i v-if="isHovering" class="far fa-heart"></i>2:34</span>
+    <span
+      ><i v-if="isHovering" class="far fa-heart"></i
+      >{{ durationFormatted }}</span
+    >
   </div>
 </template>
 
@@ -29,5 +32,14 @@ export default {
     };
   },
   props: ["name", "artists", "duration", "image"],
+  computed: {
+    durationFormatted() {
+      return (
+        Math.floor(Math.round(this.duration / 1000) / 60) +
+        ":" +
+        (Math.round(this.duration / 1000) % 60).toString().padStart(2, "0")
+      );
+    },
+  },
 };
 </script>

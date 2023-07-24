@@ -1,115 +1,118 @@
-@use './vars' as *;
-@use './mixins' as *;
+@use "./vars" as *;
+@use "./mixins" as *;
 
-aside{
-    background-color: transparent;
-    grid-area: aside;
-    @include flex(column,center,stretch);
-    min-width: 290px;
+aside {
+  background-color: transparent;
+  grid-area: aside;
+  @include flex(column, center, stretch);
+  min-width: 290px;
+  overflow: auto;
 
-    nav{
-        @include flex(column,center,stretch);
-        padding: 10px;
+  nav {
+    @include flex(column, center, stretch);
+    padding: 10px;
 
-        a{
-            padding: 15px 20px;
-            border-radius: 5px;
-            text-decoration: none;
-            @include flex(row,flex-start,center);
-            gap:20px;
-            color:$nav-ambient-color;
+    a {
+      padding: 15px 20px;
+      border-radius: 5px;
+      text-decoration: none;
+      @include flex(row, flex-start, center);
+      gap: 20px;
+      color: $nav-ambient-color;
 
-            i{
-                font-size: 1.4em;
-            }
+      i {
+        font-size: 1.4em;
+      }
 
-            &:hover{
-                background-color: $secondary-background-color;
-                color:white;
-                transition: all 0.3s;
-            }
-            &.router-link-exact-active{
-                color:rgb(255, 255, 255);
-            }
+      &:hover {
+        background-color: $secondary-background-color;
+        color: white;
+        transition: all 0.3s;
+      }
+      &.router-link-exact-active {
+        color: rgb(255, 255, 255);
+      }
+    }
+
+    .nav-buttons {
+      margin-top: 15px;
+      div {
+        padding: 10px 15px;
+
+        color: $nav-ambient-color;
+        @include flex(row, flex-start, center);
+        gap: 20px;
+        border-radius: 5px;
+        cursor: pointer;
+
+        &:hover {
+          background-color: $secondary-background-color;
+          color: white;
+          transition: all 0.3s;
         }
 
-        .nav-buttons{
-            margin-top: 15px;
-            div{
-                padding: 10px 15px;
-
-                color:$nav-ambient-color;
-                @include flex(row,flex-start,center);
-                gap:20px;
-                border-radius: 5px;
-                cursor: pointer;
-
-                &:hover{
-                    background-color: $secondary-background-color;
-                    color:white;
-                    transition: all 0.3s;
-                }
-
-                p{
-                    width:30px;
-                    aspect-ratio: 1/1;
-                    background: $nav-ambient-color;
-                    display: grid;
-                    place-content: center;
-                    color:black;
-                    margin: 0;
-                }
-
-                &:last-child{
-                    p{
-                    color:white;
-                    background: linear-gradient(135deg,rgb(107, 7, 128),rgb(189, 187, 187));
-                    }
-                }
-            }
+        p {
+          width: 30px;
+          aspect-ratio: 1/1;
+          background: $nav-ambient-color;
+          display: grid;
+          place-content: center;
+          color: black;
+          margin: 0;
         }
-    }
-    hr{
-        margin: 5px 20px;
-        transform: scaleY(0.5);
-    }
-    ul{
-        color:$nav-ambient-color;
-        padding: 0px 10px;
-        list-style: none;
-        scrollbar-width: none;
-        scrollbar-color: $nav-ambient-color transparent;
-        overflow-y: auto;
 
-        &::-webkit-scrollbar {
-            width: 7px;
+        &:last-child {
+          p {
+            color: white;
+            background: linear-gradient(
+              135deg,
+              rgb(107, 7, 128),
+              rgb(189, 187, 187)
+            );
           }
-          
-          &::-webkit-scrollbar-track-piece {
-            background-color: transparent;
-          }
-          
-          &::-webkit-scrollbar-thumb:vertical {
-            border-radius: 10px;
-            background-color: transparent;
-            
-          }
-
-          &:hover{
-            &::-webkit-scrollbar-thumb:vertical {
-                background-color: $nav-ambient-color;
-                
-              }
-              scrollbar-width: thin;
-          }
-
-        li{
-            padding: 10px 20px;
-            cursor: pointer;
-
-            &:hover{
-                color:white;
-            }
         }
+      }
     }
+  }
+  hr {
+    margin: 5px 20px;
+    transform: scaleY(0.5);
+  }
+  ul {
+    color: $nav-ambient-color;
+    padding: 0px 10px;
+    list-style: none;
+    scrollbar-width: none;
+    scrollbar-color: $nav-ambient-color transparent;
+    overflow-y: auto;
+
+    &::-webkit-scrollbar {
+      width: 7px;
+    }
+
+    &::-webkit-scrollbar-track-piece {
+      background-color: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb:vertical {
+      border-radius: 10px;
+      background-color: transparent;
+    }
+
+    &:hover {
+      &::-webkit-scrollbar-thumb:vertical {
+        background-color: $nav-ambient-color;
+      }
+      scrollbar-width: thin;
+    }
+
+    li {
+      padding: 10px 20px;
+      cursor: pointer;
+
+      &:hover {
+        color: white;
+      }
+    }
+  }
 }

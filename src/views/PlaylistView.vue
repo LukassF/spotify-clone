@@ -4,12 +4,14 @@
       <div class="gradient" :style="this.gradientBackground"></div>
       <header>
         <div class="image-container">
-          <img :src="data.image" alt="playlist-image" />
+          <img :src="dataObject.image" alt="playlist-image" />
         </div>
         <div class="header-contents">
-          <h5>Playlist</h5>
-          <h1>{{ data.name }}</h1>
-          <p>{{ data.desc }}</p>
+          <h5>{{ dataObject.type }}</h5>
+          <h1 :style="dataObject.type === 'Album' && 'font-size:3em;'">
+            {{ dataObject.name }}
+          </h1>
+          <p>{{ dataObject.type === "Playlist" ? dataObject.desc : "" }}</p>
 
           <div class="playlist-stats">
             <img
@@ -17,7 +19,7 @@
               alt="spotify-logo"
               style="width: 25px"
             />
-            <h5>{{ data.owner }}</h5>
+            <h5>{{ dataObject.owner }}</h5>
             <ul>
               <li>
                 {{
@@ -25,13 +27,21 @@
                 }}
                 likes
               </li>
-              <li>298 songs, <span>about 11 hours</span></li>
+              <li>
+                {{ dataObject.total }} songs,
+                <span>about {{ fullDuration }} minutes</span>
+              </li>
             </ul>
           </div>
         </div>
       </header>
 
-      <SongSection :id="data.id" :token="data.token" />
+      <SongSection
+        :type="dataObject.type"
+        :id="dataObject.id"
+        :token="dataObject.token"
+        v-model="fullDuration"
+      />
     </article>
   </section>
 </template>
@@ -43,7 +53,8 @@ export default {
   name: "PlaylistView",
   data() {
     return {
-      data: {},
+      fullDuration: 0,
+
       colors: [
         "rgba(164, 30, 43,0.7)",
         "rgba(126, 154, 168,0.7)",
@@ -60,12 +71,19 @@ export default {
     SongSection,
   },
   created() {
-    this.data = this.$route.query;
+    this.dataObject = this.$route.query;
   },
   mounted() {
     this.chosenColor = this.colors[Math.floor(Math.random() * 6)];
     this.gradientBackground =
       "background:linear-gradient(" + this.chosenColor + ",transparent);";
+
+    console.log(this.dataObject);
   },
+  // watch: {
+  //   fullDuration: function () {
+  //     console.log(this.fullDuration);
+  //   },
+  // },
 };
 </script>

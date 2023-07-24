@@ -46,17 +46,71 @@
           :image="images[Math.floor(Math.random() * 19)]"
         />
       </div>
-      <!-- <h1 v-if="artists[0]">{{ artists[0].name }}</h1> -->
-      <!-- <h1 v-if="tracks[0]">{{ tracks[0].name }}</h1>
-      <h1 v-if="albums[0]">{{ albums[0].name }}</h1>
-      <h1 v-if="playlists[0]">{{ playlists[0].name }}</h1> -->
     </article>
+    <section class="search-result-section" v-if="$store.state.showX">
+      <h1>Artists</h1>
+      <article class="search-result-section-artists">
+        <AllPurposeCard
+          v-for="(artist, i) in artists.slice(0, 5)"
+          :key="i"
+          :name="artist.name"
+          :image="
+            artist.images[0]
+              ? artist.images[0].url
+              : 'https://cdn-icons-png.flaticon.com/512/149/149071.png'
+          "
+          desc="Artist"
+          type="Artist"
+        />
+      </article>
+    </section>
+
+    <section class="search-result-section" v-if="$store.state.showX">
+      <h1>Albums</h1>
+      <article>
+        <AllPurposeCard
+          v-for="(album, i) in albums.slice(0, 5)"
+          :key="i"
+          :name="album.name"
+          :image="album.images[0] ? album.images[0].url : ''"
+          :id="album.id"
+          :token="this.token"
+          :owner="album.artists[0].name"
+          :total="album.total_tracks"
+          :desc="
+            new Date(album.release_date).getFullYear() +
+            ' - ' +
+            album.artists[0].name
+          "
+          type="Album"
+        />
+      </article>
+    </section>
+
+    <section class="search-result-section" v-if="$store.state.showX">
+      <h1>Playlists</h1>
+      <article>
+        <AllPurposeCard
+          v-for="(playlist, i) in playlists.slice(0, 5)"
+          :name="playlist.name"
+          :key="i"
+          :id="playlist.id"
+          :token="this.token"
+          :owner="playlist.owner.display_name"
+          :total="playlist.tracks.total"
+          :image="playlist.images[0] ? playlist.images[0].url : ''"
+          :desc="'By ' + playlist.owner.display_name"
+          type="Playlist"
+        />
+      </article>
+    </section>
 
     <SpotifyFooter />
   </section>
 </template>
 
 <script>
+import AllPurposeCard from "@/components/AllPurposeCard.vue";
 import GenreCard from "@/components/GenreCard.vue";
 import SpotifyFooter from "@/components/SpotifyFooter.vue";
 import images from "@/assets/data/images.json";
@@ -77,6 +131,7 @@ export default {
     GenreCard,
     SpotifyFooter,
     SongCardLoose,
+    AllPurposeCard,
   },
   computed: {
     currentInputValue() {

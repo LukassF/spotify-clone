@@ -3,6 +3,7 @@
 @use "./aside_menu";
 @use "./footer";
 @use "./home";
+@use "./playlist_card";
 @use "./main_header";
 @use "./playlist_page";
 @use "./playlist_song_section";
@@ -51,6 +52,7 @@ body {
     overflow-y: auto;
     scrollbar-width: thin;
     scrollbar-color: transparent transparent;
+    position: relative;
 
     @media screen and (max-width: 900px) {
       min-width: 500px;
@@ -74,6 +76,74 @@ body {
         background-color: $nav-ambient-color;
       }
       scrollbar-color: $nav-ambient-color transparent;
+    }
+  }
+}
+
+.loader-container {
+  position: fixed;
+  // grid-area: content;
+  width: 100%;
+  z-index: 50;
+  top: 0;
+  height: 100%;
+  background-color: $secondary-background-color;
+  display: none;
+  place-content: center;
+
+  .lds-ellipsis {
+    display: inline-block;
+    position: relative;
+    width: 80px;
+    height: 80px;
+  }
+  .lds-ellipsis div {
+    position: absolute;
+    top: 33px;
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    background: #1fdf64;
+    animation-timing-function: cubic-bezier(0, 1, 1, 0);
+  }
+  .lds-ellipsis div:nth-child(1) {
+    left: 8px;
+    animation: lds-ellipsis1 0.6s infinite;
+  }
+  .lds-ellipsis div:nth-child(2) {
+    left: 8px;
+    animation: lds-ellipsis2 0.6s infinite;
+  }
+  .lds-ellipsis div:nth-child(3) {
+    left: 32px;
+    animation: lds-ellipsis2 0.6s infinite;
+  }
+  .lds-ellipsis div:nth-child(4) {
+    left: 56px;
+    animation: lds-ellipsis3 0.6s infinite;
+  }
+  @keyframes lds-ellipsis1 {
+    0% {
+      transform: scale(0);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  @keyframes lds-ellipsis3 {
+    0% {
+      transform: scale(1);
+    }
+    100% {
+      transform: scale(0);
+    }
+  }
+  @keyframes lds-ellipsis2 {
+    0% {
+      transform: translate(0, 0);
+    }
+    100% {
+      transform: translate(24px, 0);
     }
   }
 }
