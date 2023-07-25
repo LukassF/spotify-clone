@@ -1,0 +1,195 @@
+@use "./vars";
+@use "./mixins";
+
+article.artist {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+
+  main.scrollable-artist {
+    scrollbar-width: thin;
+    width: 100%;
+    z-index: 10;
+    height: 100%;
+    overflow-y: overlay;
+    overflow-x: hidden;
+
+    &::-webkit-scrollbar {
+      width: 7px;
+    }
+
+    &::-webkit-scrollbar-track-piece {
+      background-color: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      border-radius: 10px;
+      background-color: transparent;
+    }
+    &:hover {
+      &::-webkit-scrollbar-thumb {
+        background-color: vars.$nav-ambient-color;
+      }
+      scrollbar-color: vars.$nav-ambient-color transparent;
+    }
+
+    .main-artist-header {
+      padding: 40px 30px;
+      padding-top: 100px;
+      background: linear-gradient(
+        transparent,
+        rgba(0, 0, 0, 0.2),
+        rgba(0, 0, 0, 0.2)
+      );
+
+      div {
+        @include mixins.flex(row, flex-start, center);
+        gap: 15px;
+
+        i {
+          position: relative;
+          background-color: rgb(0, 110, 255);
+          border-radius: 3px;
+          padding: 4px;
+          font-size: 0.8em;
+          z-index: 1;
+
+          &::after {
+            width: 100%;
+            height: 100%;
+            border-radius: inherit;
+            content: "";
+            background-color: rgb(0, 110, 255);
+            z-index: -1;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(45deg);
+          }
+        }
+      }
+
+      h1 {
+        font-size: 6em;
+        word-break: break-all;
+        margin: 0;
+        margin-top: 10px;
+        font-family: spotifyFontBold;
+      }
+
+      p {
+        margin: 0;
+        margin-top: 50px;
+      }
+    }
+
+    .artist-info {
+      background: linear-gradient(
+        rgba(18, 18, 18, 0.6),
+        #121212,
+        #121212,
+        #121212
+      );
+      backdrop-filter: blur(80px);
+
+      header {
+        padding: 30px;
+
+        button:nth-child(2) {
+          font-size: 0.9em;
+          font-family: spotifyFontBold;
+          color: white;
+          padding: 10px 15px;
+          border-radius: 500px;
+          border: solid rgb(168, 167, 167) 1px;
+
+          &:hover {
+            border-color: white;
+            box-shadow: 0px 0px 2px 2px white;
+          }
+        }
+      }
+
+      article {
+        // background-color: red;
+        table {
+          padding: 10px;
+          caption {
+            text-align: left;
+            padding: 0px 30px;
+            font-size: 1.5em;
+          }
+
+          tr {
+            grid-template-columns: minmax(0, 1fr) minmax(0, 11fr) minmax(0, 6fr) minmax(
+                0,
+                2fr
+              );
+
+            @media screen and (max-width: 900px) {
+              grid-template-columns: minmax(0, 2fr) minmax(0, 11fr) minmax(
+                  0,
+                  5fr
+                );
+            }
+
+            margin: 0;
+
+            .title-and-artist {
+              @include mixins.flex(row, flex-start, center);
+            }
+
+            td:last-child {
+              @include mixins.flex(row, center, center);
+            }
+          }
+        }
+
+        .artist-albums {
+          padding: 30px;
+          h1 {
+            font-size: 1.5em;
+          }
+
+          article {
+            display: grid;
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+            grid-column-gap: 25px;
+            grid-template-rows: 1fr;
+            grid-auto-rows: 0;
+            overflow: hidden;
+
+            @media screen and (max-width: 1300px) {
+              grid-template-columns: repeat(4, minmax(0, 1fr));
+            }
+            @media screen and (max-width: 1100px) {
+              grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+            @media screen and (max-width: 880px) {
+              grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            img {
+              width: 100%;
+              object-fit: cover;
+            }
+          }
+        }
+
+        .related-artists {
+          @extend .artist-albums;
+
+          .image-container {
+            div {
+              border-radius: 50%;
+            }
+          }
+        }
+      }
+    }
+  }
+}

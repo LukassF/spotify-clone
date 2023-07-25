@@ -44,11 +44,10 @@
 
     <Header />
     <router-view
-      v-if="token !== ''"
+      v-if="$store.state.token !== ''"
       class="router-view"
       :playlistsHome="playlistsHome"
       :genres="genres"
-      :token="token"
     />
 
     <footer id="song-player"></footer>
@@ -62,12 +61,9 @@ import Header from "./components/Header.vue";
 export default {
   data() {
     return {
-      token: "",
       genres: null,
       playlistsHome: [],
       tracks: [],
-      ClientId: "b022c35e77404e43b5c82be9bc4cee67",
-      ClientSecret: "84ea6f3098a64a1ca8980a5e8f5a5bc2",
       showLoader: true,
     };
   },
@@ -75,24 +71,24 @@ export default {
     Header,
   },
   async mounted() {
-    await this.getToken();
+    await this.$store.dispatch("redeemTokenAsync");
+    console.log(this.$store.state.token);
     await this.getGenres();
     await this.getPlaylistsHome([this.genres[1].id, this.genres[2].id]);
-    // await this.getTracks();
   },
   methods: {
-    async getToken() {
-      const response = await axios("https://accounts.spotify.com/api/token", {
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-          Authorization:
-            "Basic " + btoa(this.ClientId + ":" + this.ClientSecret),
-        },
-        data: "grant_type=client_credentials",
-        method: "POST",
-      });
-      this.token = response.data.access_token;
-    },
+    // async getToken() {
+    //   const response = await axios("https://accounts.spotify.com/api/token", {
+    //     headers: {
+    //       "Content-Type": "application/x-www-form-urlencoded",
+    //       Authorization:
+    //         "Basic " + btoa(this.ClientId + ":" + this.ClientSecret),
+    //     },
+    //     data: "grant_type=client_credentials",
+    //     method: "POST",
+    //   });
+    //   this.token = response.data.access_token;
+    // },
 
     async getGenres() {
       const genresResponse = await axios(
@@ -100,7 +96,7 @@ export default {
         {
           method: "GET",
           headers: {
-            Authorization: "Bearer " + this.token,
+            Authorization: "Bearer " + this.$store.state.token,
           },
         }
       );
@@ -114,7 +110,7 @@ export default {
             axios.get(
               `https://api.spotify.com/v1/browse/categories/${genre}/playlists?limit=9`,
               {
-                headers: { Authorization: "Bearer " + this.token },
+                headers: { Authorization: "Bearer " + this.$store.state.token },
               }
             )
           )

@@ -38,7 +38,6 @@
 
 <script>
 import { ref } from "vue";
-import { onMounted } from "vue";
 export default {
   computed: {
     currentRoute() {

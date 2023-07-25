@@ -9,6 +9,8 @@
 @use "./playlist_song_section";
 @use "./search_page";
 @use "./song_card_loose";
+@use "./artist_page";
+@use "./category_page";
 
 @font-face {
   font-family: spotifyFont;
@@ -86,12 +88,29 @@ body {
   width: 100%;
   z-index: 50;
   top: 0;
-  height: 100%;
+  left: 0;
+  height: 100vh;
   background-color: $secondary-background-color;
-  display: none;
-  place-content: center;
+  display: grid;
+  grid-template-columns: minmax(290px, 1fr) 4fr;
+  grid-template-rows: 2fr 20fr 3fr;
+  grid-template-areas:
+    "nothing nothing"
+    "nothing content"
+    "nothing nothing";
+  z-index: 4;
 
+  .spinner-container {
+    // background-color: blue;
+    position: relative;
+    display: grid;
+    place-content: center;
+    @media screen and (max-width: 900px) {
+      min-width: 500px;
+    }
+  }
   .lds-ellipsis {
+    grid-area: content;
     display: inline-block;
     position: relative;
     width: 80px;

@@ -5,13 +5,17 @@ section.song-section {
   width: 100%;
   background-color: rgba(10, 10, 10, 0.3);
 
-  header {
+  .song-section-header {
+    // background-color: red;
     @include mixins.flex(row, flex-start, center);
     gap: 35px;
 
     button {
       border: none;
       background-color: transparent;
+      padding: 0;
+      // width: 50px;
+      // display: none;
       color: rgb(190, 190, 190);
       font-size: 2.4em;
       cursor: pointer;
@@ -242,6 +246,42 @@ table {
         width: 100%;
         overflow: hidden !important;
       }
+    }
+  }
+}
+
+.song-section-header {
+  // background-color: red;
+  @include mixins.flex(row, flex-start, center);
+  gap: 35px;
+
+  button {
+    border: none;
+    background-color: transparent;
+    padding: 0;
+    // width: 50px;
+    // display: none;
+    color: rgb(190, 190, 190);
+    font-size: 2.4em;
+    cursor: pointer;
+    z-index: 2;
+
+    &:hover {
+      color: white;
+    }
+  }
+
+  .play-button-playlist {
+    width: 60px;
+    color: black;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    background-color: #1fdf64;
+    display: grid;
+    place-content: center;
+    font-size: 1.3em;
+    &:hover {
+      color: black;
     }
   }
 }

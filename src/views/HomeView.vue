@@ -1,5 +1,6 @@
 <template>
   <section class="home">
+    <Loader v-if="!genres" />
     <article class="focus">
       <header>
         <h2 @click="toggleAll('first')" v-if="genres">{{ genres[1].name }}</h2>
@@ -14,7 +15,6 @@
           :desc="item.description"
           :key="i"
           :id="item.id"
-          :token="this.token"
           :owner="item.owner.display_name"
           :total="item.tracks.total"
           type="Playlist"
@@ -38,20 +38,10 @@
           :id="item.id"
           :owner="item.owner.display_name"
           :total="item.tracks.total"
-          :token="this.token"
           type="Playlist"
         />
       </div>
     </article>
-
-    <div v-if="true" class="loader-container">
-      <div class="lds-ellipsis">
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-      </div>
-    </div>
 
     <SpotifyFooter />
   </section>
@@ -60,15 +50,17 @@
 <script>
 import AllPurposeCard from "@/components/AllPurposeCard.vue";
 import SpotifyFooter from "@/components/SpotifyFooter.vue";
+import Loader from "@/components/Loader.vue";
 import { ref } from "vue";
 
 export default {
   name: "HomeView",
-  props: ["playlistsHome", "genres", "token"],
+  props: ["playlistsHome", "genres"],
   components: {
     AllPurposeCard,
     SpotifyFooter,
     AllPurposeCard,
+    Loader,
   },
   methods: {
     toggleAll(target) {
@@ -94,9 +86,6 @@ export default {
       showAllRef1,
       showAllRef2,
     };
-  },
-  mounted() {
-    console.log(this.playlistsHome !== null);
   },
 };
 </script>

@@ -19,30 +19,35 @@ export default {
     image: "",
     desc: "",
     id: "",
-    token: "",
     owner: "",
     total: "",
     type: "",
   },
   methods: {
     routeWithData() {
-      this.$router.push({
-        name: "playlist",
-        query: {
-          name: this.name,
-          image: this.image,
-          desc: this.desc,
-          id: this.id,
-          token: this.token,
-          owner: this.owner,
-          total: this.total,
-          type: this.type,
-        },
-      });
+      if (this.type !== "Artist")
+        this.$router.push({
+          name: "playlist",
+          query: {
+            name: this.name,
+            image: this.image,
+            desc: this.desc,
+            id: this.id,
+            owner: this.owner,
+            total: this.total,
+            type: this.type,
+          },
+        });
+      else
+        this.$router.push({
+          name: "artist",
+          query: {
+            name: this.name,
+            image: this.image,
+            id: this.id,
+          },
+        });
     },
   },
-  // mounted() {
-  //   console.log(this.type);
-  // },
 };
 </script>

@@ -3,6 +3,8 @@ import HomeView from "../views/HomeView.vue";
 import SearchView from "../views/SearchView";
 import LibraryView from "../views/LibraryView";
 import PlaylistView from "../views/PlaylistView";
+import ArtistView from "../views/ArtistView";
+import CategoryView from "../views/CategoryView";
 
 const routes = [
   {
@@ -14,6 +16,16 @@ const routes = [
     path: "/playlist",
     name: "playlist",
     component: PlaylistView,
+  },
+  {
+    path: "/artist",
+    name: "artist",
+    component: ArtistView,
+  },
+  {
+    path: "/genre",
+    name: "genre",
+    component: CategoryView,
   },
 
   {

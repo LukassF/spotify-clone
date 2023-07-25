@@ -39,7 +39,6 @@
       <SongSection
         :type="dataObject.type"
         :id="dataObject.id"
-        :token="dataObject.token"
         v-model="fullDuration"
       />
     </article>

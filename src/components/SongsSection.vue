@@ -1,6 +1,8 @@
 <template>
   <section class="song-section">
-    <header>
+    <Loader v-if="!playlistTracks" />
+
+    <header class="song-section-header">
       <button class="play-button-playlist"><i class="fa fa-play"></i></button>
       <button><i class="far fa-heart"></i></button>
       <button><i class="fas fa-ellipsis"></i></button>
@@ -61,6 +63,7 @@ import SongCard from "./SongCard.vue";
 import SpotifyFooter from "@/components/SpotifyFooter.vue";
 import axios from "axios";
 import images from "@/assets/data/images.json";
+import Loader from "./Loader.vue";
 
 export default {
   data() {
@@ -73,8 +76,9 @@ export default {
   components: {
     SongCard,
     SpotifyFooter,
+    Loader,
   },
-  props: ["id", "token", "modelValue", "type"],
+  props: ["id", "modelValue", "type"],
 
   async mounted() {
     let tracksResult;
@@ -84,7 +88,7 @@ export default {
         {
           method: "GET",
           headers: {
-            Authorization: "Bearer " + this.token,
+            Authorization: "Bearer " + this.$store.state.token,
           },
         }
       );
@@ -102,7 +106,7 @@ export default {
         {
           method: "GET",
           headers: {
-            Authorization: "Bearer " + this.token,
+            Authorization: "Bearer " + this.$store.state.token,
           },
         }
       );

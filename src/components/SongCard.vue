@@ -5,7 +5,7 @@
       ><i v-else class="fa fa-play"></i>
     </td>
     <td class="title-and-artist">
-      <div v-if="type === 'Playlist'">
+      <div v-if="type === 'Playlist' || type === 'Artist'">
         <img :src="image" />
       </div>
       <h4>{{ name }}</h4>
@@ -18,10 +18,11 @@
             artists.slice(0, 3)[i + 1] ? `${artist.name}, ` : `${artist.name}`
           }}
         </span>
-        <span v-else>{{ artists.name }}</span>
+        <span v-else-if="type === 'Album'">{{ artists.name }}</span>
+        <spam v-else></spam>
       </p>
     </td>
-    <td class="album" v-if="type === 'Playlist'">
+    <td class="album" v-if="type !== 'Album'">
       <div>{{ album }}</div>
     </td>
     <td v-if="type === 'Playlist'">{{ addedAtFormatted }}</td>
