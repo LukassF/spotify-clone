@@ -32,7 +32,16 @@
       </div>
       <div>
         <span>{{ computedProgress }}</span>
-        <progress max="100" value="80"></progress>
+        <progress
+          max="100"
+          :value="
+            this.$store.state.currentSongInfo.item
+              ? (this.$store.state.currentSongInfo.progress_ms /
+                  this.$store.state.currentSongInfo.item.duration_ms) *
+                100
+              : 0
+          "
+        ></progress>
         <!-- <input type="range" min="0" max="100" value="10" /> -->
         <span>{{ computedDuration }}</span>
       </div>
@@ -82,6 +91,9 @@ export default {
         (Math.round(this.progress / 1000) % 60).toString().padStart(2, "0")
       );
     },
+    clickedOnCard() {
+      return this.$store.state.clickedOnSongCard;
+    },
   },
   methods: {
     updateStatus() {
@@ -95,6 +107,7 @@ export default {
         clearInterval(this.interval);
       } else {
         this.$store.dispatch("playSong");
+        clearInterval(this.interval);
         this.checkInALoop();
       }
 
@@ -104,6 +117,17 @@ export default {
       this.interval = setInterval(() => {
         this.updateStatus();
       }, 1000);
+    },
+  },
+  watch: {
+    clickedOnCard: function (old, newValue) {
+      if (newValue) {
+        clearInterval(this.interval);
+        this.isPlaying = true;
+        this.checkInALoop();
+      } else {
+        return;
+      }
     },
   },
 };

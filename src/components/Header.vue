@@ -30,13 +30,13 @@
     </div>
 
     <div>
-      <a class="auth-buttons" v-show="!userInfo.display_name">Sign up</a>
+      <!-- <a class="auth-buttons" v-show="!userInfo.display_name">Sign up</a>
       <a
         class="auth-buttons"
         :href="this.$store.state.loginEndpoint"
         v-if="!userInfo.display_name"
         >Log In</a
-      >
+      > -->
       <a class="profile-link" v-if="userInfo.display_name"
         ><div>
           <img

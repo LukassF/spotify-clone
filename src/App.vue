@@ -1,5 +1,6 @@
 <template>
   <main class="main-layout">
+    <LoginPage v-if="!userInfo.display_name" />
     <Loader v-if="playlistsHome === []" />
     <aside>
       <nav>
@@ -52,6 +53,7 @@ import axios from "axios";
 import Header from "./components/Header.vue";
 import Loader from "./components/Loader.vue";
 import Footer from "./components/Footer.vue";
+import LoginPage from "./components/LoginPage.vue";
 
 export default {
   data() {
@@ -67,6 +69,7 @@ export default {
     Header,
     Loader,
     Footer,
+    LoginPage,
   },
   async mounted() {
     //redeeming authToken

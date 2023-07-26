@@ -11,6 +11,7 @@ const store = createStore({
     return {
       showX: false,
       inputValue: "",
+      clickedOnSongCard: false,
       token: "",
       currentSongInfo: "{}",
       clientID: "b022c35e77404e43b5c82be9bc4cee67",
@@ -47,6 +48,9 @@ const store = createStore({
     getCurrentSongInfo(state, info) {
       state.currentSongInfo = info;
     },
+    changeClickedOnSong(state, bool) {
+      state.clickedOnSongCard = bool;
+    },
   },
   actions: {
     updateInput({ commit }, value) {
@@ -54,6 +58,9 @@ const store = createStore({
     },
     updateInputValue({ commit }, input) {
       commit("updateInputValue", input);
+    },
+    changeClickedOnSong({ commit }, bool) {
+      commit("changeClickedOnSong", bool);
     },
     redeemAuthToken({ commit }, value) {
       commit("redeemAuthToken", value);

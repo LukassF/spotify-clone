@@ -1725,6 +1725,55 @@ body {
   background-color: rgb(150, 148, 148);
 }
 
+article.login {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #095526;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25' viewBox='0 0 1600 800'%3E%3Cg stroke='%23000000' stroke-width='65.6' stroke-opacity='0.08' %3E%3Ccircle fill='%23095526' cx='0' cy='0' r='1800'/%3E%3Ccircle fill='%23095325' cx='0' cy='0' r='1700'/%3E%3Ccircle fill='%23085124' cx='0' cy='0' r='1600'/%3E%3Ccircle fill='%23085024' cx='0' cy='0' r='1500'/%3E%3Ccircle fill='%23084e23' cx='0' cy='0' r='1400'/%3E%3Ccircle fill='%23084c22' cx='0' cy='0' r='1300'/%3E%3Ccircle fill='%23084a21' cx='0' cy='0' r='1200'/%3E%3Ccircle fill='%23074821' cx='0' cy='0' r='1100'/%3E%3Ccircle fill='%23074720' cx='0' cy='0' r='1000'/%3E%3Ccircle fill='%2307451f' cx='0' cy='0' r='900'/%3E%3Ccircle fill='%2307431e' cx='0' cy='0' r='800'/%3E%3Ccircle fill='%2307411e' cx='0' cy='0' r='700'/%3E%3Ccircle fill='%2307401d' cx='0' cy='0' r='600'/%3E%3Ccircle fill='%23073e1c' cx='0' cy='0' r='500'/%3E%3Ccircle fill='%23063c1b' cx='0' cy='0' r='400'/%3E%3Ccircle fill='%23063a1b' cx='0' cy='0' r='300'/%3E%3Ccircle fill='%2306391a' cx='0' cy='0' r='200'/%3E%3Ccircle fill='%23063719' cx='0' cy='0' r='100'/%3E%3C/g%3E%3C/svg%3E");
+  background-attachment: fixed;
+  background-size: cover;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+}
+article.login section {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+article.login div {
+  width: 15%;
+  min-width: 200px;
+  overflow: hidden;
+}
+article.login img {
+  width: 100%;
+}
+article.login a {
+  border: none;
+  font-family: spotifyFontLight;
+  font-size: 1.8em;
+  cursor: pointer;
+  text-decoration: none;
+  background-color: white;
+  color: #111111;
+  padding: 15px 80px;
+  border-radius: 500px;
+}
+article.login a:hover {
+  background-color: rgb(245, 245, 245);
+}
+
 .loader-container {
   position: fixed;
   padding: 10px;

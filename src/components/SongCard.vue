@@ -73,6 +73,12 @@ export default {
       this.$store.dispatch("playSong");
 
       this.$store.dispatch("getCurrentSongInfo");
+
+      this.$store.dispatch("changeClickedOnSong", true);
+
+      setTimeout(() => {
+        this.$store.dispatch("changeClickedOnSong", false);
+      }, 200);
     },
   },
 };
