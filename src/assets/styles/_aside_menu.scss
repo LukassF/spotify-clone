@@ -2,7 +2,8 @@
 @use "./mixins" as *;
 
 aside {
-  background-color: $main-background-color;
+  background-color: $secondary-background-color;
+  border-radius: 10px;
   grid-area: aside;
   @include flex(column, center, stretch);
   min-width: 290px;

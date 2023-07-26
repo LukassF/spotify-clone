@@ -1,5 +1,6 @@
 aside {
-  background-color: black;
+  background-color: #111111;
+  border-radius: 10px;
   grid-area: aside;
   display: flex;
   flex-direction: column;
@@ -107,10 +108,164 @@ aside ul li:hover {
 }
 
 footer#song-player {
-  width: 100%;
   grid-area: footer;
   z-index: 5;
-  background-color: #171717;
+  padding: 0px 10px;
+  padding-bottom: 20px;
+  position: relative;
+  background-color: #000000;
+  display: grid;
+  grid-template-columns: 2fr 3fr 2fr;
+}
+@media screen and (max-width: 1000px) {
+  footer#song-player {
+    grid-column-gap: 20px;
+  }
+}
+footer#song-player section.overlay {
+  width: calc(100% - 60px);
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 50;
+  height: calc(100% - 20px);
+  padding: 0px 30px;
+  background: linear-gradient(45deg, rgb(4, 79, 150), rgb(130, 11, 167));
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+footer#song-player section.overlay h1 {
+  color: white;
+}
+footer#song-player section.overlay p {
+  color: rgb(187, 185, 185);
+}
+footer#song-player section#song-info {
+  cursor: default;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 20px;
+}
+footer#song-player section#song-info div:first-child {
+  width: 60px;
+  border-radius: 5px;
+  aspect-ratio: 1/1;
+  overflow: hidden;
+}
+footer#song-player section#song-info div:first-child img {
+  width: 110%;
+}
+footer#song-player section#song-info div:nth-child(2) {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 5px;
+}
+footer#song-player section#song-info div:nth-child(2) h2 {
+  font-size: 1em;
+  margin: 0;
+  color: white;
+  width: 200px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+@media screen and (max-width: 1000px) {
+  footer#song-player section#song-info div:nth-child(2) h2 {
+    width: 100px;
+  }
+}
+footer#song-player section#song-info div:nth-child(2) p {
+  width: 200px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  margin: 0;
+  font-size: 0.7em;
+  color: rgb(187, 185, 185);
+  font-family: spotifyFontLight;
+}
+@media screen and (max-width: 1000px) {
+  footer#song-player section#song-info div:nth-child(2) p {
+    width: 100px;
+  }
+}
+footer#song-player section#song-info div:last-child {
+  color: rgb(187, 185, 185);
+  cursor: pointer;
+}
+footer#song-player section#song-info div:last-child:hover {
+  color: white;
+}
+footer#song-player section#song-player {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+footer#song-player section#song-player div:first-child {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+footer#song-player section#song-player div:first-child i {
+  color: rgb(187, 185, 185);
+  font-size: 1.2em;
+}
+footer#song-player section#song-player div:first-child i:nth-child(3) {
+  background-color: white;
+  color: black;
+  width: 35px;
+  aspect-ratio: 1/1;
+  display: grid;
+  place-content: center;
+  border-radius: 50%;
+}
+footer#song-player section#song-player div:first-child i:nth-child(3):hover {
+  color: black;
+  transform: scale(1.08);
+}
+footer#song-player section#song-player div:first-child i:hover {
+  color: white;
+}
+footer#song-player section#song-player div:last-child {
+  display: grid;
+  grid-template-columns: 1fr 10fr 1fr;
+  align-items: center;
+  gap: 5px;
+  width: 100%;
+}
+footer#song-player section#song-player div:last-child span {
+  color: rgb(187, 185, 185);
+  font-size: 0.75em;
+  display: grid;
+  place-content: center;
+}
+footer#song-player section#song-options {
+  padding-left: 40%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 15px;
+  color: rgb(187, 185, 185);
+}
+@media screen and (max-width: 1000px) {
+  footer#song-player section#song-options {
+    padding-left: 0;
+  }
+}
+footer#song-player section#song-options i:hover {
+  color: white;
 }
 
 footer#spotify-footer {
@@ -181,6 +336,41 @@ footer#spotify-footer p {
   width: 100%;
   text-align: center;
   color: rgb(170, 167, 167);
+}
+
+progress[value] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+       appearance: none;
+}
+
+progress,
+progress[value]::-webkit-progress-bar {
+  background-color: rgba(187, 185, 185, 0.3);
+  border-radius: 500px;
+  border: none;
+  height: 4px;
+  width: 100%;
+}
+
+progress[value]::-webkit-progress-value {
+  -webkit-appearance: none;
+  appearance: none;
+  background: rgb(255, 255, 255);
+  border-radius: 500px;
+  width: 100%;
+}
+progress[value]::-webkit-progress-value:hover {
+  background: #1fdf64;
+}
+
+progress::-moz-progress-bar {
+  background: rgb(255, 255, 255);
+  border-radius: 500px;
+  width: 100%;
+}
+progress::-moz-progress-bar:hover {
+  background: #1fdf64;
 }
 
 .home {
@@ -331,6 +521,7 @@ footer#spotify-footer p {
   padding: 10px 30px;
   width: calc(100% - 60px);
   z-index: 5;
+  border-radius: 10px;
 }
 .header-all div:first-child {
   display: flex;
@@ -459,6 +650,7 @@ footer#spotify-footer p {
   cursor: pointer;
 }
 .header-all div:last-child .auth-buttons:first-child {
+  text-decoration: none;
   background-color: transparent;
   color: rgb(206, 206, 206);
 }
@@ -466,12 +658,43 @@ footer#spotify-footer p {
   color: white;
 }
 .header-all div:last-child .auth-buttons:last-child {
+  text-decoration: none;
   background-color: white;
+  color: black;
   padding: 10px 20px;
   border-radius: 500px;
 }
 .header-all div:last-child .auth-buttons:last-child:hover {
   background-color: rgb(245, 245, 245);
+}
+.header-all div:last-child .profile-link {
+  border-radius: 500px;
+  border: solid rgb(187, 185, 185) 1px;
+  padding: 7px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 7px;
+  color: rgb(187, 185, 185);
+  font-size: 0.8em;
+}
+.header-all div:last-child .profile-link div {
+  width: 20px;
+  aspect-ratio: 1/1;
+  overflow: hidden;
+  border-radius: 50%;
+}
+.header-all div:last-child .profile-link div img {
+  width: 100%;
+}
+.header-all div:last-child .profile-link i {
+  margin-left: 30px;
+}
+.header-all div:last-child .profile-link:hover {
+  cursor: pointer;
+  box-shadow: 0px 0px 2px 1px white;
+  border-color: white;
 }
 
 .playlist-page {
@@ -538,6 +761,12 @@ footer#spotify-footer p {
   opacity: 0.8;
   font-family: spotifyFontLight;
   font-size: 0.9em;
+  display: -webkit-box;
+  width: 100%;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden !important;
+  text-overflow: ellipsis;
 }
 @media screen and (max-width: 800px) {
   .playlist-page header .header-contents p {
@@ -744,12 +973,17 @@ table tbody td:last-child i {
   font-size: 1.1em;
   position: absolute;
   top: 50%;
-  left: 0;
   transform: translateY(-50%);
 }
 table tbody td:last-child i:hover {
   color: white;
   cursor: pointer;
+}
+table tbody td:last-child i:first-child {
+  left: 10px;
+}
+table tbody td:last-child i:last-child {
+  right: 10px;
 }
 table tbody td:nth-child(3), table tbody td:nth-child(4) {
   align-items: flex-start;
@@ -779,7 +1013,7 @@ table tbody td.title-and-artist div {
   overflow: hidden;
 }
 table tbody td.title-and-artist div img {
-  width: 150%;
+  width: 100%;
 }
 table tbody td.title-and-artist h4 {
   margin: 0;
@@ -1073,7 +1307,7 @@ section.search .top-results.artist div button {
   transition: opacity 0.2s, transform 0.2s;
 }
 section.search .top-results.tracks {
-  max-height: 285px;
+  max-height: 276px;
   overflow: hidden;
   padding: 20px;
   display: flex;
@@ -1162,7 +1396,7 @@ section.search .search-result-section article.search-result-section-artists .ima
   position: relative;
 }
 .song-card-loose .title-and-artist div img {
-  width: 150%;
+  width: 100%;
 }
 .song-card-loose .title-and-artist div i {
   position: absolute;
@@ -1192,17 +1426,22 @@ section.search .search-result-section article.search-result-section-artists .ima
 }
 .song-card-loose span {
   position: relative;
-  padding: 0px 0px 0px 50px;
+  padding: 0px 50px 0px 50px;
   color: rgb(170, 168, 168);
 }
 .song-card-loose span i {
   position: absolute;
-  left: 0;
   top: 50%;
   transform: translateY(-50%);
 }
 .song-card-loose span i:hover {
   color: white;
+}
+.song-card-loose span i:first-child {
+  left: 10px;
+}
+.song-card-loose span i:last-child {
+  right: 10px;
 }
 
 article.artist {
@@ -1221,6 +1460,7 @@ article.artist main.scrollable-artist {
   height: 100%;
   overflow-y: overlay;
   overflow-x: hidden;
+  scrollbar-color: transparent #111111;
 }
 article.artist main.scrollable-artist::-webkit-scrollbar {
   width: 7px;
@@ -1233,7 +1473,7 @@ article.artist main.scrollable-artist::-webkit-scrollbar-thumb {
   background-color: transparent;
 }
 article.artist main.scrollable-artist:hover {
-  scrollbar-color: rgb(150, 148, 148) transparent;
+  scrollbar-color: rgb(150, 148, 148) #111111;
 }
 article.artist main.scrollable-artist:hover::-webkit-scrollbar-thumb {
   background-color: rgb(150, 148, 148);
@@ -1323,6 +1563,13 @@ article.artist main.scrollable-artist .artist-info article table tr .title-and-a
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
+}
+article.artist main.scrollable-artist .artist-info article table tr .album div {
+  cursor: default;
+}
+article.artist main.scrollable-artist .artist-info article table tr .album div:hover {
+  text-decoration: none;
+  color: rgb(185, 185, 185);
 }
 article.artist main.scrollable-artist .artist-info article table tr td:last-child {
   display: flex;
@@ -1437,10 +1684,12 @@ body {
 }
 
 .main-layout {
+  padding: 10px;
   height: 100vh;
   display: grid;
   grid-template-columns: 1fr 4fr;
   grid-template-rows: 2fr 20fr 3fr;
+  grid-gap: 10px;
   grid-template-areas: "aside header" "aside content" "footer footer";
 }
 .main-layout .router-view {
@@ -1452,6 +1701,7 @@ body {
   scrollbar-width: thin;
   scrollbar-color: transparent transparent;
   position: relative;
+  border-radius: 10px;
 }
 @media screen and (max-width: 900px) {
   .main-layout .router-view {
@@ -1477,19 +1727,23 @@ body {
 
 .loader-container {
   position: fixed;
+  padding: 10px;
   width: 100%;
   z-index: 50;
   top: 0;
   left: 0;
   height: 100vh;
-  background-color: #111111;
+  background-color: black;
   display: grid;
   grid-template-columns: minmax(290px, 1fr) 4fr;
   grid-template-rows: 2fr 20fr 3fr;
+  grid-gap: 8px;
   grid-template-areas: "nothing nothing" "nothing content" "nothing nothing";
   z-index: 4;
 }
 .loader-container .spinner-container {
+  border-radius: 10px;
+  background-color: #111111;
   position: relative;
   display: grid;
   place-content: center;

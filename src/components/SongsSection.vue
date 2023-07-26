@@ -36,7 +36,9 @@
           :id="song.track.id"
           :duration="song.track.duration_ms"
           :index="i"
-          :image="image[Math.floor(Math.random() * 19)]"
+          :image="
+            song.track.album.images[0] ? song.track.album.images[0].url : ''
+          "
           type="Playlist"
         />
       </tbody>
@@ -44,12 +46,12 @@
         <SongCard
           v-for="(song, i) in playlistTracks"
           :key="i"
-          :artists="song.artists[0]"
+          :artists="[song.artists[0]]"
           :name="song.name"
           :id="song.id"
           :duration="song.duration_ms"
           :index="i"
-          :image="''"
+          :image="image"
           type="Album"
         />
       </tbody>
@@ -62,14 +64,12 @@
 import SongCard from "./SongCard.vue";
 import SpotifyFooter from "@/components/SpotifyFooter.vue";
 import axios from "axios";
-import images from "@/assets/data/images.json";
 import Loader from "./Loader.vue";
 
 export default {
   data() {
     return {
       playlistTracks: null,
-      image: images.images,
       totalDuration: 0,
     };
   },
@@ -78,52 +78,62 @@ export default {
     SpotifyFooter,
     Loader,
   },
-  props: ["id", "modelValue", "type"],
+  props: ["id", "modelValue", "type", "image"],
 
   async mounted() {
     let tracksResult;
     if (this.type === "Playlist") {
-      tracksResult = await axios(
-        `https://api.spotify.com/v1/playlists/${this.id}/tracks`,
-        {
-          method: "GET",
-          headers: {
-            Authorization: "Bearer " + this.$store.state.token,
-          },
-        }
-      );
+      try {
+        tracksResult = await axios(
+          `https://api.spotify.com/v1/playlists/${this.id}/tracks`,
+          {
+            method: "GET",
+            headers: {
+              Authorization: "Bearer " + this.$store.state.token,
+            },
+          }
+        );
 
-      this.playlistTracks = tracksResult.data.items.filter(
-        (item) => item.track
-      );
+        this.playlistTracks = tracksResult.data.items.filter(
+          (item) => item.track
+        );
 
-      this.playlistTracks.forEach(
-        (item) => (this.totalDuration += item.track.duration_ms)
-      );
-    } else if (this.type === "Album") {
-      tracksResult = await axios(
-        `https://api.spotify.com/v1/albums/${this.id}/tracks`,
-        {
-          method: "GET",
-          headers: {
-            Authorization: "Bearer " + this.$store.state.token,
-          },
-        }
-      );
+        this.playlistTracks.forEach(
+          (item) => (this.totalDuration += item.track.duration_ms)
+        );
+      } catch (err) {
+        console.error(err);
+      }
+    }
 
-      this.playlistTracks = tracksResult.data.items;
+    ///////////////////////////////////////////////////////////
+    else if (this.type === "Album") {
+      try {
+        tracksResult = await axios(
+          `https://api.spotify.com/v1/albums/${this.id}/tracks`,
+          {
+            method: "GET",
+            headers: {
+              Authorization: "Bearer " + this.$store.state.token,
+            },
+          }
+        );
 
-      this.playlistTracks.forEach(
-        (item) => (this.totalDuration += item.duration_ms)
-      );
+        this.playlistTracks = tracksResult.data.items;
+        console.log(this.playlistTracks);
+
+        this.playlistTracks.forEach(
+          (item) => (this.totalDuration += item.duration_ms)
+        );
+      } catch (err) {
+        console.error(err);
+      }
     }
 
     this.$emit(
       "update:modelValue",
       Math.floor(Math.round(this.totalDuration / 1000) / 60)
     );
-
-    console.log(tracksResult.data.items);
   },
 };
 </script>

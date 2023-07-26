@@ -17,6 +17,7 @@ article.artist {
     height: 100%;
     overflow-y: overlay;
     overflow-x: hidden;
+    scrollbar-color: transparent vars.$secondary-background-color;
 
     &::-webkit-scrollbar {
       width: 7px;
@@ -34,7 +35,7 @@ article.artist {
       &::-webkit-scrollbar-thumb {
         background-color: vars.$nav-ambient-color;
       }
-      scrollbar-color: vars.$nav-ambient-color transparent;
+      scrollbar-color: vars.$nav-ambient-color vars.$secondary-background-color;
     }
 
     .main-artist-header {
@@ -141,6 +142,16 @@ article.artist {
 
             .title-and-artist {
               @include mixins.flex(row, flex-start, center);
+            }
+
+            .album {
+              div {
+                cursor: default;
+                &:hover {
+                  text-decoration: none;
+                  color: rgb(185, 185, 185);
+                }
+              }
             }
 
             td:last-child {

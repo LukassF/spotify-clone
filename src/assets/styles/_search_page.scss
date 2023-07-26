@@ -187,7 +187,7 @@ section.search {
       }
     }
     &.tracks {
-      max-height: 285px;
+      max-height: 276px;
       overflow: hidden;
       padding: 20px;
       @include mixins.flex(column, flex-start, stretch);

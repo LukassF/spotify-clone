@@ -35,7 +35,7 @@
       overflow: hidden;
       position: relative;
       img {
-        width: 150%;
+        width: 100%;
       }
       i {
         position: absolute;
@@ -72,16 +72,24 @@
 
   span {
     position: relative;
-    padding: 0px 0px 0px 50px;
+    padding: 0px 50px 0px 50px;
     color: rgb(170, 168, 168);
     i {
       position: absolute;
-      left: 0;
+
       top: 50%;
       transform: translateY(-50%);
 
       &:hover {
         color: white;
+      }
+
+      &:first-child {
+        left: 10px;
+      }
+
+      &:last-child {
+        right: 10px;
       }
     }
   }

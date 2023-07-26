@@ -1,5 +1,6 @@
 <template>
   <main class="main-layout">
+    <Loader v-if="playlistsHome === []" />
     <aside>
       <nav>
         <router-link to="/"><i class="fa fa-house"></i>Home</router-link>
@@ -22,27 +23,19 @@
       </nav>
       <hr />
 
-      <ul>
-        <li>Training</li>
-        <li>Gaming mix</li>
-        <li>Background</li>
-        <li>Star Wars Soundtracks</li>
-        <li>Your Top Songs 2021</li>
-        <li>Your Top Songs 2022</li>
-        <li>Punk Rock Workout</li>
-        <li>Christmas and New Year</li>
-        <li>Viral 50 - USA</li>
-        <li>Night</li>
-        <li>Late Night Drive</li>
-        <li>Morning</li>
-        <li>Cooking</li>
-        <li>Podcasts</li>
-        <li>Listen Later</li>
+      <ul v-if="playlistsHomeAll">
+        <li
+          v-for="(playlist, i) in playlistsHomeAll"
+          :key="i"
+          @click="routeToPlaylist(playlist)"
+        >
+          {{ playlist.name }}
+        </li>
       </ul>
       <div class="bottom-padding"></div>
     </aside>
 
-    <Header />
+    <Header :userInfo="userInfo" />
     <router-view
       v-if="$store.state.token !== ''"
       class="router-view"
@@ -50,45 +43,73 @@
       :genres="genres"
     />
 
-    <footer id="song-player"></footer>
+    <Footer />
   </main>
 </template>
 
 <script>
 import axios from "axios";
 import Header from "./components/Header.vue";
+import Loader from "./components/Loader.vue";
+import Footer from "./components/Footer.vue";
 
 export default {
   data() {
     return {
       genres: null,
       playlistsHome: [],
+      playlistsHomeAll: null,
+      userInfo: {},
       tracks: [],
-      showLoader: true,
     };
   },
   components: {
     Header,
+    Loader,
+    Footer,
   },
   async mounted() {
-    await this.$store.dispatch("redeemTokenAsync");
-    console.log(this.$store.state.token);
-    await this.getGenres();
-    await this.getPlaylistsHome([this.genres[1].id, this.genres[2].id]);
+    //redeeming authToken
+    const hash = window.location.hash;
+    const expiration = hash.split("&")[2].split("=")[1];
+    window.location.hash = "";
+    if (
+      (!window.localStorage.getItem("authToken") && hash) ||
+      parseInt(expiration) < 60
+    ) {
+      const _token = hash.split("&")[0].split("=")[1];
+
+      window.localStorage.setItem("authToken", _token);
+      this.$store.dispatch("redeemAuthToken", _token);
+    } else {
+      this.$store.dispatch(
+        "redeemAuthToken",
+        window.localStorage.getItem("authToken")
+      );
+    }
+
+    if (this.$store.state.authToken) {
+      await this.$store.dispatch("redeemTokenAsync");
+      await this.getGenres();
+      await this.getPlaylistsHome([this.genres[1].id, this.genres[2].id]);
+      this.getUserInfo();
+    }
   },
   methods: {
-    // async getToken() {
-    //   const response = await axios("https://accounts.spotify.com/api/token", {
-    //     headers: {
-    //       "Content-Type": "application/x-www-form-urlencoded",
-    //       Authorization:
-    //         "Basic " + btoa(this.ClientId + ":" + this.ClientSecret),
-    //     },
-    //     data: "grant_type=client_credentials",
-    //     method: "POST",
-    //   });
-    //   this.token = response.data.access_token;
-    // },
+    routeToPlaylist(playlist) {
+      this.$router.push({
+        name: "playlist",
+        query: {
+          name: playlist.name,
+          image: playlist.images[0] ? playlist.images[0].url : "",
+          desc: playlist.desc,
+          id: playlist.id,
+          owner: playlist.owner.display_name,
+          total: playlist.tracks.total,
+          type: "Playlist",
+        },
+      });
+    },
 
     async getGenres() {
       const genresResponse = await axios(
@@ -118,8 +139,18 @@ export default {
         .then((res) => {
           res.map((dataItem) => {
             this.playlistsHome.push(dataItem.data.playlists.items);
+            this.playlistsHomeAll = this.playlistsHome[0].concat(
+              this.playlistsHome[1]
+            );
           });
         });
+    },
+    getUserInfo() {
+      axios
+        .get("https://api.spotify.com/v1/me", {
+          headers: { Authorization: `Bearer ${this.$store.state.authToken}` },
+        })
+        .then((userRes) => (this.userInfo = userRes.data));
     },
   },
 };

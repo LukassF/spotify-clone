@@ -2,13 +2,220 @@
 @use "./vars" as *;
 
 footer#song-player {
-  width: 100%;
   grid-area: footer;
   z-index: 5;
+  padding: 0px 10px;
+  padding-bottom: 20px;
+  position: relative;
 
-  background-color: #171717;
-  // box-shadow: 0px -2px 5px rgb(0, 0, 0);
-  // transform: translateY(100%);
+  background-color: #000000;
+  display: grid;
+  grid-template-columns: 2fr 3fr 2fr;
+
+  @media screen and (max-width: 1000px) {
+    grid-column-gap: 20px;
+  }
+
+  section {
+    &.overlay {
+      width: calc(100% - 60px);
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 50;
+      height: calc(100% - 20px);
+      padding: 0px 30px;
+      background: linear-gradient(45deg, rgb(4, 79, 150), rgb(130, 11, 167));
+      border-radius: 10px;
+      @include flex(row, space-between, center);
+
+      h1 {
+        color: white;
+      }
+      p {
+        color: $grey-color;
+      }
+    }
+    &#song-info {
+      cursor: default;
+      @include flex(row, flex-start, center);
+      gap: 20px;
+
+      div {
+        &:first-child {
+          width: 60px;
+          border-radius: 5px;
+          aspect-ratio: 1/1;
+          overflow: hidden;
+
+          img {
+            width: 110%;
+          }
+        }
+
+        &:nth-child(2) {
+          @include flex(column, center, flex-start);
+          gap: 5px;
+          h2 {
+            font-size: 1em;
+            margin: 0;
+            color: white;
+            width: 200px;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+
+            @media screen and (max-width: 1000px) {
+              width: 100px;
+            }
+          }
+
+          p {
+            width: 200px;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+            margin: 0;
+            font-size: 0.7em;
+            color: rgb(187, 185, 185);
+            font-family: spotifyFontLight;
+
+            @media screen and (max-width: 1000px) {
+              width: 100px;
+            }
+          }
+        }
+
+        &:last-child {
+          color: $grey-color;
+          cursor: pointer;
+          &:hover {
+            color: white;
+          }
+        }
+      }
+    }
+    &#song-player {
+      // background-color: green;
+      @include flex(column, center, center);
+      gap: 10px;
+
+      div {
+        &:first-child {
+          @include flex(row, center, center);
+          gap: 20px;
+
+          i {
+            color: $grey-color;
+            font-size: 1.2em;
+
+            &:nth-child(3) {
+              background-color: white;
+              color: black;
+              width: 35px;
+              aspect-ratio: 1/1;
+              display: grid;
+              place-content: center;
+              border-radius: 50%;
+
+              &:hover {
+                color: black;
+                transform: scale(1.08);
+              }
+            }
+
+            &:hover {
+              color: white;
+            }
+          }
+        }
+        &:last-child {
+          display: grid;
+          grid-template-columns: 1fr 10fr 1fr;
+          align-items: center;
+          gap: 5px;
+          // background-color: yellow;
+          width: 100%;
+
+          // input[type="range"] {
+          //   -webkit-appearance: none;
+          //   width: 100%;
+          //   background: rgba(187, 185, 185, 0.3);
+          //   height: 4px;
+          //   border-radius: 500px;
+          // }
+
+          // // input[type="range"]::-webkit-slider-thumb {
+          // //   -webkit-appearance: none;
+          // // }
+
+          // input[type="range"]:focus {
+          //   outline: none;
+          // }
+
+          // input[type="range"]::-ms-track {
+          //   width: 100%;
+          //   cursor: pointer;
+          //   background: rgba(187, 185, 185, 0.3);
+          //   border-color: transparent;
+          //   color: transparent;
+          //   height: 4px;
+          //   border-radius: 500px;
+          // }
+
+          // input[type="range"]::-webkit-slider-thumb {
+          //   -webkit-appearance: none;
+          //   aspect-ratio: 1/1;
+          //   width: 10px;
+          //   border-radius: 50%;
+          //   background: #ffffff;
+          //   cursor: pointer;
+          // }
+
+          // input[type="range"]::-moz-range-thumb {
+          //   width: 10px;
+          //   height: 10px;
+          //   background: #ffffff;
+          //   cursor: pointer;
+          //   border: none;
+          // }
+
+          // /* All the same stuff for IE */
+          // input[type="range"]::-ms-thumb {
+          //   width: 10px;
+          //   height: 10px;
+          //   border-radius: 50%;
+          //   background: #ffffff;
+          //   cursor: pointer;
+          // }
+
+          span {
+            color: $grey-color;
+            font-size: 0.75em;
+            display: grid;
+            place-content: center;
+            // font-family: spotifyFontLight;
+          }
+        }
+      }
+    }
+    &#song-options {
+      // background-color: blue;
+      padding-left: 40%;
+      @media screen and (max-width: 1000px) {
+        padding-left: 0;
+      }
+      @include flex(row, flex-end, center);
+      gap: 15px;
+      color: $grey-color;
+
+      i {
+        &:hover {
+          color: white;
+        }
+      }
+    }
+  }
 }
 
 footer#spotify-footer {
@@ -81,5 +288,41 @@ footer#spotify-footer {
     width: 100%;
     text-align: center;
     color: rgb(170, 167, 167);
+  }
+}
+
+////////////////////////////////////////
+
+progress[value] {
+  -webkit-appearance: none;
+  appearance: none;
+}
+progress,
+progress[value]::-webkit-progress-bar {
+  background-color: rgba(187, 185, 185, 0.3);
+  border-radius: 500px;
+  border: none;
+  height: 4px;
+  width: 100%;
+}
+
+progress[value]::-webkit-progress-value {
+  -webkit-appearance: none;
+  appearance: none;
+  background: rgb(255, 255, 255);
+  border-radius: 500px;
+  width: 100%;
+
+  &:hover {
+    background: #1fdf64;
+  }
+}
+progress::-moz-progress-bar {
+  background: rgb(255, 255, 255);
+  border-radius: 500px;
+  width: 100%;
+
+  &:hover {
+    background: #1fdf64;
   }
 }

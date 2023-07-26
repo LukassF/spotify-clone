@@ -37,10 +37,12 @@ body {
   height: 100vh;
 }
 .main-layout {
+  padding: 10px;
   height: 100vh;
   display: grid;
   grid-template-columns: 1fr 4fr;
   grid-template-rows: 2fr 20fr 3fr;
+  grid-gap: 10px;
   grid-template-areas:
     "aside header"
     "aside content"
@@ -55,6 +57,7 @@ body {
     scrollbar-width: thin;
     scrollbar-color: transparent transparent;
     position: relative;
+    border-radius: 10px;
 
     @media screen and (max-width: 900px) {
       min-width: 500px;
@@ -84,16 +87,17 @@ body {
 
 .loader-container {
   position: fixed;
-  // grid-area: content;
+  padding: 10px;
   width: 100%;
   z-index: 50;
   top: 0;
   left: 0;
   height: 100vh;
-  background-color: $secondary-background-color;
+  background-color: $main-background-color;
   display: grid;
   grid-template-columns: minmax(290px, 1fr) 4fr;
   grid-template-rows: 2fr 20fr 3fr;
+  grid-gap: 8px;
   grid-template-areas:
     "nothing nothing"
     "nothing content"
@@ -101,7 +105,9 @@ body {
   z-index: 4;
 
   .spinner-container {
+    border-radius: 10px;
     // background-color: blue;
+    background-color: $secondary-background-color;
     position: relative;
     display: grid;
     place-content: center;

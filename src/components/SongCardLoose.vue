@@ -3,6 +3,7 @@
     @mouseover="isHovering = true"
     @mouseleave="isHovering = false"
     class="song-card-loose"
+    @click="playCurrentSong()"
   >
     <div class="title-and-artist">
       <div>
@@ -18,9 +19,9 @@
     </div>
 
     <span
-      ><i v-if="isHovering" class="far fa-heart"></i
-      >{{ durationFormatted }}</span
-    >
+      ><i v-if="isHovering" class="far fa-heart"></i>{{ durationFormatted
+      }}<i v-if="isHovering" class="fas fa-ellipsis"></i
+    ></span>
   </div>
 </template>
 
@@ -39,6 +40,17 @@ export default {
         ":" +
         (Math.round(this.duration / 1000) % 60).toString().padStart(2, "0")
       );
+    },
+  },
+  methods: {
+    playCurrentSong() {
+      this.$store.dispatch("playSong", {
+        name: this.name,
+        artist: this.artists[0].name,
+
+        image: this.image,
+        duration: this.duration,
+      });
     },
   },
 };

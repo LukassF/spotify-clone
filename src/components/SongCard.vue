@@ -1,5 +1,9 @@
 <template>
-  <tr @mouseover="isHovering = true" @mouseleave="isHovering = false">
+  <tr
+    @mouseover="isHovering = true"
+    @mouseleave="isHovering = false"
+    @click="playCurrentSong()"
+  >
     <td>
       <span v-if="!isHovering">{{ index + 1 }}</span
       ><i v-else class="fa fa-play"></i>
@@ -18,7 +22,7 @@
             artists.slice(0, 3)[i + 1] ? `${artist.name}, ` : `${artist.name}`
           }}
         </span>
-        <span v-else-if="type === 'Album'">{{ artists.name }}</span>
+        <span v-else-if="type === 'Album'">{{ artists[0].name }}</span>
         <spam v-else></spam>
       </p>
     </td>
@@ -27,7 +31,8 @@
     </td>
     <td v-if="type === 'Playlist'">{{ addedAtFormatted }}</td>
     <td>
-      <i v-if="isHovering" class="far fa-heart"></i>{{ durationFormatted }}
+      <i v-if="isHovering" class="far fa-heart"></i>{{ durationFormatted
+      }}<i v-if="isHovering" class="fas fa-ellipsis"></i>
     </td>
   </tr>
 </template>
@@ -61,6 +66,13 @@ export default {
 
     addedAtFormatted() {
       return new Date(this.added).toDateString().slice(4);
+    },
+  },
+  methods: {
+    playCurrentSong() {
+      this.$store.dispatch("playSong");
+
+      this.$store.dispatch("getCurrentSongInfo");
     },
   },
 };

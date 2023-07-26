@@ -174,12 +174,18 @@ table {
           font-size: 1.1em;
           position: absolute;
           top: 50%;
-          left: 0;
           transform: translateY(-50%);
 
           &:hover {
             color: white;
             cursor: pointer;
+          }
+
+          &:first-child {
+            left: 10px;
+          }
+          &:last-child {
+            right: 10px;
           }
         }
       }
@@ -215,7 +221,7 @@ table {
           overflow: hidden;
 
           img {
-            width: 150%;
+            width: 100%;
           }
         }
 

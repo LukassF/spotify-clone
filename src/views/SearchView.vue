@@ -54,7 +54,7 @@
           :name="track.name"
           :artists="track.artists"
           :duration="track.duration_ms"
-          :image="images[Math.floor(Math.random() * 19)]"
+          :image="track.album.images[0].url"
         />
       </div>
     </article>
@@ -126,7 +126,6 @@
 import AllPurposeCard from "@/components/AllPurposeCard.vue";
 import GenreCard from "@/components/GenreCard.vue";
 import SpotifyFooter from "@/components/SpotifyFooter.vue";
-import images from "@/assets/data/images.json";
 import SongCardLoose from "@/components/SongCardLoose.vue";
 import Loader from "@/components/Loader.vue";
 import { gsap } from "gsap";
@@ -142,7 +141,6 @@ export default {
       tracks: [],
       albums: [],
       playlists: [],
-      images: images.images,
       showLoader: false,
     };
   },
@@ -184,6 +182,8 @@ export default {
           this.playlists = searchResponse.data.playlists.items;
 
           this.showLoader = false;
+
+          console.log(searchResponse.data);
         } catch (err) {
           console.error(err);
           alert("Could not found, try something else.");

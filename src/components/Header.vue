@@ -30,8 +30,26 @@
     </div>
 
     <div>
-      <button class="auth-buttons">Sign up</button>
-      <button class="auth-buttons">Log In</button>
+      <a class="auth-buttons" v-show="!userInfo.display_name">Sign up</a>
+      <a
+        class="auth-buttons"
+        :href="this.$store.state.loginEndpoint"
+        v-if="!userInfo.display_name"
+        >Log In</a
+      >
+      <a class="profile-link" v-if="userInfo.display_name"
+        ><div>
+          <img
+            :src="
+              userInfo.images[0]
+                ? userInfo.images[0].url
+                : 'https://cdn-icons-png.flaticon.com/512/149/149071.png'
+            "
+            alt="profile-image"
+          />
+        </div>
+        {{ userInfo.display_name }}<i class="fa fa-chevron-down"></i
+      ></a>
     </div>
   </header>
 </template>
@@ -49,6 +67,7 @@ export default {
       showX: false,
     };
   },
+  props: ["userInfo"],
   methods: {
     inputLength(e) {
       this.$store.dispatch("updateInput", e.target.value.length !== 0);
@@ -72,6 +91,9 @@ export default {
         this.$store.dispatch("updateInputValue", "");
       }
     },
+  },
+  mounted() {
+    console.log(this.userInfo);
   },
 };
 </script>

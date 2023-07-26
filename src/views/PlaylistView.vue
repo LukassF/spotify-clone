@@ -39,6 +39,7 @@
       <SongSection
         :type="dataObject.type"
         :id="dataObject.id"
+        :image="dataObject.image"
         v-model="fullDuration"
       />
     </article>
@@ -84,5 +85,10 @@ export default {
   //     console.log(this.fullDuration);
   //   },
   // },
+  watch: {
+    $route: function () {
+      location.reload();
+    },
+  },
 };
 </script>

@@ -42,7 +42,8 @@
                   :id="track.id"
                   :duration="track.duration_ms"
                   :index="i"
-                  :image="images[Math.floor(Math.random() * 19)]"
+                  :image="track.album.images[0].url"
+                  :artists="[dataArtist]"
                   type="Artist"
                 />
               </tbody>
@@ -99,7 +100,6 @@
 import SongCard from "@/components/SongCard.vue";
 import SpotifyFooter from "@/components/SpotifyFooter.vue";
 import AllPurposeCard from "@/components/AllPurposeCard.vue";
-import images from "../assets/data/images.json";
 import Loader from "@/components/Loader.vue";
 import axios from "axios";
 export default {
@@ -109,7 +109,6 @@ export default {
       dataArtist: {},
       backgroundImage: "",
       artistWork: [],
-      images: images.images,
     };
   },
   components: {
