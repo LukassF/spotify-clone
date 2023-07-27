@@ -55,6 +55,7 @@
           :artists="track.artists"
           :duration="track.duration_ms"
           :image="track.album.images[0].url"
+          :uri="track.uri"
         />
       </div>
     </article>
@@ -183,7 +184,7 @@ export default {
 
           this.showLoader = false;
 
-          console.log(searchResponse.data);
+          // console.log(searchResponse.data);
         } catch (err) {
           console.error(err);
           alert("Could not found, try something else.");
@@ -263,8 +264,5 @@ export default {
       songsRef,
     };
   },
-  // mounted() {
-  //   console.log(this.genres);
-  // },
 };
 </script>

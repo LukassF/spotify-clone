@@ -32,7 +32,7 @@
       </div>
       <div>
         <span>{{ computedProgress }}</span>
-        <progress
+        <!-- <progress
           max="100"
           :value="
             this.$store.state.currentSongInfo.item
@@ -41,8 +41,11 @@
                 100
               : 0
           "
-        ></progress>
-        <!-- <input type="range" min="0" max="100" value="10" /> -->
+        ></progress> -->
+        <div class="input-container">
+          <input type="range" max="100" min="0" v-model="track_progress" />
+          <div class="progress" :style="`width:${track_progress}%`"></div>
+        </div>
         <span>{{ computedDuration }}</span>
       </div>
     </section>
@@ -50,10 +53,25 @@
       <i class="fa-solid fa-microphone"></i>
       <i class="fa-solid fa-bars"></i>
       <i class="fa fa-desktop" aria-hidden="true"></i>
-      <!-- <i class="fa-solid fa-volume-xmark"></i> -->
-      <i class="fa-solid fa-volume-low"></i>
-      <progress max="100" value="80"></progress>
-      <!-- <i class="fa-solid fa-volume-high"></i> -->
+      <div
+        class="icon-container"
+        @click="
+          () => (this.volume < 5 ? (this.volume = 50) : (this.volume = 0))
+        "
+      >
+        <i class="fas fa-volume-mute" v-if="volume < 5"></i>
+        <i
+          class="fa-solid fa-volume-low"
+          v-else-if="volume > 5 && volume < 50"
+        ></i>
+        <i class="fa-solid fa-volume-high" v-else-if="volume >= 50"></i>
+      </div>
+      <div class="input-container">
+        <input type="range" max="100" min="0" v-model="volume" />
+        <div class="progress" :style="`width:${volume}%`"></div>
+      </div>
+      <!-- <progress max="100" value="80"></progress> -->
+
       <i class="fa-solid fa-up-right-and-down-left-from-center"></i>
     </section>
   </footer>
@@ -66,8 +84,11 @@ export default {
       isPlaying: true,
       progress: 0,
       interval: "",
+      track_progress: 0,
+      volume: 50,
     };
   },
+  props: ["player"],
   computed: {
     computedDuration() {
       if (!this.$store.state.currentSongInfo.item) return;
@@ -99,7 +120,11 @@ export default {
     updateStatus() {
       this.$store.dispatch("getCurrentSongInfo");
       this.progress = this.$store.state.currentSongInfo.progress_ms;
-      // this.isPlaying = this.$store.state.currentSongInfo.is_playing;
+      if (this.$store.state.currentSongInfo.item)
+        this.track_progress =
+          (this.$store.state.currentSongInfo.progress_ms /
+            this.$store.state.currentSongInfo.item.duration_ms) *
+          100;
     },
     playOrPause() {
       if (this.isPlaying) {
@@ -128,6 +153,9 @@ export default {
       } else {
         return;
       }
+    },
+    volume: function () {
+      this.player.setVolume(this.volume / 100);
     },
   },
 };

@@ -17,7 +17,9 @@
             Create Playlist
           </div>
           <div>
-            <p><i class="fa fa-heart"></i></p>
+            <p>
+              <i class="fa fa-heart"></i>
+            </p>
             Liked Songs
           </div>
         </div>
@@ -44,7 +46,7 @@
       :genres="genres"
     />
 
-    <Footer />
+    <Footer :player="player" />
   </main>
 </template>
 
@@ -63,6 +65,7 @@ export default {
       playlistsHomeAll: null,
       userInfo: {},
       tracks: [],
+      player: null,
     };
   },
   components: {
@@ -74,25 +77,25 @@ export default {
   async mounted() {
     //redeeming authToken
     const hash = window.location.hash;
-    const expiration = hash.split("&")[2].split("=")[1];
-    window.location.hash = "";
-    if (
-      (!window.localStorage.getItem("authToken") && hash) ||
-      parseInt(expiration) < 60
-    ) {
-      const _token = hash.split("&")[0].split("=")[1];
+    // const expiration = hash.split("&")[2].split("=")[1];
+    // window.location.hash = "";
+    const _token = hash.split("&")[0].split("=")[1];
+    // window.localStorage.setItem("authToken", _token);
+    this.$store.dispatch("redeemAuthToken", _token);
 
-      window.localStorage.setItem("authToken", _token);
-      this.$store.dispatch("redeemAuthToken", _token);
-    } else {
-      this.$store.dispatch(
-        "redeemAuthToken",
-        window.localStorage.getItem("authToken")
-      );
-    }
+    // if (!window.localStorage.getItem("authToken")) {
+
+    // } else {
+
+    // this.$store.dispatch(
+    //   "redeemAuthToken",
+    //   window.localStorage.getItem("authToken")
+    // );
+    // }
 
     if (this.$store.state.authToken) {
       await this.$store.dispatch("redeemTokenAsync");
+      this.connectToPlayer();
       await this.getGenres();
       await this.getPlaylistsHome([this.genres[1].id, this.genres[2].id]);
       this.getUserInfo();
@@ -154,6 +157,63 @@ export default {
           headers: { Authorization: `Bearer ${this.$store.state.authToken}` },
         })
         .then((userRes) => (this.userInfo = userRes.data));
+    },
+    connectToPlayer() {
+      const script = document.createElement("script");
+      script.src = "https://sdk.scdn.co/spotify-player.js";
+      script.async = true;
+
+      document.body.appendChild(script);
+
+      window.onSpotifyWebPlaybackSDKReady = () => {
+        console.log("loaded");
+        this.player = new Spotify.Player({
+          name: "Web Playback SDK",
+          enableMediaSession: true,
+          getOAuthToken: (cb) => {
+            cb(this.$store.state.authToken);
+          },
+          volume: 0.1,
+        });
+
+        this.player.addListener("ready", ({ device_id }) => {
+          console.log("Ready with Device ID", device_id);
+
+          const connect_to_device = () => {
+            console.log("Changing to device");
+            let change_device = fetch("https://api.spotify.com/v1/me/player", {
+              method: "PUT",
+              body: JSON.stringify({
+                device_ids: [device_id],
+                play: false,
+              }),
+              headers: new Headers({
+                Authorization: "Bearer " + this.$store.state.authToken,
+              }),
+            }).then((response) => console.log(response));
+          };
+          connect_to_device();
+        });
+
+        this.player.addListener("not_ready", ({ device_id }) => {
+          console.log("Device ID has gone offline", device_id);
+        });
+
+        this.player.addListener("initialization_error", ({ message }) => {
+          console.log(message);
+        });
+        this.player.addListener("authentication_error", ({ message }) => {
+          console.log(message);
+        });
+        this.player.addListener("account_error", ({ message }) => {
+          console.log(message);
+        });
+        this.player.addListener("playback_error", ({ message }) => {
+          console.log(message);
+        });
+
+        this.player.connect();
+      };
     },
   },
 };

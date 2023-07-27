@@ -40,6 +40,7 @@
                   "
                   :name="track.name"
                   :id="track.id"
+                  :uri="track.uri"
                   :duration="track.duration_ms"
                   :index="i"
                   :image="track.album.images[0].url"

@@ -244,6 +244,29 @@ footer#song-player section#song-player div:last-child {
   gap: 5px;
   width: 100%;
 }
+footer#song-player section#song-player div:last-child .input-container {
+  padding: 0;
+  margin: 0;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+footer#song-player section#song-player div:last-child .input-container div {
+  height: 4px;
+  width: 0;
+  background-color: white;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  border-radius: 500px;
+  z-index: -1;
+}
+footer#song-player section#song-player div:last-child .input-container:hover div {
+  background-color: #1fdf64;
+}
 footer#song-player section#song-player div:last-child span {
   color: rgb(187, 185, 185);
   font-size: 0.75em;
@@ -264,8 +287,98 @@ footer#song-player section#song-options {
     padding-left: 0;
   }
 }
+footer#song-player section#song-options .icon-container {
+  min-width: 15px;
+}
 footer#song-player section#song-options i:hover {
   color: white;
+}
+footer#song-player section#song-options .input-container {
+  padding: 0;
+  margin: 0;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+footer#song-player section#song-options .input-container div {
+  height: 4px;
+  width: 0;
+  background-color: white;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  border-radius: 500px;
+  z-index: -1;
+}
+footer#song-player section#song-options .input-container:hover div {
+  background-color: #1fdf64;
+}
+
+input[type=range] {
+  -webkit-appearance: none;
+  width: 100%;
+  background: rgba(187, 185, 185, 0.3);
+  height: 4px;
+  border-radius: 500px;
+}
+
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+}
+
+input[type=range]:focus {
+  outline: none;
+}
+
+input[type=range]::-ms-track {
+  width: 100%;
+  cursor: pointer;
+  background: rgba(187, 185, 185, 0.3);
+  border-color: transparent;
+  color: transparent;
+  height: 4px;
+  border-radius: 500px;
+}
+
+input[type=range]::-webkit-slider-thumb {
+  aspect-ratio: 1/1;
+  width: 10px;
+  border-radius: 50%;
+  background: #ffffff;
+  cursor: pointer;
+  opacity: 0;
+}
+
+input[type=range]::-moz-range-thumb {
+  width: 10px;
+  height: 10px;
+  background: #ffffff;
+  cursor: pointer;
+  border: none;
+  opacity: 0;
+}
+
+/* All the same stuff for IE */
+input[type=range]::-ms-thumb {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #ffffff;
+  cursor: pointer;
+  opacity: 0;
+}
+
+input[type=range]:hover::-moz-range-thumb {
+  opacity: 1;
+}
+input[type=range]:hover::-ms-thumb {
+  opacity: 1;
+}
+input[type=range]:hover::-webkit-slider-thumb {
+  opacity: 1;
 }
 
 footer#spotify-footer {

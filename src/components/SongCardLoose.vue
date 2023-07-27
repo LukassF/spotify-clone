@@ -32,7 +32,7 @@ export default {
       isHovering: false,
     };
   },
-  props: ["name", "artists", "duration", "image"],
+  props: ["name", "artists", "duration", "image", "uri"],
   computed: {
     durationFormatted() {
       return (
@@ -44,13 +44,15 @@ export default {
   },
   methods: {
     playCurrentSong() {
-      this.$store.dispatch("playSong", {
-        name: this.name,
-        artist: this.artists[0].name,
+      this.$store.dispatch("playSong", this.uri);
 
-        image: this.image,
-        duration: this.duration,
-      });
+      this.$store.dispatch("getCurrentSongInfo");
+
+      this.$store.dispatch("changeClickedOnSong", true);
+
+      setTimeout(() => {
+        this.$store.dispatch("changeClickedOnSong", false);
+      }, 200);
     },
   },
 };

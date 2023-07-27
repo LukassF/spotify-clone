@@ -42,6 +42,8 @@ const store = createStore({
     },
     playSong() {},
     pauseSong() {},
+    skipTo() {},
+    // changeVolume() {},
     redeemAuthToken(state, authTokenResponse) {
       state.authToken = authTokenResponse;
     },
@@ -65,32 +67,64 @@ const store = createStore({
     redeemAuthToken({ commit }, value) {
       commit("redeemAuthToken", value);
     },
-    async playSong({ commit }) {
-      await fetch("https://api.spotify.com/v1/me/player/play", {
-        method: "PUT",
-        headers: {
-          Authorization: `Bearer ${this.state.authToken}`,
-        },
-        data: {
-          uris: ["spotify:track:1bDbXMyjaUIooNwFE9wn0N"],
-        },
-      });
+    async playSong({ commit }, uri) {
+      if (uri)
+        await fetch("https://api.spotify.com/v1/me/player/play", {
+          method: "PUT",
+          headers: {
+            Authorization: `Bearer ${this.state.authToken}`,
+          },
+          body: JSON.stringify({
+            uris: [uri],
+          }),
+        }).catch((err) => console.log(err));
+      else
+        await fetch("https://api.spotify.com/v1/me/player/play", {
+          method: "PUT",
+          headers: {
+            Authorization: `Bearer ${this.state.authToken}`,
+          },
+        }).catch((err) => console.log(err));
 
       commit("playSong");
     },
-    async pauseSong({ commit }) {
+    async pauseSong({ commit }, uri) {
       await fetch("https://api.spotify.com/v1/me/player/pause", {
         method: "PUT",
         headers: {
           Authorization: `Bearer ${this.state.authToken}`,
         },
-        data: {
-          uris: ["spotify:track:1bDbXMyjaUIooNwFE9wn0N"],
-        },
-      });
+      }).catch((err) => console.log(err));
 
       commit("pauseSong");
     },
+    async SKIP_TO({ commit }, position) {
+      await axios(
+        "https://api.spotify.com/v1/me/player/seek?position_ms=" + position,
+        {
+          method: "PUT",
+          headers: {
+            Authorization: `Bearer ${this.state.authToken}`,
+          },
+        }
+      ).catch((err) => console.log(err));
+
+      commit("skipTo");
+    },
+    // async CHANGE_VOLUME({ commit }, percentage) {
+    //   await axios(
+    //     "https://api.spotify.com/v1/me/player/volume?volume_percent=" +
+    //       percentage,
+    //     {
+    //       method: "PUT",
+    //       headers: {
+    //         Authorization: `Bearer ${this.state.authToken}`,
+    //       },
+    //     }
+    //   ).catch((err) => console.log(err));
+
+    //   commit("changeVolume");
+    // },
     async getCurrentSongInfo({ commit }) {
       await fetch("https://api.spotify.com/v1/me/player/currently-playing", {
         method: "GET",
@@ -102,20 +136,25 @@ const store = createStore({
         .then((result) => {
           console.log(result);
           commit("getCurrentSongInfo", result);
-        });
+        })
+        .catch((err) => console.log(err));
     },
     async redeemTokenAsync({ commit }) {
-      const response = await axios("https://accounts.spotify.com/api/token", {
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-          Authorization:
-            "Basic " +
-            btoa(this.state.clientID + ":" + this.state.clientSecret),
-        },
-        data: "grant_type=client_credentials",
-        method: "POST",
-      });
-      commit("redeemToken", response);
+      try {
+        const response = await axios("https://accounts.spotify.com/api/token", {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+            Authorization:
+              "Basic " +
+              btoa(this.state.clientID + ":" + this.state.clientSecret),
+          },
+          data: "grant_type=client_credentials",
+          method: "POST",
+        });
+        commit("redeemToken", response);
+      } catch (err) {
+        console.log(err);
+      }
     },
   },
 });

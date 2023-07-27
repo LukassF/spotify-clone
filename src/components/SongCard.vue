@@ -54,6 +54,7 @@ export default {
     "index",
     "image",
     "type",
+    "uri",
   ],
   computed: {
     durationFormatted() {
@@ -70,7 +71,7 @@ export default {
   },
   methods: {
     playCurrentSong() {
-      this.$store.dispatch("playSong");
+      this.$store.dispatch("playSong", this.uri);
 
       this.$store.dispatch("getCurrentSongInfo");
 

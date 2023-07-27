@@ -29,6 +29,7 @@
         <SongCard
           v-for="(song, i) in playlistTracks"
           :key="i"
+          :uri="song.track.uri"
           :added="song.added_at"
           :album="song.track.album.name"
           :artists="song.track.artists"
@@ -48,6 +49,7 @@
           :key="i"
           :artists="[song.artists[0]]"
           :name="song.name"
+          :uri="song.uri"
           :id="song.id"
           :duration="song.duration_ms"
           :index="i"
@@ -97,6 +99,7 @@ export default {
         this.playlistTracks = tracksResult.data.items.filter(
           (item) => item.track
         );
+        console.log(this.playlistTracks);
 
         this.playlistTracks.forEach(
           (item) => (this.totalDuration += item.track.duration_ms)
