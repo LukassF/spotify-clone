@@ -10,7 +10,16 @@
         <img :src="image" />
         <i v-show="isHovering" class="fa fa-play"></i>
       </div>
-      <h4>{{ name }}</h4>
+      <h4
+        :style="`color:${
+          !this.$store.state.currentSongInfo.item ||
+          this.id !== this.$store.state.currentSongInfo.item.id
+            ? ''
+            : '#1fdf64'
+        }`"
+      >
+        {{ name }}
+      </h4>
       <p>
         <span v-for="(artist, i) in artists" :key="i"
           >{{ artists[i + 1] ? `${artist.name}, ` : `${artist.name}` }}
@@ -32,7 +41,7 @@ export default {
       isHovering: false,
     };
   },
-  props: ["name", "artists", "duration", "image", "uri"],
+  props: ["name", "artists", "duration", "image", "uri", "id"],
   computed: {
     durationFormatted() {
       return (

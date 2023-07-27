@@ -4,7 +4,9 @@
       <div>
         <img :src="image" />
       </div>
-      <button class="play-button-home"><i class="fa fa-play"></i></button>
+      <button class="play-button-home" @click="playCurrentSong()">
+        <i class="fa fa-play"></i>
+      </button>
     </div>
     <h4>{{ name }}</h4>
     <p>{{ desc }}</p>
@@ -14,15 +16,7 @@
 <script>
 export default {
   name: "PlaylistCard",
-  props: {
-    name: "",
-    image: "",
-    desc: "",
-    id: "",
-    owner: "",
-    total: "",
-    type: "",
-  },
+  props: ["name", "image", "desc", "id", "owner", "total", "type", "uri"],
   methods: {
     routeWithData() {
       if (this.type !== "Artist")
@@ -36,6 +30,7 @@ export default {
             owner: this.owner,
             total: this.total,
             type: this.type,
+            uri: this.uri,
           },
         });
       else
@@ -45,8 +40,21 @@ export default {
             name: this.name,
             image: this.image,
             id: this.id,
+            uri: this.uri,
           },
         });
+    },
+    async playCurrentSong() {
+      console.log(this.uri);
+      await this.$store.dispatch("PLAY_COLLECTION", this.uri);
+
+      await this.$store.dispatch("getCurrentSongInfo");
+
+      await this.$store.dispatch("changeClickedOnSong", true);
+
+      setTimeout(() => {
+        this.$store.dispatch("changeClickedOnSong", false);
+      }, 200);
     },
   },
 };

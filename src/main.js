@@ -17,16 +17,6 @@ const store = createStore({
       clientID: "b022c35e77404e43b5c82be9bc4cee67",
       clientSecret: "84ea6f3098a64a1ca8980a5e8f5a5bc2",
       authToken: "",
-      // authEndpoint: "https://accounts.spotify.com/authorize?",
-      // redirectURI: "http://localhost:8080",
-      // scopes: [
-      //   "streaming user-read-email",
-      //   "user-read-private",
-      //   "user-library-read",
-      //   "user-library-modify",
-      //   "user-read-playback-state",
-      //   "user-modify-playback-state",
-      // ],
       loginEndpoint: `https://accounts.spotify.com/authorize?client_id=b022c35e77404e43b5c82be9bc4cee67&redirect_uri=http://localhost:8080&scope=streaming%20user-read-email%20user-read-private%20user-library-read%20user-library-modify%20user-read-playback-state%20user-modify-playback-state&response_type=token&show_dialog=true`,
     };
   },
@@ -43,7 +33,7 @@ const store = createStore({
     playSong() {},
     pauseSong() {},
     skipTo() {},
-    // changeVolume() {},
+    playCollection() {},
     redeemAuthToken(state, authTokenResponse) {
       state.authToken = authTokenResponse;
     },
@@ -98,6 +88,22 @@ const store = createStore({
 
       commit("pauseSong");
     },
+    async PLAY_COLLECTION({ commit }, context_uri) {
+      await fetch("https://api.spotify.com/v1/me/player/play", {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${this.state.authToken}`,
+        },
+        body: JSON.stringify({
+          context_uri: context_uri,
+          offset: {
+            position: 0,
+          },
+        }),
+      }).catch((err) => console.log(err));
+
+      commit("playCollection");
+    },
     async SKIP_TO({ commit }, position) {
       await axios(
         "https://api.spotify.com/v1/me/player/seek?position_ms=" + position,
@@ -111,20 +117,7 @@ const store = createStore({
 
       commit("skipTo");
     },
-    // async CHANGE_VOLUME({ commit }, percentage) {
-    //   await axios(
-    //     "https://api.spotify.com/v1/me/player/volume?volume_percent=" +
-    //       percentage,
-    //     {
-    //       method: "PUT",
-    //       headers: {
-    //         Authorization: `Bearer ${this.state.authToken}`,
-    //       },
-    //     }
-    //   ).catch((err) => console.log(err));
 
-    //   commit("changeVolume");
-    // },
     async getCurrentSongInfo({ commit }) {
       await fetch("https://api.spotify.com/v1/me/player/currently-playing", {
         method: "GET",

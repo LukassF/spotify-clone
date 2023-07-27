@@ -60,7 +60,7 @@ footer#song-player {
             font-size: 1em;
             margin: 0;
             color: white;
-            width: 200px;
+            max-width: 200px;
             text-overflow: ellipsis;
             overflow: hidden;
             white-space: nowrap;
@@ -71,7 +71,7 @@ footer#song-player {
           }
 
           p {
-            width: 200px;
+            max-width: 200px;
             text-overflow: ellipsis;
             overflow: hidden;
             white-space: nowrap;
@@ -175,8 +175,11 @@ footer#song-player {
     &#song-options {
       // background-color: blue;
       padding-left: 40%;
-      @media screen and (max-width: 1000px) {
-        padding-left: 0;
+      @media screen and (max-width: 1200px) {
+        padding-left: 10%;
+      }
+      @media screen and (max-width: 800px) {
+        padding-left: 0%;
       }
       @include flex(row, flex-end, center);
       gap: 15px;

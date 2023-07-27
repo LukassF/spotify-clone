@@ -66,6 +66,7 @@
                   :id="album.id"
                   :owner="album.artists[0].name"
                   :total="album.total_tracks"
+                  :uri="album.uri"
                   type="Album"
                 />
               </article>
@@ -85,6 +86,7 @@
                   "
                   desc="Artist"
                   type="Artist"
+                  :uri="artist.uri"
                   :id="artist.id"
                 />
               </article>
@@ -107,7 +109,6 @@ export default {
   name: "ArtistView",
   data() {
     return {
-      dataArtist: {},
       backgroundImage: "",
       artistWork: [],
     };
@@ -119,34 +120,46 @@ export default {
     Loader,
   },
   props: [],
-  mounted() {
-    this.dataArtist = this.$route.query;
-    this.backgroundImage = `background-image:url('${this.dataArtist.image}');`;
-    console.log(this.dataArtist.id);
-
-    axios.all(
-      ["top-tracks", "albums", "related-artists"].map((item) => {
-        axios
-          .get(
-            `https://api.spotify.com/v1/artists/${this.dataArtist.id}/${item}?market=US`,
-            {
-              headers: { Authorization: "Bearer " + this.$store.state.token },
-            }
-          )
-          .then((artistRes) => {
-            if (item === "top-tracks")
-              this.artistWork.tracks = artistRes.data.tracks;
-            else if (item === "albums")
-              this.artistWork.albums = artistRes.data.items;
-            else this.artistWork.related = artistRes.data.artists;
-            console.log(this.artistWork);
-          });
-      })
-    );
+  computed: {
+    dataArtist() {
+      return this.$route.query;
+    },
+    backgroundImage() {
+      return `background-image:url('${this.dataArtist.image}');`;
+    },
+  },
+  methods: {
+    async getArtistTracks() {
+      this.artistWork.tracks = null;
+      this.artistWork.albums = null;
+      this.artistWork.related = null;
+      axios.all(
+        ["top-tracks", "albums", "related-artists"].map((item) => {
+          axios
+            .get(
+              `https://api.spotify.com/v1/artists/${this.dataArtist.id}/${item}?market=US`,
+              {
+                headers: { Authorization: "Bearer " + this.$store.state.token },
+              }
+            )
+            .then((artistRes) => {
+              if (item === "top-tracks")
+                this.artistWork.tracks = artistRes.data.tracks;
+              else if (item === "albums")
+                this.artistWork.albums = artistRes.data.items;
+              else this.artistWork.related = artistRes.data.artists;
+              console.log(this.artistWork);
+            });
+        })
+      );
+    },
+  },
+  async mounted() {
+    await this.getArtistTracks();
   },
   watch: {
-    $route: function () {
-      location.reload();
+    dataArtist: async function () {
+      await this.getArtistTracks();
     },
   },
 };

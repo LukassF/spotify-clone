@@ -3,7 +3,17 @@
     <Loader v-if="!playlistTracks" />
 
     <header class="song-section-header">
-      <button class="play-button-playlist"><i class="fa fa-play"></i></button>
+      <button
+        class="play-button-playlist"
+        @click="
+          () => {
+            this.$store.dispatch('PLAY_COLLECTION', uri);
+            this.$store.dispatch('getCurrentSongInfo');
+          }
+        "
+      >
+        <i class="fa fa-play"></i>
+      </button>
       <button><i class="far fa-heart"></i></button>
       <button><i class="fas fa-ellipsis"></i></button>
     </header>
@@ -80,63 +90,79 @@ export default {
     SpotifyFooter,
     Loader,
   },
-  props: ["id", "modelValue", "type", "image"],
+  computed: {
+    props() {
+      return this.id;
+    },
+  },
+  props: ["id", "modelValue", "type", "image", "uri"],
 
   async mounted() {
-    let tracksResult;
-    if (this.type === "Playlist") {
-      try {
-        tracksResult = await axios(
-          `https://api.spotify.com/v1/playlists/${this.id}/tracks`,
-          {
-            method: "GET",
-            headers: {
-              Authorization: "Bearer " + this.$store.state.token,
-            },
-          }
-        );
+    await this.getPlaylistTracks();
+  },
+  watch: {
+    props: async function () {
+      await this.getPlaylistTracks();
+    },
+  },
+  methods: {
+    async getPlaylistTracks() {
+      this.playlistTracks = null;
+      let tracksResult;
+      if (this.type === "Playlist") {
+        try {
+          tracksResult = await axios(
+            `https://api.spotify.com/v1/playlists/${this.id}/tracks`,
+            {
+              method: "GET",
+              headers: {
+                Authorization: "Bearer " + this.$store.state.token,
+              },
+            }
+          );
 
-        this.playlistTracks = tracksResult.data.items.filter(
-          (item) => item.track
-        );
-        console.log(this.playlistTracks);
+          this.playlistTracks = tracksResult.data.items.filter(
+            (item) => item.track
+          );
+          console.log(this.playlistTracks);
 
-        this.playlistTracks.forEach(
-          (item) => (this.totalDuration += item.track.duration_ms)
-        );
-      } catch (err) {
-        console.error(err);
+          this.playlistTracks.forEach(
+            (item) => (this.totalDuration += item.track.duration_ms)
+          );
+        } catch (err) {
+          console.error(err);
+        }
       }
-    }
 
-    ///////////////////////////////////////////////////////////
-    else if (this.type === "Album") {
-      try {
-        tracksResult = await axios(
-          `https://api.spotify.com/v1/albums/${this.id}/tracks`,
-          {
-            method: "GET",
-            headers: {
-              Authorization: "Bearer " + this.$store.state.token,
-            },
-          }
-        );
+      ///////////////////////////////////////////////////////////
+      else if (this.type === "Album") {
+        try {
+          tracksResult = await axios(
+            `https://api.spotify.com/v1/albums/${this.id}/tracks`,
+            {
+              method: "GET",
+              headers: {
+                Authorization: "Bearer " + this.$store.state.token,
+              },
+            }
+          );
 
-        this.playlistTracks = tracksResult.data.items;
-        console.log(this.playlistTracks);
+          this.playlistTracks = tracksResult.data.items;
+          console.log(this.playlistTracks);
 
-        this.playlistTracks.forEach(
-          (item) => (this.totalDuration += item.duration_ms)
-        );
-      } catch (err) {
-        console.error(err);
+          this.playlistTracks.forEach(
+            (item) => (this.totalDuration += item.duration_ms)
+          );
+        } catch (err) {
+          console.error(err);
+        }
       }
-    }
 
-    this.$emit(
-      "update:modelValue",
-      Math.floor(Math.round(this.totalDuration / 1000) / 60)
-    );
+      this.$emit(
+        "update:modelValue",
+        Math.floor(Math.round(this.totalDuration / 1000) / 60)
+      );
+    },
   },
 };
 </script>

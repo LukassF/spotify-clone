@@ -42,7 +42,9 @@
           <h1>{{ artists[0].name }}</h1>
           <a>Artist</a>
 
-          <button><i class="fa fa-play"></i></button>
+          <button @click="playCurrentSong()">
+            <i class="fa fa-play"></i>
+          </button>
         </div>
       </div>
       <div class="top-results tracks" v-if="tracks[0]">
@@ -51,6 +53,7 @@
         <SongCardLoose
           v-for="(track, i) in tracks"
           :key="i"
+          :id="track.id"
           :name="track.name"
           :artists="track.artists"
           :duration="track.duration_ms"
@@ -73,6 +76,7 @@
           "
           desc="Artist"
           type="Artist"
+          :uri="artist.uri"
           :id="artist.id"
         />
       </article>
@@ -89,6 +93,7 @@
           :id="album.id"
           :owner="album.artists[0].name"
           :total="album.total_tracks"
+          :uri="album.uri"
           :desc="
             new Date(album.release_date).getFullYear() +
             ' - ' +
@@ -114,6 +119,7 @@
           :total="playlist.tracks.total"
           :image="playlist.images[0] ? playlist.images[0].url : ''"
           :desc="'By ' + playlist.owner.display_name"
+          :uri="playlist.uri"
           type="Playlist"
         />
       </article>
@@ -184,7 +190,7 @@ export default {
 
           this.showLoader = false;
 
-          // console.log(searchResponse.data);
+          console.log(searchResponse.data);
         } catch (err) {
           console.error(err);
           alert("Could not found, try something else.");
@@ -249,6 +255,17 @@ export default {
         default:
           break;
       }
+    },
+    async playCurrentSong() {
+      await this.$store.dispatch("PLAY_COLLECTION", this.artists[0].uri);
+
+      await this.$store.dispatch("getCurrentSongInfo");
+
+      await this.$store.dispatch("changeClickedOnSong", true);
+
+      setTimeout(() => {
+        this.$store.dispatch("changeClickedOnSong", false);
+      }, 200);
     },
   },
   setup() {

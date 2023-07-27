@@ -40,6 +40,7 @@
         :type="dataObject.type"
         :id="dataObject.id"
         :image="dataObject.image"
+        :uri="dataObject.uri"
         v-model="fullDuration"
       />
     </article>
@@ -67,28 +68,29 @@ export default {
       gradientBackground: "",
     };
   },
+  computed: {
+    dataObject() {
+      return this.$route.query;
+    },
+  },
   components: {
     SongSection,
   },
-  created() {
-    this.dataObject = this.$route.query;
-  },
-  mounted() {
+  // created() {
+  //   this.dataObject = this.$route.query;
+  // },
+  modified() {
     this.chosenColor = this.colors[Math.floor(Math.random() * 6)];
     this.gradientBackground =
       "background:linear-gradient(" + this.chosenColor + ",transparent);";
 
     console.log(this.dataObject);
   },
+
   // watch: {
-  //   fullDuration: function () {
-  //     console.log(this.fullDuration);
+  //   $route: function () {
+  //     window.location.reload();
   //   },
   // },
-  watch: {
-    $route: function () {
-      location.reload();
-    },
-  },
 };
 </script>

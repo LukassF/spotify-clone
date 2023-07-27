@@ -17,6 +17,7 @@
           :id="item.id"
           :owner="item.owner.display_name"
           :total="item.tracks.total"
+          :uri="item.uri"
           type="Playlist"
         />
       </div>
@@ -38,6 +39,7 @@
           :id="item.id"
           :owner="item.owner.display_name"
           :total="item.tracks.total"
+          :uri="item.uri"
           type="Playlist"
         />
       </div>
@@ -86,6 +88,9 @@ export default {
       showAllRef1,
       showAllRef2,
     };
+  },
+  mounted() {
+    console.log(this.playlistsHome);
   },
 };
 </script>

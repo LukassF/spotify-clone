@@ -20,6 +20,7 @@
             :total="playlist.tracks.total"
             :image="playlist.images[0] ? playlist.images[0].url : ''"
             :desc="playlist.description"
+            :uri="playlist.uri"
             type="Playlist"
           />
         </article>

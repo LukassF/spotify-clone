@@ -29,3 +29,15 @@ $genres-colors: (
   #f3729e,
   #8c1932
 );
+
+@keyframes playSong {
+  0% {
+    transform: scaleY(1);
+  }
+  70% {
+    transform: scaleY(0.2);
+  }
+  100% {
+    transform: scaleY(0.5);
+  }
+}

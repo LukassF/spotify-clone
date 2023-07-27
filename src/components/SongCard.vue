@@ -5,14 +5,25 @@
     @click="playCurrentSong()"
   >
     <td>
-      <span v-if="!isHovering">{{ index + 1 }}</span
-      ><i v-else class="fa fa-play"></i>
+      <span v-if="!isHovering && !isActive">{{ index + 1 }}</span
+      ><i v-else-if="isHovering && !isActive" class="fa fa-play"></i>
+      <div class="playing" v-else-if="isActive">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
     </td>
     <td class="title-and-artist">
       <div v-if="type === 'Playlist' || type === 'Artist'">
         <img :src="image" />
       </div>
-      <h4>{{ name }}</h4>
+      <h4
+        :style="`color:${
+          !this.$store.state.currentSongInfo.item || !isActive ? '' : '#1fdf64'
+        }`"
+      >
+        {{ name }}
+      </h4>
       <p>
         <span
           v-if="type === 'Playlist'"
@@ -67,6 +78,11 @@ export default {
 
     addedAtFormatted() {
       return new Date(this.added).toDateString().slice(4);
+    },
+
+    isActive() {
+      if (this.$store.state.currentSongInfo.item)
+        return this.id === this.$store.state.currentSongInfo.item.id;
     },
   },
   methods: {
