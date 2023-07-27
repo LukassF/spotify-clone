@@ -3,6 +3,9 @@ import { createStore } from "vuex";
 import App from "./App.vue";
 import router from "./router";
 import axios from "axios";
+import AllPurposeCard from "./components/AllPurposeCard";
+import SongCard from "./components/SongCard";
+import SongCardLoose from "./components/SongCardLoose";
 
 import "./assets/styles/style.css";
 
@@ -13,6 +16,7 @@ const store = createStore({
       inputValue: "",
       clickedOnSongCard: false,
       token: "",
+      cancel: false,
       currentSongInfo: "{}",
       clientID: "b022c35e77404e43b5c82be9bc4cee67",
       clientSecret: "84ea6f3098a64a1ca8980a5e8f5a5bc2",
@@ -34,6 +38,9 @@ const store = createStore({
     pauseSong() {},
     skipTo() {},
     playCollection() {},
+    goForward() {},
+    goBack() {},
+    addToQueue() {},
     redeemAuthToken(state, authTokenResponse) {
       state.authToken = authTokenResponse;
     },
@@ -42,6 +49,9 @@ const store = createStore({
     },
     changeClickedOnSong(state, bool) {
       state.clickedOnSongCard = bool;
+    },
+    setCancel(state, bool) {
+      state.cancel = bool;
     },
   },
   actions: {
@@ -105,6 +115,8 @@ const store = createStore({
       commit("playCollection");
     },
     async SKIP_TO({ commit }, position) {
+      if (this.state.cancel) return;
+      commit("setCancel", true);
       await axios(
         "https://api.spotify.com/v1/me/player/seek?position_ms=" + position,
         {
@@ -116,8 +128,38 @@ const store = createStore({
       ).catch((err) => console.log(err));
 
       commit("skipTo");
+      commit("setCancel", false);
     },
+    async GO_FORWARD({ commit }) {
+      await axios("https://api.spotify.com/v1/me/player/next", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${this.state.authToken}`,
+        },
+      }).catch((err) => console.log(err));
 
+      commit("goForward");
+    },
+    async GO_BACK({ commit }) {
+      await axios("https://api.spotify.com/v1/me/player/previous", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${this.state.authToken}`,
+        },
+      }).catch((err) => console.log(err));
+
+      commit("goBack");
+    },
+    async ADD_TO_QUEUE({ commit }, uri) {
+      await axios("https://api.spotify.com/v1/me/player/queue?uri=" + uri, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${this.state.authToken}`,
+        },
+      }).catch((err) => console.log(err));
+
+      commit("addToQueue");
+    },
     async getCurrentSongInfo({ commit }) {
       await fetch("https://api.spotify.com/v1/me/player/currently-playing", {
         method: "GET",
@@ -155,4 +197,7 @@ const store = createStore({
 const app = createApp(App);
 app.use(router);
 app.use(store);
+app.component("AllPurposeCard", AllPurposeCard);
+app.component("SongCard", SongCard);
+app.component("SongCardLoose", SongCardLoose);
 app.mount("#app");

@@ -1098,22 +1098,6 @@ table tbody td {
   justify-content: center;
   align-items: center;
 }
-table tbody td:last-child i {
-  font-size: 1.1em;
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-}
-table tbody td:last-child i:hover {
-  color: white;
-  cursor: pointer;
-}
-table tbody td:last-child i:first-child {
-  left: 10px;
-}
-table tbody td:last-child i:last-child {
-  right: 10px;
-}
 table tbody td:nth-child(3), table tbody td:nth-child(4) {
   align-items: flex-start;
 }
@@ -1192,6 +1176,65 @@ table tbody .album div {
   white-space: nowrap;
   width: 100%;
   overflow: hidden !important;
+}
+table tbody:last-child {
+  position: relative;
+}
+table tbody:last-child i {
+  font-size: 1.1em;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+table tbody:last-child i:hover {
+  color: white;
+  cursor: pointer;
+}
+table tbody:last-child i:first-child {
+  left: 10px;
+}
+table tbody:last-child i:last-child {
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+table tbody:last-child .fa-ellipsis {
+  position: absolute;
+  right: 10px;
+  padding: 20px;
+  padding-right: 0px;
+}
+table tbody:last-child .fa-ellipsis:hover + div.options {
+  visibility: visible;
+}
+table tbody:last-child .options {
+  overflow: hidden;
+  visibility: hidden;
+  min-width: 160px;
+  position: absolute;
+  right: 0%;
+  top: -150%;
+  background-color: black;
+  border-radius: 5px;
+}
+table tbody:last-child .options:hover {
+  visibility: visible;
+}
+table tbody:last-child .options ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+}
+table tbody:last-child .options ul li {
+  text-align: left;
+  padding: 10px 10px;
+}
+table tbody:last-child .options ul li:hover {
+  background-color: #111111;
 }
 
 .song-section-header {
@@ -1525,7 +1568,6 @@ section.search .search-result-section article.search-result-section-artists .ima
   min-height: 40px;
   padding: 10px;
   border-radius: 5px;
-  overflow: hidden;
   cursor: pointer;
   font-family: spotifyFontLight;
 }
@@ -1593,8 +1635,43 @@ section.search .search-result-section article.search-result-section-artists .ima
 .song-card-loose span i:first-child {
   left: 10px;
 }
-.song-card-loose span i:last-child {
+.song-card-loose span .fa-ellipsis {
+  position: absolute;
   right: 10px;
+  padding: 20px;
+  padding-right: 0px;
+}
+.song-card-loose span .fa-ellipsis:hover + .options {
+  visibility: visible;
+}
+.song-card-loose span .options {
+  overflow: hidden;
+  visibility: hidden;
+  min-width: 160px;
+  position: absolute;
+  right: 0%;
+  top: -450%;
+  background-color: black;
+  border-radius: 5px;
+}
+.song-card-loose span .options:hover {
+  visibility: visible;
+}
+.song-card-loose span .options ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+}
+.song-card-loose span .options ul li {
+  text-align: left;
+  padding: 10px 10px;
+}
+.song-card-loose span .options ul li:hover {
+  background-color: #111111;
 }
 
 article.artist {

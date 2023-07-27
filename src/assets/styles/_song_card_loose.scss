@@ -9,7 +9,7 @@
   // height: 50px;
   padding: 10px;
   border-radius: 5px;
-  overflow: hidden;
+  // overflow: hidden;
   cursor: pointer;
   font-family: spotifyFontLight;
 
@@ -87,9 +87,49 @@
       &:first-child {
         left: 10px;
       }
+    }
 
-      &:last-child {
-        right: 10px;
+    .fa-ellipsis {
+      position: absolute;
+      right: 10px;
+      padding: 20px;
+      padding-right: 0px;
+
+      &:hover + .options {
+        visibility: visible;
+      }
+    }
+
+    .options {
+      overflow: hidden;
+      visibility: hidden;
+      min-width: 160px;
+      position: absolute;
+      right: 0%;
+      top: -450%;
+      background-color: $main-background-color;
+      border-radius: 5px;
+
+      &:hover {
+        visibility: visible;
+      }
+
+      ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        @include flex(column, center, stretch);
+
+        li {
+          text-align: left;
+          padding: 10px 10px;
+
+          &:hover {
+            background-color: $secondary-background-color;
+          }
+
+          // width: 100%;
+        }
       }
     }
   }

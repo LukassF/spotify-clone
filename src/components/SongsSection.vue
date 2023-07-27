@@ -3,15 +3,7 @@
     <Loader v-if="!playlistTracks" />
 
     <header class="song-section-header">
-      <button
-        class="play-button-playlist"
-        @click="
-          () => {
-            this.$store.dispatch('PLAY_COLLECTION', uri);
-            this.$store.dispatch('getCurrentSongInfo');
-          }
-        "
-      >
+      <button class="play-button-playlist" @click="playCurrentCollection()">
         <i class="fa fa-play"></i>
       </button>
       <button><i class="far fa-heart"></i></button>
@@ -73,7 +65,7 @@
 </template>
 
 <script>
-import SongCard from "./SongCard.vue";
+// import SongCard from "./SongCard.vue";
 import SpotifyFooter from "@/components/SpotifyFooter.vue";
 import axios from "axios";
 import Loader from "./Loader.vue";
@@ -86,7 +78,7 @@ export default {
     };
   },
   components: {
-    SongCard,
+    // SongCard,
     SpotifyFooter,
     Loader,
   },
@@ -162,6 +154,18 @@ export default {
         "update:modelValue",
         Math.floor(Math.round(this.totalDuration / 1000) / 60)
       );
+    },
+    async playCurrentCollection() {
+      console.log(this.uri);
+      await this.$store.dispatch("PLAY_COLLECTION", this.uri);
+
+      await this.$store.dispatch("getCurrentSongInfo");
+
+      await this.$store.dispatch("changeClickedOnSong", true);
+
+      setTimeout(() => {
+        this.$store.dispatch("changeClickedOnSong", false);
+      }, 200);
     },
   },
 };

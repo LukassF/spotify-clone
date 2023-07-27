@@ -4,7 +4,7 @@
       <div>
         <img :src="image" />
       </div>
-      <button class="play-button-home" @click="playCurrentSong()">
+      <button class="play-button-home" @click="playCurrentCollection()">
         <i class="fa fa-play"></i>
       </button>
     </div>
@@ -44,7 +44,7 @@ export default {
           },
         });
     },
-    async playCurrentSong() {
+    async playCurrentCollection() {
       console.log(this.uri);
       await this.$store.dispatch("PLAY_COLLECTION", this.uri);
 

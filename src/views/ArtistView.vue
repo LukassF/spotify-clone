@@ -16,7 +16,10 @@
 
         <section class="artist-info">
           <header class="song-section-header">
-            <button class="play-button-playlist">
+            <button
+              class="play-button-playlist"
+              @click="playCurrentCollection()"
+            >
               <i class="fa fa-play"></i>
             </button>
             <button>Follow</button>
@@ -152,6 +155,18 @@ export default {
             });
         })
       );
+    },
+    async playCurrentCollection() {
+      console.log(this.uri);
+      await this.$store.dispatch("PLAY_COLLECTION", this.dataArtist.uri);
+
+      await this.$store.dispatch("getCurrentSongInfo");
+
+      await this.$store.dispatch("changeClickedOnSong", true);
+
+      setTimeout(() => {
+        this.$store.dispatch("changeClickedOnSong", false);
+      }, 200);
     },
   },
   async mounted() {

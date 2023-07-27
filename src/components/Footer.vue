@@ -22,26 +22,16 @@
     <section id="song-player">
       <div>
         <i class="fas fa-random"></i>
-        <i class="fa fa-angle-double-left"></i>
+        <i class="fa fa-angle-double-left" @click="goBack()"></i>
         <i
           :class="isPlaying ? 'fa fa-pause' : 'fa fa-play'"
           @click="playOrPause()"
         ></i>
-        <i class="fa fa-angle-double-right"></i>
+        <i class="fa fa-angle-double-right" @click="goForwards()"></i>
         <i class="fas fa-retweet"></i>
       </div>
       <div>
         <span>{{ computedProgress }}</span>
-        <!-- <progress
-          max="100"
-          :value="
-            this.$store.state.currentSongInfo.item
-              ? (this.$store.state.currentSongInfo.progress_ms /
-                  this.$store.state.currentSongInfo.item.duration_ms) *
-                100
-              : 0
-          "
-        ></progress> -->
         <div class="input-container">
           <input type="range" max="100" min="0" v-model="track_progress" />
           <div class="progress" :style="`width:${track_progress}%`"></div>
@@ -70,7 +60,6 @@
         <input type="range" max="100" min="0" v-model="volume" />
         <div class="progress" :style="`width:${volume}%`"></div>
       </div>
-      <!-- <progress max="100" value="80"></progress> -->
 
       <i class="fa-solid fa-up-right-and-down-left-from-center"></i>
     </section>
@@ -143,6 +132,12 @@ export default {
         this.updateStatus();
       }, 1000);
     },
+    goForwards() {
+      this.$store.dispatch("GO_FORWARD");
+    },
+    goBack() {
+      this.$store.dispatch("GO_BACK");
+    },
   },
   watch: {
     clickedOnCard: function (old, newValue) {
@@ -156,6 +151,15 @@ export default {
     },
     volume: function () {
       this.player.setVolume(this.volume / 100);
+    },
+    track_progress: function (prev, next) {
+      if (!this.$store.state.currentSongInfo.item) return;
+      const timestamp = Math.round(
+        (next / 100) * this.$store.state.currentSongInfo.item.duration_ms
+      );
+      if (Math.abs(next - prev) > 2) {
+        // this.$store.dispatch("SKIP_TO", timestamp);
+      }
     },
   },
 };

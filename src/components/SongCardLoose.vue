@@ -3,7 +3,7 @@
     @mouseover="isHovering = true"
     @mouseleave="isHovering = false"
     class="song-card-loose"
-    @click="playCurrentSong()"
+    @click="(e) => playCurrentSong(e)"
   >
     <div class="title-and-artist">
       <div>
@@ -29,8 +29,16 @@
 
     <span
       ><i v-if="isHovering" class="far fa-heart"></i>{{ durationFormatted
-      }}<i v-if="isHovering" class="fas fa-ellipsis"></i
-    ></span>
+      }}<i v-if="isHovering" class="fas fa-ellipsis"></i>
+      <div class="options">
+        <ul>
+          <li @click="() => this.$store.dispatch('ADD_TO_QUEUE', uri)">
+            Add to queue
+          </li>
+          <li>Add to playlist</li>
+        </ul>
+      </div>
+    </span>
   </div>
 </template>
 
@@ -52,7 +60,11 @@ export default {
     },
   },
   methods: {
-    playCurrentSong() {
+    playCurrentSong(e) {
+      console.log(e.target.innerHTML);
+
+      // console.log(e.target, e.currentTarget);
+      if (e.target.innerHTML == " Add to queue ") return;
       this.$store.dispatch("playSong", this.uri);
 
       this.$store.dispatch("getCurrentSongInfo");

@@ -1,7 +1,7 @@
 <template>
   <main class="main-layout">
     <LoginPage v-if="!userInfo.display_name" />
-    <Loader v-if="playlistsHome === []" />
+    <Loader v-if="!connected" />
     <aside>
       <nav>
         <router-link to="/"><i class="fa fa-house"></i>Home</router-link>
@@ -65,6 +65,7 @@ export default {
       playlistsHomeAll: null,
       userInfo: {},
       tracks: [],
+      connected: false,
       player: null,
     };
   },
@@ -112,6 +113,7 @@ export default {
           id: playlist.id,
           owner: playlist.owner.display_name,
           total: playlist.tracks.total,
+          uri: playlist.uri,
           type: "Playlist",
         },
       });
@@ -166,14 +168,13 @@ export default {
       document.body.appendChild(script);
 
       window.onSpotifyWebPlaybackSDKReady = () => {
-        console.log("loaded");
         this.player = new Spotify.Player({
           name: "Web Playback SDK",
           enableMediaSession: true,
           getOAuthToken: (cb) => {
             cb(this.$store.state.authToken);
           },
-          volume: 0.1,
+          volume: 0.5,
         });
 
         this.player.addListener("ready", ({ device_id }) => {
@@ -190,7 +191,7 @@ export default {
               headers: new Headers({
                 Authorization: "Bearer " + this.$store.state.authToken,
               }),
-            }).then((response) => console.log(response));
+            }).then((response) => (this.connected = response.ok));
           };
           connect_to_device();
         });

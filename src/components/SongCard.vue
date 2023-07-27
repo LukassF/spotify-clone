@@ -2,7 +2,7 @@
   <tr
     @mouseover="isHovering = true"
     @mouseleave="isHovering = false"
-    @click="playCurrentSong()"
+    @click="(e) => playCurrentSong(e)"
   >
     <td>
       <span v-if="!isHovering && !isActive">{{ index + 1 }}</span
@@ -44,6 +44,14 @@
     <td>
       <i v-if="isHovering" class="far fa-heart"></i>{{ durationFormatted
       }}<i v-if="isHovering" class="fas fa-ellipsis"></i>
+      <div class="options">
+        <ul>
+          <li @click="() => this.$store.dispatch('ADD_TO_QUEUE', uri)">
+            Add to queue
+          </li>
+          <li>Add to playlist</li>
+        </ul>
+      </div>
     </td>
   </tr>
 </template>
@@ -86,7 +94,9 @@ export default {
     },
   },
   methods: {
-    playCurrentSong() {
+    playCurrentSong(e) {
+      console.log(e.target);
+      if (e.target.innerHTML == " Add to queue ") return;
       this.$store.dispatch("playSong", this.uri);
 
       this.$store.dispatch("getCurrentSongInfo");
