@@ -157,7 +157,7 @@ export default {
       );
     },
     async playCurrentCollection() {
-      console.log(this.uri);
+      console.log(this.dataArtist.uri);
       await this.$store.dispatch("PLAY_COLLECTION", this.dataArtist.uri);
 
       await this.$store.dispatch("getCurrentSongInfo");

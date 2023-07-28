@@ -207,6 +207,7 @@ export default {
           image: value.images[0] ? value.images[0].url : "",
           id: value.id,
           token: this.token,
+          uri: value.uri,
         },
       });
     },

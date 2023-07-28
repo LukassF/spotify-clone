@@ -106,9 +106,6 @@ const store = createStore({
         },
         body: JSON.stringify({
           context_uri: context_uri,
-          offset: {
-            position: 0,
-          },
         }),
       }).catch((err) => console.log(err));
 

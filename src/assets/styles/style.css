@@ -766,35 +766,12 @@ progress::-moz-progress-bar:hover {
   cursor: pointer;
 }
 .header-all div:last-child {
+  position: relative;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   gap: 25px;
-}
-.header-all div:last-child .auth-buttons {
-  border: none;
-  font-family: spotifyFont;
-  font-size: 1.03em;
-  cursor: pointer;
-}
-.header-all div:last-child .auth-buttons:first-child {
-  text-decoration: none;
-  background-color: transparent;
-  color: rgb(206, 206, 206);
-}
-.header-all div:last-child .auth-buttons:first-child:hover {
-  color: white;
-}
-.header-all div:last-child .auth-buttons:last-child {
-  text-decoration: none;
-  background-color: white;
-  color: black;
-  padding: 10px 20px;
-  border-radius: 500px;
-}
-.header-all div:last-child .auth-buttons:last-child:hover {
-  background-color: rgb(245, 245, 245);
 }
 .header-all div:last-child .profile-link {
   border-radius: 500px;
@@ -824,6 +801,33 @@ progress::-moz-progress-bar:hover {
   cursor: pointer;
   box-shadow: 0px 0px 2px 1px white;
   border-color: white;
+}
+.header-all div:last-child .profile-link:hover + .log-out-container {
+  visibility: visible;
+}
+.header-all div:last-child .log-out-container {
+  position: absolute;
+  visibility: hidden;
+  padding-top: 10px;
+  top: 100%;
+  width: 100%;
+}
+.header-all div:last-child .log-out-container:hover {
+  visibility: visible;
+}
+.header-all div:last-child p {
+  cursor: pointer;
+  margin: 0;
+  padding: 0;
+  width: calc(100% - 40px);
+  border-radius: 5px;
+  padding: 10px 20px;
+  background-color: black;
+  text-align: left;
+  color: white;
+}
+.header-all div:last-child p:hover {
+  background-color: rgb(104, 103, 103);
 }
 
 .playlist-page {

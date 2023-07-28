@@ -131,36 +131,9 @@
   }
 
   div:last-child {
+    position: relative;
     @include flex(row, center, center);
     gap: 25px;
-
-    .auth-buttons {
-      border: none;
-      font-family: spotifyFont;
-      font-size: 1.03em;
-      cursor: pointer;
-
-      &:first-child {
-        text-decoration: none;
-        background-color: transparent;
-        color: rgb(206, 206, 206);
-
-        &:hover {
-          color: white;
-        }
-      }
-      &:last-child {
-        text-decoration: none;
-        background-color: white;
-        color: black;
-        padding: 10px 20px;
-        border-radius: 500px;
-
-        &:hover {
-          background-color: rgb(245, 245, 245);
-        }
-      }
-    }
 
     .profile-link {
       border-radius: 500px;
@@ -189,6 +162,39 @@
         cursor: pointer;
         box-shadow: 0px 0px 2px 1px white;
         border-color: white;
+      }
+
+      &:hover + .log-out-container {
+        visibility: visible;
+      }
+    }
+
+    .log-out-container {
+      position: absolute;
+      visibility: hidden;
+      padding-top: 10px;
+      top: 100%;
+      width: 100%;
+
+      &:hover {
+        visibility: visible;
+      }
+    }
+
+    p {
+      cursor: pointer;
+      margin: 0;
+      padding: 0;
+      width: calc(100% - 40px);
+      // position: absolute;
+      border-radius: 5px;
+      padding: 10px 20px;
+      background-color: $main-background-color;
+      text-align: left;
+      color: white;
+
+      &:hover {
+        background-color: rgb(104, 103, 103);
       }
     }
   }

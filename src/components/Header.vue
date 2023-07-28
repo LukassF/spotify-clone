@@ -30,13 +30,6 @@
     </div>
 
     <div>
-      <!-- <a class="auth-buttons" v-show="!userInfo.display_name">Sign up</a>
-      <a
-        class="auth-buttons"
-        :href="this.$store.state.loginEndpoint"
-        v-if="!userInfo.display_name"
-        >Log In</a
-      > -->
       <a class="profile-link" v-if="userInfo.display_name"
         ><div>
           <img
@@ -50,6 +43,10 @@
         </div>
         {{ userInfo.display_name }}<i class="fa fa-chevron-down"></i
       ></a>
+
+      <div class="log-out-container" @click="logOut()">
+        <p>Log out</p>
+      </div>
     </div>
   </header>
 </template>
@@ -76,6 +73,11 @@ export default {
     clearInput() {
       this.inputRef.value = "";
       this.$store.dispatch("updateInput", this.inputRef.value.length !== 0);
+    },
+    logOut() {
+      this.$store.dispatch("redeemAuthToken", null);
+      window.location.hash = "";
+      window.location.reload();
     },
   },
 
