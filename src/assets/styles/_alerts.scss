@@ -1,0 +1,25 @@
+@use "./vars" as *;
+@use "./mixins" as *;
+
+.alert-lite {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgb(0, 140, 255);
+  padding: 15px 40px;
+  border-radius: 10px;
+  z-index: 100;
+  bottom: 15%;
+  box-shadow: 2px 2px 10px 2px black;
+
+  h4 {
+    color: white;
+    font-family: spotifyFontLight;
+    margin: 0;
+    padding: 0;
+
+    b {
+      font-family: spotifyFont;
+    }
+  }
+}

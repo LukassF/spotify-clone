@@ -33,8 +33,15 @@
       <div>
         <span>{{ computedProgress }}</span>
         <div class="input-container">
-          <input type="range" max="100" min="0" v-model="track_progress" />
-          <div class="progress" :style="`width:${track_progress}%`"></div>
+          <input
+            type="range"
+            max="100"
+            min="0"
+            v-model="skip"
+            @mousedown="() => (this.mouseup = false)"
+            @mouseup="() => (this.mouseup = true)"
+          />
+          <div class="progress" :style="`width:${skip}%`"></div>
         </div>
         <span>{{ computedDuration }}</span>
       </div>
@@ -75,6 +82,8 @@ export default {
       interval: "",
       track_progress: 0,
       volume: 50,
+      skip: 0,
+      mouseup: true,
     };
   },
   props: ["player"],
@@ -109,8 +118,8 @@ export default {
     updateStatus() {
       this.$store.dispatch("getCurrentSongInfo");
       this.progress = this.$store.state.currentSongInfo.progress_ms;
-      if (this.$store.state.currentSongInfo.item)
-        this.track_progress =
+      if (this.$store.state.currentSongInfo.item && this.mouseup)
+        this.skip =
           (this.$store.state.currentSongInfo.progress_ms /
             this.$store.state.currentSongInfo.item.duration_ms) *
           100;
@@ -130,7 +139,7 @@ export default {
     checkInALoop() {
       this.interval = setInterval(() => {
         this.updateStatus();
-      }, 1000);
+      }, 100);
     },
     goForwards() {
       this.$store.dispatch("GO_FORWARD");
@@ -152,14 +161,12 @@ export default {
     volume: function () {
       this.player.setVolume(this.volume / 100);
     },
-    track_progress: function (prev, next) {
-      if (!this.$store.state.currentSongInfo.item) return;
+    mouseup: async function () {
+      if (!this.mouseup || !this.$store.state.currentSongInfo.item) return;
       const timestamp = Math.round(
-        (next / 100) * this.$store.state.currentSongInfo.item.duration_ms
+        (this.skip / 100) * this.$store.state.currentSongInfo.item.duration_ms
       );
-      if (Math.abs(next - prev) > 2) {
-        // this.$store.dispatch("SKIP_TO", timestamp);
-      }
+      await this.$store.dispatch("SKIP_TO", timestamp);
     },
   },
 };

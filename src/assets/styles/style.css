@@ -256,15 +256,18 @@ footer#song-player section#song-player div:last-child {
   width: 100%;
 }
 footer#song-player section#song-player div:last-child .input-container {
-  padding: 0;
+  padding: 5px 0px;
   margin: 0;
   position: relative;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  width: 100%;
+  z-index: 1;
 }
 footer#song-player section#song-player div:last-child .input-container div {
+  z-index: 5;
   height: 4px;
   width: 0;
   background-color: white;
@@ -277,6 +280,15 @@ footer#song-player section#song-player div:last-child .input-container div {
 }
 footer#song-player section#song-player div:last-child .input-container:hover div {
   background-color: #1fdf64;
+}
+footer#song-player section#song-player div:last-child .input-container:hover input[type=range]::-moz-range-thumb {
+  opacity: 1;
+}
+footer#song-player section#song-player div:last-child .input-container:hover input[type=range]::-ms-thumb {
+  opacity: 1;
+}
+footer#song-player section#song-player div:last-child .input-container:hover input[type=range]::-webkit-slider-thumb {
+  opacity: 1;
 }
 footer#song-player section#song-player div:last-child span {
   color: rgb(187, 185, 185);
@@ -310,7 +322,7 @@ footer#song-player section#song-options i:hover {
   color: white;
 }
 footer#song-player section#song-options .input-container {
-  padding: 0;
+  padding: 5px 0px;
   margin: 0;
   position: relative;
   display: flex;
@@ -331,6 +343,15 @@ footer#song-player section#song-options .input-container div {
 }
 footer#song-player section#song-options .input-container:hover div {
   background-color: #1fdf64;
+}
+footer#song-player section#song-options .input-container:hover input[type=range]::-moz-range-thumb {
+  opacity: 1;
+}
+footer#song-player section#song-options .input-container:hover input[type=range]::-ms-thumb {
+  opacity: 1;
+}
+footer#song-player section#song-options .input-container:hover input[type=range]::-webkit-slider-thumb {
+  opacity: 1;
 }
 
 input[type=range] {
@@ -361,7 +382,7 @@ input[type=range]::-ms-track {
 
 input[type=range]::-webkit-slider-thumb {
   aspect-ratio: 1/1;
-  width: 10px;
+  width: 12px;
   border-radius: 50%;
   background: #ffffff;
   cursor: pointer;
@@ -369,8 +390,8 @@ input[type=range]::-webkit-slider-thumb {
 }
 
 input[type=range]::-moz-range-thumb {
-  width: 10px;
-  height: 10px;
+  width: 12px;
+  height: 12px;
   background: #ffffff;
   cursor: pointer;
   border: none;
@@ -379,22 +400,12 @@ input[type=range]::-moz-range-thumb {
 
 /* All the same stuff for IE */
 input[type=range]::-ms-thumb {
-  width: 10px;
-  height: 10px;
+  width: 12px;
+  height: 12px;
   border-radius: 50%;
   background: #ffffff;
   cursor: pointer;
   opacity: 0;
-}
-
-input[type=range]:hover::-moz-range-thumb {
-  opacity: 1;
-}
-input[type=range]:hover::-ms-thumb {
-  opacity: 1;
-}
-input[type=range]:hover::-webkit-slider-thumb {
-  opacity: 1;
 }
 
 footer#spotify-footer {
@@ -1888,6 +1899,27 @@ article.artist main.scrollable-artist .artist-info article .related-artists .ima
 }
 .category-page section article .playlist-card {
   padding-bottom: 0px;
+}
+
+.alert-lite {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgb(0, 140, 255);
+  padding: 15px 40px;
+  border-radius: 10px;
+  z-index: 100;
+  bottom: 15%;
+  box-shadow: 2px 2px 10px 2px black;
+}
+.alert-lite h4 {
+  color: white;
+  font-family: spotifyFontLight;
+  margin: 0;
+  padding: 0;
+}
+.alert-lite h4 b {
+  font-family: spotifyFont;
 }
 
 @font-face {

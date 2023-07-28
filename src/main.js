@@ -14,6 +14,7 @@ const store = createStore({
     return {
       showX: false,
       inputValue: "",
+      alert: { show: false, addedTo: "" },
       clickedOnSongCard: false,
       token: "",
       cancel: false,
@@ -53,6 +54,10 @@ const store = createStore({
     setCancel(state, bool) {
       state.cancel = bool;
     },
+    setAlertLite(state, value) {
+      state.alert.addedTo = value.value;
+      state.alert.show = value.bool;
+    },
   },
   actions: {
     updateInput({ commit }, value) {
@@ -60,6 +65,9 @@ const store = createStore({
     },
     updateInputValue({ commit }, input) {
       commit("updateInputValue", input);
+    },
+    SET_ALERT_LITE({ commit }, value) {
+      commit("setAlertLite", value);
     },
     changeClickedOnSong({ commit }, bool) {
       commit("changeClickedOnSong", bool);

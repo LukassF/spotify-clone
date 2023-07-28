@@ -37,7 +37,13 @@
         <h1>Top result</h1>
         <div v-if="artists[0]">
           <span class="artist-image-container">
-            <img :src="artists[0].images[0].url" />
+            <img
+              :src="
+                artists[0].images[0]
+                  ? artists[0].images[0].url
+                  : 'https://cdn-icons-png.flaticon.com/512/149/149071.png'
+              "
+            />
           </span>
           <h1>{{ artists[0].name }}</h1>
           <a>Artist</a>
@@ -138,6 +144,7 @@ import Loader from "@/components/Loader.vue";
 import { gsap } from "gsap";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import { ref } from "vue";
+import Swal from "sweetalert2";
 import axios from "axios";
 
 gsap.registerPlugin(ScrollToPlugin);
@@ -193,7 +200,7 @@ export default {
           console.log(searchResponse.data);
         } catch (err) {
           console.error(err);
-          alert("Could not found, try something else.");
+          Swal.fire("Error!", "Could not found, try something else.", "error");
         }
       }
     },

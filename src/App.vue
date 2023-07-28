@@ -2,6 +2,10 @@
   <main class="main-layout">
     <LoginPage v-if="!userInfo.display_name" />
     <Loader v-if="!connected" />
+    <AlertLite
+      v-if="this.$store.state.alert.show"
+      :addedTo="this.$store.state.alert.addedTo"
+    />
     <aside>
       <nav>
         <router-link to="/"><i class="fa fa-house"></i>Home</router-link>
@@ -56,6 +60,8 @@ import Header from "./components/Header.vue";
 import Loader from "./components/Loader.vue";
 import Footer from "./components/Footer.vue";
 import LoginPage from "./components/LoginPage.vue";
+import AlertLite from "./components/AlertLite.vue";
+import Swal from "sweetalert2";
 
 export default {
   data() {
@@ -74,15 +80,32 @@ export default {
     Loader,
     Footer,
     LoginPage,
+    AlertLite,
   },
   async mounted() {
     //redeeming authToken
-    const hash = window.location.hash;
-    // const expiration = hash.split("&")[2].split("=")[1];
+    let expiration;
+
+    if (
+      !window.localStorage.getItem("authToken") ||
+      parseInt(expiration) < 60
+    ) {
+      const hash = window.location.hash;
+      if (hash) {
+        const _token = hash.split("&")[0].split("=")[1];
+        expiration = hash.split("&")[2].split("=")[1];
+        this.$store.dispatch("redeemAuthToken", _token);
+        window.localStorage.setItem("authToken", _token);
+      }
+    } else {
+      this.$store.dispatch(
+        "redeemAuthToken",
+        window.localStorage.getItem("authToken")
+      );
+    }
     // window.location.hash = "";
-    const _token = hash.split("&")[0].split("=")[1];
+
     // window.localStorage.setItem("authToken", _token);
-    this.$store.dispatch("redeemAuthToken", _token);
 
     // if (!window.localStorage.getItem("authToken")) {
 
@@ -197,7 +220,7 @@ export default {
         });
 
         this.player.addListener("not_ready", ({ device_id }) => {
-          console.log("Device ID has gone offline", device_id);
+          Swal.fire("Error!", "Your device has gone offline", "error");
         });
 
         this.player.addListener("initialization_error", ({ message }) => {

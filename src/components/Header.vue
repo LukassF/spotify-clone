@@ -77,6 +77,7 @@ export default {
     logOut() {
       this.$store.dispatch("redeemAuthToken", null);
       window.location.hash = "";
+      window.localStorage.removeItem("authToken");
       window.location.reload();
     },
   },

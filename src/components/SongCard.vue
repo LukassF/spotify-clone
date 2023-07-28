@@ -46,7 +46,17 @@
       }}<i v-if="isHovering" class="fas fa-ellipsis"></i>
       <div class="options">
         <ul>
-          <li @click="() => this.$store.dispatch('ADD_TO_QUEUE', uri)">
+          <li
+            @click="
+              () => {
+                this.$store.dispatch('ADD_TO_QUEUE', uri);
+                this.$store.dispatch('SET_ALERT_LITE', {
+                  value: 'queue',
+                  bool: true,
+                });
+              }
+            "
+          >
             Add to queue
           </li>
           <li>Add to playlist</li>

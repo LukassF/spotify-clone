@@ -138,11 +138,14 @@ footer#song-player {
           width: 100%;
 
           .input-container {
-            padding: 0;
+            padding: 5px 0px;
             margin: 0;
             position: relative;
             @include flex(row, center, center);
+            width: 100%;
+            z-index: 1;
             div {
+              z-index: 5;
               height: 4px;
               width: 0;
               background-color: white;
@@ -158,6 +161,18 @@ footer#song-player {
             &:hover {
               div {
                 background-color: #1fdf64;
+              }
+
+              input[type="range"] {
+                &::-moz-range-thumb {
+                  opacity: 1;
+                }
+                &::-ms-thumb {
+                  opacity: 1;
+                }
+                &::-webkit-slider-thumb {
+                  opacity: 1;
+                }
               }
             }
           }
@@ -196,7 +211,7 @@ footer#song-player {
       }
 
       .input-container {
-        padding: 0;
+        padding: 5px 0px;
         margin: 0;
         position: relative;
         @include flex(row, center, center);
@@ -215,6 +230,18 @@ footer#song-player {
         &:hover {
           div {
             background-color: #1fdf64;
+          }
+
+          input[type="range"] {
+            &::-moz-range-thumb {
+              opacity: 1;
+            }
+            &::-ms-thumb {
+              opacity: 1;
+            }
+            &::-webkit-slider-thumb {
+              opacity: 1;
+            }
           }
         }
       }
@@ -250,7 +277,7 @@ input[type="range"]::-ms-track {
 
 input[type="range"]::-webkit-slider-thumb {
   aspect-ratio: 1/1;
-  width: 10px;
+  width: 12px;
   border-radius: 50%;
   background: #ffffff;
   cursor: pointer;
@@ -258,8 +285,8 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 input[type="range"]::-moz-range-thumb {
-  width: 10px;
-  height: 10px;
+  width: 12px;
+  height: 12px;
   background: #ffffff;
   cursor: pointer;
   border: none;
@@ -268,24 +295,12 @@ input[type="range"]::-moz-range-thumb {
 
 /* All the same stuff for IE */
 input[type="range"]::-ms-thumb {
-  width: 10px;
-  height: 10px;
+  width: 12px;
+  height: 12px;
   border-radius: 50%;
   background: #ffffff;
   cursor: pointer;
   opacity: 0;
-}
-
-input[type="range"]:hover {
-  &::-moz-range-thumb {
-    opacity: 1;
-  }
-  &::-ms-thumb {
-    opacity: 1;
-  }
-  &::-webkit-slider-thumb {
-    opacity: 1;
-  }
 }
 
 footer#spotify-footer {
