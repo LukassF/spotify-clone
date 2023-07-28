@@ -22,7 +22,7 @@ const store = createStore({
       clientID: "b022c35e77404e43b5c82be9bc4cee67",
       clientSecret: "84ea6f3098a64a1ca8980a5e8f5a5bc2",
       authToken: "",
-      loginEndpoint: `https://accounts.spotify.com/authorize?client_id=b022c35e77404e43b5c82be9bc4cee67&redirect_uri=http://localhost:8080&scope=streaming%20user-read-email%20user-read-private%20user-library-read%20user-library-modify%20user-read-playback-state%20user-modify-playback-state&response_type=token&show_dialog=true`,
+      loginEndpoint: `https://accounts.spotify.com/authorize?client_id=b022c35e77404e43b5c82be9bc4cee67&redirect_uri=https://spotify-clone-six-gules.vercel.app/&scope=streaming%20user-read-email%20user-read-private%20user-library-read%20user-library-modify%20user-read-playback-state%20user-modify-playback-state&response_type=token&show_dialog=true`,
     };
   },
   mutations: {
