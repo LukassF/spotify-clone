@@ -69,6 +69,7 @@ export default {
       genres: null,
       playlistsHome: [],
       playlistsHomeAll: null,
+      userPlaylists: [],
       userInfo: {},
       tracks: [],
       connected: false,
@@ -85,24 +86,27 @@ export default {
   async mounted() {
     //redeeming authToken
     let expiration;
+    const hash = window.location.hash;
+    const _token = hash.split("&")[0].split("=")[1];
+    this.$store.dispatch("redeemAuthToken", _token);
 
-    if (
-      !window.localStorage.getItem("authToken") ||
-      parseInt(expiration) < 60
-    ) {
-      const hash = window.location.hash;
-      if (hash) {
-        const _token = hash.split("&")[0].split("=")[1];
-        expiration = hash.split("&")[2].split("=")[1];
-        this.$store.dispatch("redeemAuthToken", _token);
-        window.localStorage.setItem("authToken", _token);
-      }
-    } else {
-      this.$store.dispatch(
-        "redeemAuthToken",
-        window.localStorage.getItem("authToken")
-      );
-    }
+    // if (
+    //   !window.localStorage.getItem("authToken") ||
+    //   parseInt(expiration) < 60
+    // ) {
+    //   const hash = window.location.hash;
+    //   if (hash) {
+    //     const _token = hash.split("&")[0].split("=")[1];
+    //     expiration = hash.split("&")[2].split("=")[1];
+    //     this.$store.dispatch("redeemAuthToken", _token);
+    //     window.localStorage.setItem("authToken", _token);
+    //   }
+    // } else {
+    //   this.$store.dispatch(
+    //     "redeemAuthToken",
+    //     window.localStorage.getItem("authToken")
+    //   );
+    // }
     // window.location.hash = "";
 
     // window.localStorage.setItem("authToken", _token);
@@ -122,6 +126,7 @@ export default {
       this.connectToPlayer();
       await this.getGenres();
       await this.getPlaylistsHome([this.genres[1].id, this.genres[2].id]);
+      await this.$store.dispatch("GET_USER_PLAYLISTS");
       this.getUserInfo();
     }
   },
@@ -169,6 +174,7 @@ export default {
         )
         .then((res) => {
           res.map((dataItem) => {
+            // console.log(dataItem);
             this.playlistsHome.push(dataItem.data.playlists.items);
             this.playlistsHomeAll = this.playlistsHome[0].concat(
               this.playlistsHome[1]
@@ -176,6 +182,14 @@ export default {
           });
         });
     },
+    // async getUserPlaylists() {
+    //   axios
+    //     .get("https://api.spotify.com/v1/me/playlists", {
+    //       headers: { Authorization: "Bearer " + this.$store.state.authToken },
+    //     })
+    //     .then((res) => (this.userPlaylists = res.data.items))
+    //     .catch((err) => console.log(err));
+    // },
     getUserInfo() {
       axios
         .get("https://api.spotify.com/v1/me", {
@@ -224,16 +238,16 @@ export default {
         });
 
         this.player.addListener("initialization_error", ({ message }) => {
-          console.log(message);
+          Swal.fire("Error!", message, "error");
         });
         this.player.addListener("authentication_error", ({ message }) => {
-          console.log(message);
+          Swal.fire("Error!", message, "error");
         });
         this.player.addListener("account_error", ({ message }) => {
-          console.log(message);
+          Swal.fire("Error!", message, "error");
         });
         this.player.addListener("playback_error", ({ message }) => {
-          console.log(message);
+          Swal.fire("Error!", message, "error");
         });
 
         this.player.connect();

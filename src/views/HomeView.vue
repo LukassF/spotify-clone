@@ -3,11 +3,11 @@
     <Loader v-if="!genres" />
     <article class="focus">
       <header>
-        <h2 @click="toggleAll('first')" v-if="genres">{{ genres[1].name }}</h2>
+        <h2 @click="toggleAll('first')" v-if="genres">My playlists</h2>
         <p @click="toggleAll('first')">See all</p>
       </header>
       <div class="playlist-card-container" ref="showAllRef1">
-        <AllPurposeCard
+        <!-- <AllPurposeCard
           v-if="playlistsHome[0]"
           v-for="(item, i) in playlistsHome[0]"
           :name="item.name"
@@ -19,6 +19,21 @@
           :total="item.tracks.total"
           :uri="item.uri"
           type="Playlist"
+        /> -->
+
+        <AllPurposeCard
+          v-if="this.$store.state.userPlaylists"
+          v-for="(item, i) in this.$store.state.userPlaylists"
+          :name="item.name"
+          :image="item.images[0].url"
+          :desc="item.description"
+          :key="i"
+          :id="item.id"
+          :owner="item.owner.display_name"
+          :total="item.tracks.total"
+          :uri="item.uri"
+          type="Playlist"
+          :isMine="true"
         />
       </div>
     </article>
@@ -57,7 +72,7 @@ import { ref } from "vue";
 
 export default {
   name: "HomeView",
-  props: ["playlistsHome", "genres"],
+  props: ["playlistsHome", "genres", "userPlaylists"],
   components: {
     AllPurposeCard,
     SpotifyFooter,

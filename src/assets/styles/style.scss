@@ -43,7 +43,7 @@ body {
   display: grid;
   grid-template-columns: 1fr 4fr;
   grid-template-rows: 2fr 20fr 3fr;
-  grid-gap: 10px;
+  gap: 10px;
   grid-template-areas:
     "aside header"
     "aside content"

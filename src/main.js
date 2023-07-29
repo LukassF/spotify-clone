@@ -11,8 +11,21 @@ import "./assets/styles/style.css";
 
 const store = createStore({
   state() {
+    const redirect_uri = "http://localhost:8080";
+    const scopes = [
+      "streaming",
+      "user-read-email",
+      "user-read-private",
+      "user-library-read",
+      "user-library-modify",
+      "user-read-playback-state",
+      "user-modify-playback-state",
+      "playlist-modify-public",
+      "playlist-modify-private",
+    ];
     return {
       showX: false,
+      userPlaylists: "",
       inputValue: "",
       alert: { show: false, addedTo: "" },
       clickedOnSongCard: false,
@@ -22,7 +35,9 @@ const store = createStore({
       clientID: "b022c35e77404e43b5c82be9bc4cee67",
       clientSecret: "84ea6f3098a64a1ca8980a5e8f5a5bc2",
       authToken: "",
-      loginEndpoint: `https://accounts.spotify.com/authorize?client_id=b022c35e77404e43b5c82be9bc4cee67&redirect_uri=https://spotify-clone-six-gules.vercel.app/&scope=streaming%20user-read-email%20user-read-private%20user-library-read%20user-library-modify%20user-read-playback-state%20user-modify-playback-state&response_type=token&show_dialog=true`,
+      loginEndpoint: `https://accounts.spotify.com/authorize?client_id=b022c35e77404e43b5c82be9bc4cee67&redirect_uri=${redirect_uri}&scope=${scopes.join(
+        "%20"
+      )}&response_type=token&show_dialog=true`,
     };
   },
   mutations: {
@@ -42,6 +57,11 @@ const store = createStore({
     goForward() {},
     goBack() {},
     addToQueue() {},
+    addToPlaylist() {},
+    removeFromPlaylist() {},
+    getUserPlaylists(state, value) {
+      state.userPlaylists = value;
+    },
     redeemAuthToken(state, authTokenResponse) {
       state.authToken = authTokenResponse;
     },
@@ -65,6 +85,14 @@ const store = createStore({
     },
     updateInputValue({ commit }, input) {
       commit("updateInputValue", input);
+    },
+    GET_USER_PLAYLISTS({ commit }) {
+      axios
+        .get("https://api.spotify.com/v1/me/playlists", {
+          headers: { Authorization: "Bearer " + this.state.authToken },
+        })
+        .then((res) => commit("getUserPlaylists", res.data.items))
+        .catch((err) => console.log(err));
     },
     SET_ALERT_LITE({ commit }, value) {
       commit("setAlertLite", value);
@@ -165,6 +193,37 @@ const store = createStore({
 
       commit("addToQueue");
     },
+    async ADD_TO_PLAYLIST({ commit }, params) {
+      console.log(params.playlist_id, params.song_uri);
+      await axios(
+        `https://api.spotify.com/v1/playlists/${params.playlist_id}/tracks?uris=${params.song_uri}`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${this.state.authToken}`,
+          },
+        }
+      ).catch((err) => console.log(err));
+
+      commit("addToPlaylist");
+    },
+    async REMOVE_FROM_PLAYLIST({ commit }, params) {
+      await axios(
+        `https://api.spotify.com/v1/playlists/${params.playlist_id}/tracks`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${this.state.authToken}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            tracks: [{ uri: params.song_uri }],
+          }),
+        }
+      ).catch((err) => console.log(err));
+
+      commit("removeFromPlaylist");
+    },
     async getCurrentSongInfo({ commit }) {
       await fetch("https://api.spotify.com/v1/me/player/currently-playing", {
         method: "GET",
@@ -174,7 +233,7 @@ const store = createStore({
       })
         .then((res) => res.json())
         .then((result) => {
-          console.log(result);
+          // console.log(result);
           commit("getCurrentSongInfo", result);
         })
         .catch((err) => console.log(err));

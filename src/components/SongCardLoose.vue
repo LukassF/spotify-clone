@@ -45,7 +45,6 @@
           >
             Add to queue
           </li>
-          <li>Add to playlist</li>
         </ul>
       </div>
     </span>
@@ -71,7 +70,7 @@ export default {
   },
   methods: {
     playCurrentSong(e) {
-      console.log(e.target.innerHTML);
+      console.log(e.target);
 
       // console.log(e.target, e.currentTarget);
       if (e.target.innerHTML == " Add to queue ") return;

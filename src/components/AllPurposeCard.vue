@@ -16,7 +16,17 @@
 <script>
 export default {
   name: "PlaylistCard",
-  props: ["name", "image", "desc", "id", "owner", "total", "type", "uri"],
+  props: [
+    "name",
+    "image",
+    "desc",
+    "id",
+    "owner",
+    "total",
+    "type",
+    "uri",
+    "isMine",
+  ],
   methods: {
     routeWithData() {
       if (this.type !== "Artist")
@@ -31,6 +41,7 @@ export default {
             total: this.total,
             type: this.type,
             uri: this.uri,
+            isMine: this.isMine ? true : false,
           },
         });
       else

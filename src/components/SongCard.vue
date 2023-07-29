@@ -59,7 +59,47 @@
           >
             Add to queue
           </li>
-          <li>Add to playlist</li>
+          <li
+            v-if="this.$store.state.userPlaylists"
+            v-for="(playlist, i) in this.$store.state.userPlaylists"
+            :key="i"
+            @click="
+              async () => {
+                try {
+                  await this.$store.dispatch('ADD_TO_PLAYLIST', {
+                    playlist_id: playlist.id,
+                    song_uri: uri,
+                  });
+
+                  this.$store.dispatch('SET_ALERT_LITE', {
+                    value: playlist.name,
+                    bool: true,
+                  });
+                } catch (err) {
+                  console.log(err);
+                }
+              }
+            "
+          >
+            Add to {{ playlist.name }}
+          </li>
+          <li
+            v-if="isMine === 'true'"
+            @click="
+              async () => {
+                try {
+                  await this.$store.dispatch('REMOVE_FROM_PLAYLIST', {
+                    playlist_id: playlistId,
+                    song_uri: uri,
+                  });
+                } catch (err) {
+                  console.log(err);
+                }
+              }
+            "
+          >
+            Remove
+          </li>
         </ul>
       </div>
     </td>
@@ -84,6 +124,8 @@ export default {
     "image",
     "type",
     "uri",
+    "isMine",
+    "playlistId",
   ],
   computed: {
     durationFormatted() {
@@ -106,7 +148,7 @@ export default {
   methods: {
     playCurrentSong(e) {
       console.log(e.target);
-      if (e.target.innerHTML == " Add to queue ") return;
+      if (e.target.localName == "li") return;
       this.$store.dispatch("playSong", this.uri);
 
       this.$store.dispatch("getCurrentSongInfo");
@@ -117,6 +159,9 @@ export default {
         this.$store.dispatch("changeClickedOnSong", false);
       }, 200);
     },
+  },
+  mounted() {
+    console.log(this.isMine);
   },
 };
 </script>

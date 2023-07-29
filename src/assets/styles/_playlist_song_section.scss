@@ -294,14 +294,38 @@ table {
       }
 
       .options {
-        overflow: hidden;
+        overflow-y: auto;
+        overflow-x: hidden;
         visibility: hidden;
         min-width: 160px;
+        max-height: 200px;
         position: absolute;
+        scrollbar-width: thin;
+        scrollbar-color: transparent transparent;
         right: 0%;
-        top: -150%;
+        bottom: 100%;
         background-color: vars.$main-background-color;
         border-radius: 5px;
+
+        &::-webkit-scrollbar {
+          width: 7px;
+        }
+
+        &::-webkit-scrollbar-track-piece {
+          background-color: transparent;
+        }
+
+        &::-webkit-scrollbar-thumb {
+          border-radius: 10px;
+          background-color: transparent;
+        }
+
+        &:hover {
+          &::-webkit-scrollbar-thumb {
+            background-color: vars.$nav-ambient-color;
+          }
+          scrollbar-color: vars.$nav-ambient-color transparent;
+        }
 
         &:hover {
           visibility: visible;

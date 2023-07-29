@@ -15,10 +15,10 @@ aside {
   grid-area: aside;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: stretch;
   min-width: 290px;
-  overflow: auto;
+  overflow-y: auto;
   z-index: 5;
 }
 aside nav {
@@ -87,6 +87,7 @@ aside hr {
   transform: scaleY(0.5);
 }
 aside ul {
+  position: relative;
   color: rgb(150, 148, 148);
   padding: 0px 10px;
   list-style: none;
@@ -1223,14 +1224,34 @@ table tbody:last-child .fa-ellipsis:hover + div.options {
   visibility: visible;
 }
 table tbody:last-child .options {
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
   visibility: hidden;
   min-width: 160px;
+  max-height: 200px;
   position: absolute;
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
   right: 0%;
-  top: -150%;
+  bottom: 100%;
   background-color: black;
   border-radius: 5px;
+}
+table tbody:last-child .options::-webkit-scrollbar {
+  width: 7px;
+}
+table tbody:last-child .options::-webkit-scrollbar-track-piece {
+  background-color: transparent;
+}
+table tbody:last-child .options::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: transparent;
+}
+table tbody:last-child .options:hover {
+  scrollbar-color: rgb(150, 148, 148) transparent;
+}
+table tbody:last-child .options:hover::-webkit-scrollbar-thumb {
+  background-color: rgb(150, 148, 148);
 }
 table tbody:last-child .options:hover {
   visibility: visible;
@@ -1665,7 +1686,7 @@ section.search .search-result-section article.search-result-section-artists .ima
   min-width: 160px;
   position: absolute;
   right: 0%;
-  top: -450%;
+  bottom: 100%;
   background-color: black;
   border-radius: 5px;
 }
@@ -1953,7 +1974,7 @@ body {
   display: grid;
   grid-template-columns: 1fr 4fr;
   grid-template-rows: 2fr 20fr 3fr;
-  grid-gap: 10px;
+  gap: 10px;
   grid-template-areas: "aside header" "aside content" "footer footer";
 }
 .main-layout .router-view {

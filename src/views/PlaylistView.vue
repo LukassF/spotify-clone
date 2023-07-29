@@ -41,6 +41,7 @@
         :id="dataObject.id"
         :image="dataObject.image"
         :uri="dataObject.uri"
+        :isMine="dataObject.isMine"
         v-model="fullDuration"
       />
     </article>

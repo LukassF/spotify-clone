@@ -43,6 +43,8 @@
             song.track.album.images[0] ? song.track.album.images[0].url : ''
           "
           type="Playlist"
+          :isMine="this.isMine"
+          :playlistId="this.id"
         />
       </tbody>
       <tbody v-else-if="type === 'Album'" class="album-table-body">
@@ -87,7 +89,7 @@ export default {
       return this.id;
     },
   },
-  props: ["id", "modelValue", "type", "image", "uri"],
+  props: ["id", "modelValue", "type", "image", "uri", "isMine"],
 
   async mounted() {
     await this.getPlaylistTracks();
@@ -116,6 +118,7 @@ export default {
           this.playlistTracks = tracksResult.data.items.filter(
             (item) => item.track
           );
+
           console.log(this.playlistTracks);
 
           this.playlistTracks.forEach(

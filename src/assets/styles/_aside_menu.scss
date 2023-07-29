@@ -5,9 +5,10 @@ aside {
   background-color: $secondary-background-color;
   border-radius: 10px;
   grid-area: aside;
-  @include flex(column, center, stretch);
+  @include flex(column, flex-start, stretch);
   min-width: 290px;
-  overflow: auto;
+  overflow-y: auto;
+
   z-index: 5;
 
   nav {
@@ -81,6 +82,7 @@ aside {
     transform: scaleY(0.5);
   }
   ul {
+    position: relative;
     color: $nav-ambient-color;
     padding: 0px 10px;
     list-style: none;
