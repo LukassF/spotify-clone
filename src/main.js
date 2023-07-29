@@ -11,7 +11,7 @@ import "./assets/styles/style.css";
 
 const store = createStore({
   state() {
-    const redirect_uri = "https://spotify-clone-six-gules.vercel.app/";
+    const redirect_uri = "https://spotify-clone-lukas.vercel.app/";
     const scopes = [
       "streaming",
       "user-read-email",

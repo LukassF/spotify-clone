@@ -482,7 +482,7 @@ footer#spotify-footer p {
 progress[value] {
   -webkit-appearance: none;
   -moz-appearance: none;
-       appearance: none;
+  appearance: none;
 }
 
 progress,

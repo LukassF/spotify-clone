@@ -17,6 +17,7 @@
     background-color: #2a2a2a;
 
     img {
+      -webkit-filter: brightness(20%);
       filter: brightness(20%);
     }
   }
