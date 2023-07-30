@@ -16,15 +16,15 @@
 
 @font-face {
   font-family: spotifyFont;
-  src: url("../fonts/GothamMedium.ttf");
+  src: url("../fonts/gothammedium-webfont.woff");
 }
 @font-face {
   font-family: spotifyFontLight;
-  src: url("../fonts/GothamLight.ttf");
+  src: url("../fonts/gothamlight-webfont.woff");
 }
 @font-face {
   font-family: spotifyFontBold;
-  src: url("../fonts/GothamBold.ttf");
+  src: url("../fonts/gothambold-webfont.woff");
 }
 
 [v-cloak] {
@@ -141,7 +141,8 @@ article.login {
 .loader-container {
   position: fixed;
   padding: 10px;
-  width: 100%;
+  width: calc(100% - 20px);
+  height: calc(100% - 20px);
   z-index: 50;
   top: 0;
   left: 0;
@@ -150,7 +151,7 @@ article.login {
   display: grid;
   grid-template-columns: minmax(290px, 1fr) 4fr;
   grid-template-rows: 2fr 20fr 3fr;
-  grid-gap: 8px;
+  gap: 10px;
   grid-template-areas:
     "nothing nothing"
     "nothing content"
@@ -159,7 +160,6 @@ article.login {
 
   .spinner-container {
     border-radius: 10px;
-    // background-color: blue;
     background-color: $secondary-background-color;
     position: relative;
     display: grid;
