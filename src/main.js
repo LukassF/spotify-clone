@@ -22,6 +22,7 @@ const store = createStore({
       "user-modify-playback-state",
       "playlist-modify-public",
       "playlist-modify-private",
+      "user-top-read",
     ];
     return {
       showX: false,
@@ -29,7 +30,9 @@ const store = createStore({
       inputValue: "",
       alert: { show: false, addedTo: "" },
       clickedOnSongCard: false,
+      reloadSongs: false,
       token: "",
+      userInfo: "",
       cancel: false,
       currentSongInfo: "{}",
       clientID: "b022c35e77404e43b5c82be9bc4cee67",
@@ -59,6 +62,9 @@ const store = createStore({
     addToQueue() {},
     addToPlaylist() {},
     removeFromPlaylist() {},
+    getUserInfo(state, value) {
+      state.userInfo = value;
+    },
     getUserPlaylists(state, value) {
       state.userPlaylists = value;
     },
@@ -77,6 +83,9 @@ const store = createStore({
     setAlertLite(state, value) {
       state.alert.addedTo = value.value;
       state.alert.show = value.bool;
+    },
+    setReloadSongs(state, value) {
+      state.reloadSongs = !state.reloadSongs;
     },
   },
   actions: {
@@ -208,7 +217,8 @@ const store = createStore({
       commit("addToPlaylist");
     },
     async REMOVE_FROM_PLAYLIST({ commit }, params) {
-      await axios(
+      console.log(params);
+      await fetch(
         `https://api.spotify.com/v1/playlists/${params.playlist_id}/tracks`,
         {
           method: "DELETE",
@@ -223,6 +233,17 @@ const store = createStore({
       ).catch((err) => console.log(err));
 
       commit("removeFromPlaylist");
+    },
+    async GET_USER_INFO({ commit }) {
+      axios
+        .get("https://api.spotify.com/v1/me", {
+          headers: { Authorization: `Bearer ${this.state.authToken}` },
+        })
+        .then((userRes) => {
+          console.log(userRes.data);
+          commit("getUserInfo", userRes.data);
+        })
+        .catch((err) => console.log(err));
     },
     async getCurrentSongInfo({ commit }) {
       await fetch("https://api.spotify.com/v1/me/player/currently-playing", {

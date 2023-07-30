@@ -1,0 +1,133 @@
+@use "./vars" as *;
+@use "./mixins" as *;
+
+.library {
+  width: 100%;
+  @include flex(column, flex-start, stretch);
+
+  nav {
+    padding: 40px 30px;
+    background-color: rgba(74, 74, 74, 0.7);
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    grid-column-gap: 30px;
+
+    div {
+      &:first-child {
+        min-width: 200px;
+        aspect-ratio: 1/1;
+        overflow: hidden;
+        border-radius: 50%;
+        box-shadow: 2px 20px 100px 2px black;
+
+        img {
+          width: 100%;
+        }
+      }
+
+      &:last-child {
+        @include flex(column, flex-end, flex-start);
+
+        p {
+          margin: 0;
+          padding: 0;
+          font-size: 0.85em;
+          margin-bottom: 20px;
+        }
+
+        h1 {
+          font-size: 5em;
+          font-family: spotifyFontBold;
+          margin: 0;
+          max-width: 650px;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          overflow: hidden !important;
+
+          @media screen and (max-width: 1200px) {
+            max-width: 400px;
+          }
+          @media screen and (max-width: 1000px) {
+            max-width: 300px;
+          }
+          @media screen and (max-width: 900px) {
+            max-width: 250px;
+          }
+        }
+
+        ul {
+          @include flex(row, flex-start, center);
+
+          padding: 0;
+          font-size: 0.85em;
+          font-family: spotifyFontLight;
+          flex-wrap: wrap;
+
+          li {
+            padding: 0;
+            margin: 0;
+            flex-shrink: 0;
+            margin-left: 20px;
+          }
+
+          li:first-child {
+            list-style: none;
+            margin-left: 0px;
+          }
+        }
+      }
+    }
+  }
+
+  header {
+    @include flex(column, center, flex-start);
+    color: white;
+    gap: 5px;
+    margin-bottom: 20px;
+
+    h2 {
+      margin: 0;
+      padding: 0;
+    }
+    p {
+      margin: 0;
+      font-family: spotifyFontLight;
+      color: $grey-color;
+      font-size: 0.9em;
+    }
+  }
+  article {
+    padding: 30px;
+  }
+
+  article.library-playlists {
+    .library-inner--container {
+      //   width: 100%;
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      grid-template-rows: 1fr;
+      grid-column-gap: 15px;
+      overflow-y: hidden;
+      grid-auto-rows: 0;
+
+      @media screen and (max-width: 1500px) {
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+      }
+      @media screen and (max-width: 1340px) {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+      @media screen and (max-width: 1000px) {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+      @media screen and (max-width: 800px) {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+  }
+  article.library-songs {
+    // background-color: red;
+  }
+  article.library-artists {
+    @extend .library-playlists;
+  }
+}

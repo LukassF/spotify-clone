@@ -30,18 +30,23 @@
     </div>
 
     <div>
-      <a class="profile-link" v-if="userInfo.display_name"
+      <a
+        v-if="$store.state.userInfo.display_name"
+        :href="$store.state.userInfo.external_urls.spotify"
+        target="_blank"
+        class="profile-link"
         ><div>
           <img
             :src="
-              userInfo.images[0]
-                ? userInfo.images[0].url
+              $store.state.userInfo.images[0]
+                ? $store.state.userInfo.images[0].url
                 : 'https://cdn-icons-png.flaticon.com/512/149/149071.png'
             "
             alt="profile-image"
           />
         </div>
-        {{ userInfo.display_name }}<i class="fa fa-chevron-down"></i
+        {{ $store.state.userInfo.display_name
+        }}<i class="fa fa-chevron-down"></i
       ></a>
 
       <div class="log-out-container" @click="logOut()">
@@ -64,7 +69,6 @@ export default {
       showX: false,
     };
   },
-  props: ["userInfo"],
   methods: {
     inputLength(e) {
       this.$store.dispatch("updateInput", e.target.value.length !== 0);
@@ -94,9 +98,6 @@ export default {
         this.$store.dispatch("updateInputValue", "");
       }
     },
-  },
-  mounted() {
-    console.log(this.userInfo);
   },
 };
 </script>

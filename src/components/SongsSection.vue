@@ -88,6 +88,9 @@ export default {
     props() {
       return this.id;
     },
+    reloadSongs() {
+      return this.$store.state.reloadSongs;
+    },
   },
   props: ["id", "modelValue", "type", "image", "uri", "isMine"],
 
@@ -169,6 +172,11 @@ export default {
       setTimeout(() => {
         this.$store.dispatch("changeClickedOnSong", false);
       }, 200);
+    },
+  },
+  watch: {
+    reloadSongs: async function () {
+      await this.getPlaylistTracks();
     },
   },
 };

@@ -1,6 +1,6 @@
 <template>
   <main class="main-layout">
-    <LoginPage v-if="!userInfo.display_name" />
+    <LoginPage v-if="!$store.state.userInfo.display_name" />
     <Loader v-if="!connected" />
     <AlertLite
       v-if="this.$store.state.alert.show"
@@ -42,7 +42,7 @@
       <div class="bottom-padding"></div>
     </aside>
 
-    <Header :userInfo="userInfo" />
+    <Header />
     <router-view
       v-if="$store.state.token !== ''"
       class="router-view"
@@ -70,7 +70,7 @@ export default {
       playlistsHome: [],
       playlistsHomeAll: null,
       userPlaylists: [],
-      userInfo: {},
+      // userInfo: {},
       tracks: [],
       connected: false,
       player: null,
@@ -127,7 +127,7 @@ export default {
       await this.getGenres();
       await this.getPlaylistsHome([this.genres[1].id, this.genres[2].id]);
       await this.$store.dispatch("GET_USER_PLAYLISTS");
-      this.getUserInfo();
+      await this.$store.dispatch("GET_USER_INFO");
     }
   },
   methods: {
@@ -182,21 +182,16 @@ export default {
           });
         });
     },
-    // async getUserPlaylists() {
+    // getUserInfo() {
     //   axios
-    //     .get("https://api.spotify.com/v1/me/playlists", {
-    //       headers: { Authorization: "Bearer " + this.$store.state.authToken },
+    //     .get("https://api.spotify.com/v1/me", {
+    //       headers: { Authorization: `Bearer ${this.$store.state.authToken}` },
     //     })
-    //     .then((res) => (this.userPlaylists = res.data.items))
-    //     .catch((err) => console.log(err));
+    //     .then((userRes) => {
+    //       this.userInfo = userRes.data;
+    //       console.log(userRes.data);
+    //     });
     // },
-    getUserInfo() {
-      axios
-        .get("https://api.spotify.com/v1/me", {
-          headers: { Authorization: `Bearer ${this.$store.state.authToken}` },
-        })
-        .then((userRes) => (this.userInfo = userRes.data));
-    },
     connectToPlayer() {
       const script = document.createElement("script");
       script.src = "https://sdk.scdn.co/spotify-player.js";

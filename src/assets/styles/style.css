@@ -64,6 +64,7 @@ pre {
    */
 a {
   background-color: transparent;
+  text-decoration: none;
 }
 
 /**
@@ -1532,7 +1533,7 @@ table tbody:last-child i:last-child {
 table tbody:last-child .fa-ellipsis {
   position: absolute;
   right: 10px;
-  padding: 20px;
+  padding: 20px 30px;
   padding-right: 0px;
 }
 table tbody:last-child .fa-ellipsis:hover + div.options {
@@ -2103,7 +2104,7 @@ article.artist main.scrollable-artist .main-artist-header p {
   margin-top: 50px;
 }
 article.artist main.scrollable-artist .artist-info {
-  background: linear-gradient(rgba(18, 18, 18, 0.6), #121212, #121212, #121212, #121212, #121212, #121212);
+  background: linear-gradient(rgba(18, 18, 18, 0.8), #121212, #121212, #121212, #121212, #121212, #121212);
 }
 article.artist main.scrollable-artist .artist-info header {
   padding: 30px;
@@ -2258,6 +2259,136 @@ article.artist main.scrollable-artist .artist-info article .related-artists .ima
   font-family: spotifyFont;
 }
 
+.library {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+}
+.library nav {
+  padding: 40px 30px;
+  background-color: rgba(74, 74, 74, 0.7);
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  grid-column-gap: 30px;
+}
+.library nav div:first-child {
+  min-width: 200px;
+  aspect-ratio: 1/1;
+  overflow: hidden;
+  border-radius: 50%;
+  box-shadow: 2px 20px 100px 2px black;
+}
+.library nav div:first-child img {
+  width: 100%;
+}
+.library nav div:last-child {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+}
+.library nav div:last-child p {
+  margin: 0;
+  padding: 0;
+  font-size: 0.85em;
+  margin-bottom: 20px;
+}
+.library nav div:last-child h1 {
+  font-size: 5em;
+  font-family: spotifyFontBold;
+  margin: 0;
+  max-width: 650px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden !important;
+}
+@media screen and (max-width: 1200px) {
+  .library nav div:last-child h1 {
+    max-width: 400px;
+  }
+}
+@media screen and (max-width: 1000px) {
+  .library nav div:last-child h1 {
+    max-width: 300px;
+  }
+}
+@media screen and (max-width: 900px) {
+  .library nav div:last-child h1 {
+    max-width: 250px;
+  }
+}
+.library nav div:last-child ul {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0;
+  font-size: 0.85em;
+  font-family: spotifyFontLight;
+  flex-wrap: wrap;
+}
+.library nav div:last-child ul li {
+  padding: 0;
+  margin: 0;
+  flex-shrink: 0;
+  margin-left: 20px;
+}
+.library nav div:last-child ul li:first-child {
+  list-style: none;
+  margin-left: 0px;
+}
+.library header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  color: white;
+  gap: 5px;
+  margin-bottom: 20px;
+}
+.library header h2 {
+  margin: 0;
+  padding: 0;
+}
+.library header p {
+  margin: 0;
+  font-family: spotifyFontLight;
+  color: rgb(187, 185, 185);
+  font-size: 0.9em;
+}
+.library article {
+  padding: 30px;
+}
+.library article.library-playlists .library-inner--container, .library article.library-artists .library-inner--container {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  grid-template-rows: 1fr;
+  grid-column-gap: 15px;
+  overflow-y: hidden;
+  grid-auto-rows: 0;
+}
+@media screen and (max-width: 1500px) {
+  .library article.library-playlists .library-inner--container, .library article.library-artists .library-inner--container {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}
+@media screen and (max-width: 1340px) {
+  .library article.library-playlists .library-inner--container, .library article.library-artists .library-inner--container {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+@media screen and (max-width: 1000px) {
+  .library article.library-playlists .library-inner--container, .library article.library-artists .library-inner--container {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+@media screen and (max-width: 800px) {
+  .library article.library-playlists .library-inner--container, .library article.library-artists .library-inner--container {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
 @font-face {
   font-family: spotifyFont;
   src: url("../fonts/gothammedium-webfont.woff");

@@ -92,6 +92,7 @@
                     playlist_id: playlistId,
                     song_uri: uri,
                   });
+                  this.$store.commit('setReloadSongs');
                 } catch (err) {
                   console.log(err);
                 }
