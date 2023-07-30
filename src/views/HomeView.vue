@@ -7,20 +7,6 @@
         <p @click="toggleAll('first')">See all</p>
       </header>
       <div class="playlist-card-container" ref="showAllRef1">
-        <!-- <AllPurposeCard
-          v-if="playlistsHome[0]"
-          v-for="(item, i) in playlistsHome[0]"
-          :name="item.name"
-          :image="item.images[0].url"
-          :desc="item.description"
-          :key="i"
-          :id="item.id"
-          :owner="item.owner.display_name"
-          :total="item.tracks.total"
-          :uri="item.uri"
-          type="Playlist"
-        /> -->
-
         <AllPurposeCard
           v-if="this.$store.state.userPlaylists"
           v-for="(item, i) in this.$store.state.userPlaylists"

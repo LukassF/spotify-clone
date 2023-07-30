@@ -836,6 +836,7 @@ progress::-moz-progress-bar:hover {
 }
 .home .focus, .home article.spotify-playlists {
   padding: 0px 30px;
+  width: calc(100% - 60px);
   padding-bottom: 20px;
 }
 .home .focus header, .home article.spotify-playlists header {
