@@ -896,6 +896,7 @@ progress::-moz-progress-bar:hover {
   padding: 15px;
   border-radius: 5px;
   aspect-ratio: 6.5/10;
+  min-height: 87%;
   background-color: #181818;
   display: flex;
   flex-direction: column;

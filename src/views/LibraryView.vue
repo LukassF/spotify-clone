@@ -13,7 +13,7 @@
           <p>Profile</p>
           <h1>{{ $store.state.userInfo.display_name }}</h1>
           <ul>
-            <li>3 public playlists</li>
+            <li>{{ $store.state.userPlaylists.length }} public playlists</li>
             <li>{{ $store.state.userInfo.followers.total }} followers</li>
             <li>1 following</li>
           </ul>
