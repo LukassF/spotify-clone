@@ -1,6 +1,6 @@
 <template>
   <section>
-    <Loader v-if="!myTopTracks" />
+    <Loader v-if="!myTopTracks || !$store.state.userPlaylists" />
     <div class="library">
       <nav>
         <div>
@@ -54,7 +54,7 @@
             v-if="this.$store.state.userPlaylists"
             v-for="(item, i) in this.$store.state.userPlaylists.slice(0, 6)"
             :name="item.name"
-            :image="item.images[0].url"
+            :image="item.images[0] ? item.images[0].url : ''"
             :desc="item.description"
             :key="i"
             :id="item.id"

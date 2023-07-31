@@ -1,7 +1,8 @@
 <template>
   <main class="main-layout">
+    <Modal v-if="$store.state.openModal" />
     <LoginPage v-if="!$store.state.userInfo.display_name" />
-    <Loader v-if="!connected" />
+    <Loader v-if="!connected || !$store.state.userPlaylists" />
     <AlertLite
       v-if="this.$store.state.alert.show"
       :addedTo="this.$store.state.alert.addedTo"
@@ -16,7 +17,7 @@
           ><i class="fa-solid fa-layer-group"></i>Your Library</router-link
         >
         <div class="nav-buttons">
-          <div>
+          <div @click="() => this.$store.dispatch('SET_OPEN_MODAL', true)">
             <p><i class="fa fa-plus"></i></p>
             Create Playlist
           </div>
@@ -61,6 +62,7 @@ import Loader from "./components/Loader.vue";
 import Footer from "./components/Footer.vue";
 import LoginPage from "./components/LoginPage.vue";
 import AlertLite from "./components/AlertLite.vue";
+import Modal from "./components/Modal.vue";
 import Swal from "sweetalert2";
 
 export default {
@@ -70,11 +72,16 @@ export default {
       playlistsHome: [],
       playlistsHomeAll: null,
       userPlaylists: [],
-      // userInfo: {},
+      openModal: false,
       tracks: [],
       connected: false,
       player: null,
     };
+  },
+  computed: {
+    reloadUserPlaylists() {
+      return this.$store.state.reloadUserPlaylists;
+    },
   },
   components: {
     Header,
@@ -82,6 +89,7 @@ export default {
     Footer,
     LoginPage,
     AlertLite,
+    Modal,
   },
   async mounted() {
     //redeeming authToken
@@ -132,12 +140,13 @@ export default {
   },
   methods: {
     routeToPlaylist(playlist) {
+      console.log(playlist);
       this.$router.push({
         name: "playlist",
         query: {
           name: playlist.name,
           image: playlist.images[0] ? playlist.images[0].url : "",
-          desc: playlist.desc,
+          desc: playlist.description,
           id: playlist.id,
           owner: playlist.owner.display_name,
           total: playlist.tracks.total,
@@ -182,16 +191,6 @@ export default {
           });
         });
     },
-    // getUserInfo() {
-    //   axios
-    //     .get("https://api.spotify.com/v1/me", {
-    //       headers: { Authorization: `Bearer ${this.$store.state.authToken}` },
-    //     })
-    //     .then((userRes) => {
-    //       this.userInfo = userRes.data;
-    //       console.log(userRes.data);
-    //     });
-    // },
     connectToPlayer() {
       const script = document.createElement("script");
       script.src = "https://sdk.scdn.co/spotify-player.js";
@@ -247,6 +246,11 @@ export default {
 
         this.player.connect();
       };
+    },
+  },
+  watch: {
+    reloadUserPlaylists: function () {
+      this.$store.dispatch("GET_USER_PLAYLISTS");
     },
   },
 };

@@ -62,6 +62,13 @@
         />
       </tbody>
     </table>
+    <div
+      class="no-tracks"
+      v-if="!playlistTracks || playlistTracks.length === 0"
+    >
+      <h1>No tracks yet.</h1>
+      <router-link to="/search">Find some and add them!</router-link>
+    </div>
     <SpotifyFooter />
   </section>
 </template>
@@ -99,6 +106,9 @@ export default {
   },
   watch: {
     props: async function () {
+      await this.getPlaylistTracks();
+    },
+    reloadSongs: async function () {
       await this.getPlaylistTracks();
     },
   },
@@ -172,11 +182,6 @@ export default {
       setTimeout(() => {
         this.$store.dispatch("changeClickedOnSong", false);
       }, 200);
-    },
-  },
-  watch: {
-    reloadSongs: async function () {
-      await this.getPlaylistTracks();
     },
   },
 };

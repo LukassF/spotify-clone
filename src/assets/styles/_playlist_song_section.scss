@@ -356,6 +356,16 @@ table {
   }
 }
 
+.no-tracks {
+  z-index: 200;
+  padding: 30px;
+  text-align: center;
+
+  a {
+    color: vars.$grey-color;
+  }
+}
+
 .song-section-header {
   // background-color: red;
   @include mixins.flex(row, flex-start, center);

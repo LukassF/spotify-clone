@@ -161,8 +161,5 @@ export default {
       }, 200);
     },
   },
-  mounted() {
-    console.log(this.isMine);
-  },
 };
 </script>

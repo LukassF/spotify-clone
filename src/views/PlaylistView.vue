@@ -37,6 +37,7 @@
       </header>
 
       <SongSection
+        v-if="dataObject"
         :type="dataObject.type"
         :id="dataObject.id"
         :image="dataObject.image"
@@ -77,20 +78,15 @@ export default {
   components: {
     SongSection,
   },
-  // created() {
-  //   this.dataObject = this.$route.query;
-  // },
-  modified() {
+  mounted() {
+    console.log(this.dataObject);
     this.chosenColor = this.colors[Math.floor(Math.random() * 6)];
     this.gradientBackground =
       "background:linear-gradient(" + this.chosenColor + ",transparent);";
-
-    console.log(this.dataObject);
   },
-
   // watch: {
-  //   $route: function () {
-  //     window.location.reload();
+  //   dataObject: function () {
+  //     console.log(this.dataObject);
   //   },
   // },
 };

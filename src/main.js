@@ -11,7 +11,7 @@ import "./assets/styles/style.css";
 
 const store = createStore({
   state() {
-    const redirect_uri = "https://spotify-clone-lukas.vercel.app/";
+    const redirect_uri = "http://localhost:8080";
     const scopes = [
       "streaming",
       "user-read-email",
@@ -23,6 +23,7 @@ const store = createStore({
       "playlist-modify-public",
       "playlist-modify-private",
       "user-top-read",
+      "ugc-image-upload",
     ];
     return {
       showX: false,
@@ -31,9 +32,11 @@ const store = createStore({
       alert: { show: false, addedTo: "" },
       clickedOnSongCard: false,
       reloadSongs: false,
+      reloadUserPlaylists: false,
       token: "",
       userInfo: "",
       cancel: false,
+      openModal: false,
       currentSongInfo: "{}",
       clientID: "b022c35e77404e43b5c82be9bc4cee67",
       clientSecret: "84ea6f3098a64a1ca8980a5e8f5a5bc2",
@@ -44,6 +47,10 @@ const store = createStore({
     };
   },
   mutations: {
+    setReloadUserPlaylists(state) {
+      state.reloadUserPlaylists = !state.reloadUserPlaylists;
+      state.userPlaylists = null;
+    },
     updateInput(state, value) {
       state.showX = value;
     },
@@ -62,6 +69,8 @@ const store = createStore({
     addToQueue() {},
     addToPlaylist() {},
     removeFromPlaylist() {},
+    createPlaylist() {},
+    addPlaylistCoverImage() {},
     getUserInfo(state, value) {
       state.userInfo = value;
     },
@@ -87,21 +96,65 @@ const store = createStore({
     setReloadSongs(state, value) {
       state.reloadSongs = !state.reloadSongs;
     },
+    setOpenModal(state, value) {
+      state.openModal = value;
+    },
   },
   actions: {
+    SET_OPEN_MODAL({ commit }, value) {
+      commit("setOpenModal", value);
+    },
     updateInput({ commit }, value) {
       commit("updateInput", value);
     },
     updateInputValue({ commit }, input) {
       commit("updateInputValue", input);
     },
-    GET_USER_PLAYLISTS({ commit }) {
-      axios
+    async GET_USER_PLAYLISTS({ commit }) {
+      await axios
         .get("https://api.spotify.com/v1/me/playlists", {
           headers: { Authorization: "Bearer " + this.state.authToken },
         })
-        .then((res) => commit("getUserPlaylists", res.data.items))
+        .then((res) => {
+          console.log(res.data.items);
+          commit("getUserPlaylists", res.data.items);
+        })
         .catch((err) => console.log(err));
+    },
+    async create_playlist({ commit }, props) {
+      await fetch(
+        `https://api.spotify.com/v1/users/${this.state.userInfo.id}/playlists`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${this.state.authToken}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: props.name,
+            description: props.description,
+          }),
+        }
+      )
+        .then((res) => console.log(res))
+        .catch((err) => console.log(err));
+
+      commit("createPlaylist");
+    },
+    async add_playlist_cover_image({ commit }, props) {
+      await fetch(
+        `https://api.spotify.com/v1/playlists/${props.playlist_id}/images`,
+        {
+          method: "PUT",
+          headers: {
+            Authorization: `Bearer ${this.state.authToken}`,
+            "Content-Type": "image/jpeg",
+          },
+          body: props.image_encoded,
+        }
+      ).catch((err) => console.log(err));
+
+      commit("addPlaylistCoverImage");
     },
     SET_ALERT_LITE({ commit }, value) {
       commit("setAlertLite", value);
