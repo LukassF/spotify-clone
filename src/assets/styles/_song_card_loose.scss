@@ -87,6 +87,10 @@
 
       &:first-child {
         left: 10px;
+
+        &.fas {
+          color: #1fdf64;
+        }
       }
     }
 
@@ -102,17 +106,37 @@
     }
 
     .options {
-      overflow: hidden;
+      overflow-x: hidden;
       visibility: hidden;
       min-width: 160px;
+      max-height: 80px;
       position: absolute;
       right: 0%;
       bottom: 100%;
       background-color: $main-background-color;
       border-radius: 5px;
+      scrollbar-width: thin;
+      scrollbar-color: transparent transparent;
+
+      &::-webkit-scrollbar {
+        width: 7px;
+      }
+
+      &::-webkit-scrollbar-track-piece {
+        background-color: transparent;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        background-color: transparent;
+      }
 
       &:hover {
         visibility: visible;
+        &::-webkit-scrollbar-thumb {
+          background-color: $nav-ambient-color;
+        }
+        scrollbar-color: $nav-ambient-color transparent;
       }
 
       ul {
@@ -124,6 +148,10 @@
         li {
           text-align: left;
           padding: 10px 10px;
+          max-width: 100%;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          overflow: hidden;
 
           &:hover {
             background-color: $secondary-background-color;

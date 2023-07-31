@@ -42,65 +42,25 @@
     </td>
     <td v-if="type === 'Playlist'">{{ addedAtFormatted }}</td>
     <td>
-      <i v-if="isHovering" class="far fa-heart"></i>{{ durationFormatted
-      }}<i v-if="isHovering" class="fas fa-ellipsis"></i>
+      <i
+        v-show="isHovering || isLiked"
+        class="far fa-heart"
+        ref="likeRef"
+        @click="toggleLikeSong()"
+      ></i
+      >{{ durationFormatted }}<i v-if="isHovering" class="fas fa-ellipsis"></i>
       <div class="options">
         <ul>
+          <li @click="addToQueue()">Add to queue</li>
           <li
-            @click="
-              () => {
-                this.$store.dispatch('ADD_TO_QUEUE', uri);
-                this.$store.dispatch('SET_ALERT_LITE', {
-                  value: 'queue',
-                  bool: true,
-                });
-              }
-            "
-          >
-            Add to queue
-          </li>
-          <li
-            v-if="this.$store.state.userPlaylists"
-            v-for="(playlist, i) in this.$store.state.userPlaylists"
+            v-if="availablePlaylists"
+            v-for="(playlist, i) in availablePlaylists"
             :key="i"
-            @click="
-              async () => {
-                try {
-                  await this.$store.dispatch('ADD_TO_PLAYLIST', {
-                    playlist_id: playlist.id,
-                    song_uri: uri,
-                  });
-
-                  this.$store.dispatch('SET_ALERT_LITE', {
-                    value: playlist.name,
-                    bool: true,
-                  });
-                } catch (err) {
-                  console.log(err);
-                }
-              }
-            "
+            @click="addToPlaylist(playlist)"
           >
             Add to {{ playlist.name }}
           </li>
-          <li
-            v-if="isMine === 'true'"
-            @click="
-              async () => {
-                try {
-                  await this.$store.dispatch('REMOVE_FROM_PLAYLIST', {
-                    playlist_id: playlistId,
-                    song_uri: uri,
-                  });
-                  this.$store.commit('setReloadSongs');
-                } catch (err) {
-                  console.log(err);
-                }
-              }
-            "
-          >
-            Remove
-          </li>
+          <li v-if="isMine === 'true'" @click="removeFromPlaylist()">Remove</li>
         </ul>
       </div>
     </td>
@@ -108,6 +68,7 @@
 </template>
 
 <script>
+import { ref } from "vue";
 export default {
   data() {
     return {
@@ -145,11 +106,22 @@ export default {
       if (this.$store.state.currentSongInfo.item)
         return this.id === this.$store.state.currentSongInfo.item.id;
     },
+
+    availablePlaylists() {
+      return this.$store.state.userPlaylists.filter(
+        (item) => item.id !== this.playlistId
+      );
+    },
+    isLiked() {
+      return this.$store.state.likedSongs.some(
+        (item) => item.track.id === this.id
+      );
+    },
   },
   methods: {
     playCurrentSong(e) {
       console.log(e.target);
-      if (e.target.localName == "li") return;
+      if (e.target.localName == "li" || e.target.localName == "i") return;
       this.$store.dispatch("playSong", this.uri);
 
       this.$store.dispatch("getCurrentSongInfo");
@@ -159,6 +131,71 @@ export default {
       setTimeout(() => {
         this.$store.dispatch("changeClickedOnSong", false);
       }, 200);
+    },
+    addToQueue() {
+      this.$store.dispatch("ADD_TO_QUEUE", this.uri);
+      this.$store.dispatch("SET_ALERT_LITE", {
+        value: "queue",
+        bool: true,
+      });
+    },
+    async addToPlaylist(playlist) {
+      try {
+        await this.$store.dispatch("ADD_TO_PLAYLIST", {
+          playlist_id: playlist.id,
+          song_uri: this.uri,
+        });
+
+        this.$store.dispatch("SET_ALERT_LITE", {
+          value: playlist.name,
+          bool: true,
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    async removeFromPlaylist() {
+      try {
+        await this.$store.dispatch("REMOVE_FROM_PLAYLIST", {
+          playlist_id: this.playlistId,
+          song_uri: this.uri,
+        });
+        this.$store.commit("setReloadSongs");
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    async toggleLikeSong() {
+      if (!this.isLiked) {
+        await this.$store.dispatch("like_song", this.id);
+        await this.$store.dispatch("SET_ALERT_LITE", {
+          value: "Liked",
+          bool: true,
+        });
+      } else if (this.isLiked) {
+        await this.$store.dispatch("dislike_song", this.id);
+      }
+      await this.$store.dispatch("get_liked");
+
+      if (!this.playlistId) this.$store.commit("setReloadSongs");
+    },
+  },
+
+  setup() {
+    const likeRef = ref(null);
+    return {
+      likeRef,
+    };
+  },
+  mounted() {
+    console.log(this.playlistId);
+    this.likeRef.classList.toggle("far", !this.isLiked);
+    this.likeRef.classList.toggle("fas", this.isLiked);
+  },
+  watch: {
+    isLiked: function () {
+      this.likeRef.classList.toggle("far", !this.isLiked);
+      this.likeRef.classList.toggle("fas", this.isLiked);
     },
   },
 };

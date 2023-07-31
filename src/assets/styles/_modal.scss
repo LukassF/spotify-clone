@@ -17,7 +17,7 @@
     aspect-ratio: 6/3;
     border-radius: 10px;
     background-color: rgb(248, 246, 246);
-    padding: 10px 20px;
+    padding: 20px 20px;
     display: grid;
     grid-template-rows: 1fr 4fr 1fr;
     gap: 20px;
@@ -50,7 +50,7 @@
       display: grid;
       grid-template-columns: 2fr 3fr;
       gap: 20px;
-      //   background-color: blue;
+      // background-color: blue;
       place-content: center;
 
       div {
@@ -91,7 +91,7 @@
         }
 
         &:last-child {
-          @include flex(column, center, stretch);
+          @include flex(column, space-between, stretch);
           gap: 8px;
           input[type="text"] {
             padding: 10px 5px;

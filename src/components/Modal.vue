@@ -120,7 +120,10 @@ export default {
     },
   },
   watch: {
-    openModal: function () {},
+    openModal: function () {
+      if (this.openModal)
+        gsap.from(".modal", { yPercent: -30, opacity: 0, duration: 0.2 });
+    },
   },
 };
 </script>

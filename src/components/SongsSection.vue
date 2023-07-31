@@ -74,7 +74,6 @@
 </template>
 
 <script>
-// import SongCard from "./SongCard.vue";
 import SpotifyFooter from "@/components/SpotifyFooter.vue";
 import axios from "axios";
 import Loader from "./Loader.vue";
@@ -87,7 +86,6 @@ export default {
     };
   },
   components: {
-    // SongCard,
     SpotifyFooter,
     Loader,
   },
@@ -117,28 +115,53 @@ export default {
       this.playlistTracks = null;
       let tracksResult;
       if (this.type === "Playlist") {
-        try {
-          tracksResult = await axios(
-            `https://api.spotify.com/v1/playlists/${this.id}/tracks`,
-            {
-              method: "GET",
-              headers: {
-                Authorization: "Bearer " + this.$store.state.token,
-              },
-            }
-          );
+        if (!this.id) {
+          try {
+            let result = await axios.get(
+              "https://api.spotify.com/v1/me/tracks",
+              {
+                headers: {
+                  Authorization: "Bearer " + this.$store.state.authToken,
+                },
+              }
+            );
 
-          this.playlistTracks = tracksResult.data.items.filter(
-            (item) => item.track
-          );
+            this.playlistTracks = result.data.items.filter(
+              (item) => item.track
+            );
 
-          console.log(this.playlistTracks);
+            console.log(this.playlistTracks);
 
-          this.playlistTracks.forEach(
-            (item) => (this.totalDuration += item.track.duration_ms)
-          );
-        } catch (err) {
-          console.error(err);
+            this.playlistTracks.forEach(
+              (item) => (this.totalDuration += item.track.duration_ms)
+            );
+          } catch (err) {
+            console.log(err);
+          }
+        } else {
+          try {
+            tracksResult = await axios(
+              `https://api.spotify.com/v1/playlists/${this.id}/tracks`,
+              {
+                method: "GET",
+                headers: {
+                  Authorization: "Bearer " + this.$store.state.token,
+                },
+              }
+            );
+
+            this.playlistTracks = tracksResult.data.items.filter(
+              (item) => item.track
+            );
+
+            console.log(this.playlistTracks);
+
+            this.playlistTracks.forEach(
+              (item) => (this.totalDuration += item.track.duration_ms)
+            );
+          } catch (err) {
+            console.error(err);
+          }
         }
       }
 
@@ -172,7 +195,6 @@ export default {
       );
     },
     async playCurrentCollection() {
-      console.log(this.uri);
       await this.$store.dispatch("PLAY_COLLECTION", this.uri);
 
       await this.$store.dispatch("getCurrentSongInfo");

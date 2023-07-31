@@ -55,13 +55,13 @@ table {
       border-bottom: solid rgb(68, 68, 68) 1px;
       padding-bottom: 5px;
       display: grid;
-      grid-template-columns: 1fr 6fr 5fr 4fr 2fr;
+      grid-template-columns: 1fr 6fr 5fr 3fr 3fr;
 
       &.album-table-head {
-        grid-template-columns: minmax(0, 1fr) minmax(0, 15fr) minmax(0, 2fr);
+        grid-template-columns: minmax(0, 1fr) minmax(0, 15fr) minmax(0, 3fr);
 
         @media screen and (max-width: 1100px) {
-          grid-template-columns: minmax(0, 1fr) minmax(0, 8fr) minmax(0, 2fr);
+          grid-template-columns: minmax(0, 1fr) minmax(0, 5fr) minmax(0, 2fr);
         }
 
         th {
@@ -77,7 +77,7 @@ table {
         grid-template-columns: 1fr 6fr 4fr 2fr;
       }
       @media screen and (max-width: 900px) {
-        grid-template-columns: 1fr 8fr 2fr;
+        grid-template-columns: 1fr 7fr 3fr;
       }
 
       th {
@@ -110,10 +110,10 @@ table {
 
     &.album-table-body {
       tr {
-        grid-template-columns: minmax(0, 1fr) minmax(0, 15fr) minmax(0, 2fr);
+        grid-template-columns: minmax(0, 1fr) minmax(0, 15fr) minmax(0, 3fr);
 
         @media screen and (max-width: 1100px) {
-          grid-template-columns: minmax(0, 1fr) minmax(0, 8fr) minmax(0, 2fr);
+          grid-template-columns: minmax(0, 1fr) minmax(0, 5fr) minmax(0, 2fr);
         }
       }
       td:nth-child(3) {
@@ -278,6 +278,10 @@ table {
 
         &:first-child {
           left: 10px;
+
+          &.fas {
+            color: #1fdf64;
+          }
         }
         &:last-child {
           left: 50%;
@@ -343,6 +347,10 @@ table {
           li {
             text-align: left;
             padding: 10px 10px;
+            max-width: 100%;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
 
             &:hover {
               background-color: vars.$secondary-background-color;

@@ -172,8 +172,7 @@ export default {
     },
   },
   watch: {
-    async currentInputValue(newValue) {
-      console.log(newValue);
+    currentInputValue: async function (newValue) {
       if (newValue.length > 0) {
         this.showLoader = true;
         try {

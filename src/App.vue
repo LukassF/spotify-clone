@@ -1,6 +1,6 @@
 <template>
   <main class="main-layout">
-    <Modal v-if="$store.state.openModal" />
+    <Modal v-show="$store.state.openModal" />
     <LoginPage v-if="!$store.state.userInfo.display_name" />
     <Loader v-if="!connected || !$store.state.userPlaylists" />
     <AlertLite
@@ -21,7 +21,26 @@
             <p><i class="fa fa-plus"></i></p>
             Create Playlist
           </div>
-          <div>
+          <div
+            @click="
+              routeToPlaylist({
+                name: 'Liked Songs',
+                description: '',
+                images: [
+                  {
+                    url: 'https://s3.ap-south-1.amazonaws.com/discovery-prod-arsenal/ziegel/liked-songs.png',
+                  },
+                ],
+                owner: {
+                  display_name: this.$store.state.userInfo.display_name,
+                },
+                id: '',
+                tracks: { total: 2 },
+                uri: '',
+                isMine: true,
+              })
+            "
+          >
             <p>
               <i class="fa fa-heart"></i>
             </p>
@@ -136,6 +155,7 @@ export default {
       await this.getPlaylistsHome([this.genres[1].id, this.genres[2].id]);
       await this.$store.dispatch("GET_USER_PLAYLISTS");
       await this.$store.dispatch("GET_USER_INFO");
+      await this.$store.dispatch("get_liked");
     }
   },
   methods: {

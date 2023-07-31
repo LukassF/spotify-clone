@@ -32,6 +32,7 @@ const store = createStore({
       alert: { show: false, addedTo: "" },
       clickedOnSongCard: false,
       reloadSongs: false,
+      likedSongs: "",
       reloadUserPlaylists: false,
       token: "",
       userInfo: "",
@@ -71,6 +72,11 @@ const store = createStore({
     removeFromPlaylist() {},
     createPlaylist() {},
     addPlaylistCoverImage() {},
+    likeSong() {},
+    dislikeSong() {},
+    getLiked(state, value) {
+      state.likedSongs = value;
+    },
     getUserInfo(state, value) {
       state.userInfo = value;
     },
@@ -120,6 +126,22 @@ const store = createStore({
           commit("getUserPlaylists", res.data.items);
         })
         .catch((err) => console.log(err));
+    },
+    async get_liked({ commit }) {
+      try {
+        let result = await axios.get("https://api.spotify.com/v1/me/tracks", {
+          headers: {
+            Authorization: "Bearer " + this.state.authToken,
+          },
+        });
+
+        commit(
+          "getLiked",
+          result.data.items.filter((item) => item.track)
+        );
+      } catch (err) {
+        console.log(err);
+      }
     },
     async create_playlist({ commit }, props) {
       await fetch(
@@ -268,6 +290,28 @@ const store = createStore({
       ).catch((err) => console.log(err));
 
       commit("addToPlaylist");
+    },
+    async like_song({ commit }, id) {
+      await fetch(`https://api.spotify.com/v1/me/tracks?ids=${id}`, {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${this.state.authToken}`,
+          "Content-Type": "application/json",
+        },
+      });
+
+      commit("likeSong");
+    },
+    async dislike_song({ commit }, id) {
+      await fetch(`https://api.spotify.com/v1/me/tracks?ids=${id}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${this.state.authToken}`,
+          "Content-Type": "application/json",
+        },
+      });
+
+      commit("likeSong");
     },
     async REMOVE_FROM_PLAYLIST({ commit }, params) {
       console.log(params);

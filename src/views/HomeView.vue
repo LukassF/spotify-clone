@@ -94,8 +94,8 @@ export default {
       showAllRef2,
     };
   },
-  mounted() {
-    console.log(this.playlistsHome);
-  },
+  // mounted() {
+  //   console.log(this.playlistsHome);
+  // },
 };
 </script>

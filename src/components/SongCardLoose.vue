@@ -28,22 +28,23 @@
     </div>
 
     <span
-      ><i v-if="isHovering" class="far fa-heart"></i>{{ durationFormatted
-      }}<i v-if="isHovering" class="fas fa-ellipsis"></i>
+      ><i
+        v-show="isHovering || isLiked"
+        class="far fa-heart"
+        ref="likeRef"
+        @click="toggleLikeSong()"
+      ></i
+      >{{ durationFormatted }}<i v-if="isHovering" class="fas fa-ellipsis"></i>
       <div class="options">
         <ul>
+          <li @click="addToQueue()">Add to queue</li>
           <li
-            @click="
-              () => {
-                this.$store.dispatch('ADD_TO_QUEUE', uri);
-                this.$store.dispatch('SET_ALERT_LITE', {
-                  value: 'queue',
-                  bool: true,
-                });
-              }
-            "
+            v-if="this.$store.state.userPlaylists"
+            v-for="(playlist, i) in this.$store.state.userPlaylists"
+            :key="i"
+            @click="addToPlaylist(playlist)"
           >
-            Add to queue
+            Add to {{ playlist.name }}
           </li>
         </ul>
       </div>
@@ -52,6 +53,7 @@
 </template>
 
 <script>
+import { ref } from "vue";
 export default {
   data() {
     return {
@@ -67,13 +69,18 @@ export default {
         (Math.round(this.duration / 1000) % 60).toString().padStart(2, "0")
       );
     },
+    isLiked() {
+      return this.$store.state.likedSongs.some(
+        (item) => item.track.id === this.id
+      );
+    },
   },
   methods: {
     playCurrentSong(e) {
       console.log(e.target);
 
       // console.log(e.target, e.currentTarget);
-      if (e.target.innerHTML == " Add to queue ") return;
+      if (e.target.localName == "li" || e.target.localName == "i") return;
       this.$store.dispatch("playSong", this.uri);
 
       this.$store.dispatch("getCurrentSongInfo");
@@ -83,6 +90,57 @@ export default {
       setTimeout(() => {
         this.$store.dispatch("changeClickedOnSong", false);
       }, 200);
+    },
+    async addToPlaylist(playlist) {
+      try {
+        await this.$store.dispatch("ADD_TO_PLAYLIST", {
+          playlist_id: playlist.id,
+          song_uri: this.uri,
+        });
+
+        this.$store.dispatch("SET_ALERT_LITE", {
+          value: playlist.name,
+          bool: true,
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    addToQueue() {
+      this.$store.dispatch("ADD_TO_QUEUE", this.uri);
+      this.$store.dispatch("SET_ALERT_LITE", {
+        value: "queue",
+        bool: true,
+      });
+    },
+    async toggleLikeSong() {
+      if (!this.isLiked) {
+        await this.$store.dispatch("like_song", this.id);
+        await this.$store.dispatch("SET_ALERT_LITE", {
+          value: "Liked",
+          bool: true,
+        });
+      } else if (this.isLiked) {
+        await this.$store.dispatch("dislike_song", this.id);
+      }
+      await this.$store.dispatch("get_liked");
+      this.$store.commit("setReloadSongs");
+    },
+  },
+  setup() {
+    const likeRef = ref(null);
+    return {
+      likeRef,
+    };
+  },
+  mounted() {
+    this.likeRef.classList.toggle("far", !this.isLiked);
+    this.likeRef.classList.toggle("fas", this.isLiked);
+  },
+  watch: {
+    isLiked: function () {
+      this.likeRef.classList.toggle("far", !this.isLiked);
+      this.likeRef.classList.toggle("fas", this.isLiked);
     },
   },
 };
