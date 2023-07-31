@@ -9,7 +9,6 @@
   padding: 15px;
   border-radius: 5px;
   aspect-ratio: 6.5/10;
-  min-height: 87%;
   background-color: #181818;
   @include mixins.flex(column, flex-start, center);
   transition: background-color 0.3s;
