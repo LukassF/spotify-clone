@@ -89,6 +89,7 @@ aside {
     scrollbar-width: none;
     scrollbar-color: $nav-ambient-color transparent;
     overflow-y: auto;
+    min-height: 100px;
 
     &::-webkit-scrollbar {
       width: 7px;

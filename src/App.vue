@@ -112,7 +112,7 @@ export default {
   },
   async mounted() {
     //redeeming authToken
-    let expiration;
+    // let expiration;
     const hash = window.location.hash;
     const _token = hash.split("&")[0].split("=")[1];
     this.$store.dispatch("redeemAuthToken", _token);
@@ -258,7 +258,7 @@ export default {
           Swal.fire("Error!", message, "error");
         });
         this.player.addListener("account_error", ({ message }) => {
-          Swal.fire("Error!", message, "error");
+          Swal.fire("Account Error!", message, "error");
         });
         this.player.addListener("playback_error", ({ message }) => {
           Swal.fire("Error!", message, "error");

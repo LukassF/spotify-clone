@@ -408,6 +408,7 @@ aside ul {
   scrollbar-width: none;
   scrollbar-color: rgb(150, 148, 148) transparent;
   overflow-y: auto;
+  min-height: 100px;
 }
 aside ul::-webkit-scrollbar {
   width: 7px;
@@ -2579,7 +2580,7 @@ body {
   padding: 0;
   margin: 0;
   overflow-y: hidden;
-  height: 100vh;
+  min-height: 400px;
 }
 
 .main-layout {
@@ -2587,7 +2588,7 @@ body {
   height: 100vh;
   display: grid;
   grid-template-columns: 1fr 4fr;
-  grid-template-rows: minmax(0, 2fr) 20fr 3fr;
+  grid-template-rows: 2fr 20fr 3fr;
   gap: 10px;
   grid-template-areas: "aside header" "aside content" "footer footer";
 }
@@ -2689,6 +2690,18 @@ article.login a:hover {
   gap: 10px;
   grid-template-areas: "nothing nothing" "nothing content" "nothing nothing";
   z-index: 4;
+}
+.loader-container .nothing.n1 {
+  min-height: 62px;
+}
+.loader-container .nothing.n2 {
+  min-height: 62px;
+}
+.loader-container .nothing.n5 {
+  min-height: 80px;
+}
+.loader-container .nothing.n6 {
+  min-height: 80px;
 }
 .loader-container .spinner-container {
   border-radius: 10px;

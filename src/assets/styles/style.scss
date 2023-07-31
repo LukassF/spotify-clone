@@ -38,14 +38,15 @@ body {
   padding: 0;
   margin: 0;
   overflow-y: hidden;
-  height: 100vh;
+  // height: 100vh;
+  min-height: 400px;
 }
 .main-layout {
   padding: 10px;
   height: 100vh;
   display: grid;
   grid-template-columns: 1fr 4fr;
-  grid-template-rows: minmax(0, 2fr) 20fr 3fr;
+  grid-template-rows: 2fr 20fr 3fr;
   gap: 10px;
   grid-template-areas:
     "aside header"
@@ -159,6 +160,21 @@ article.login {
     "nothing content"
     "nothing nothing";
   z-index: 4;
+
+  .nothing {
+    &.n1 {
+      min-height: 62px;
+    }
+    &.n2 {
+      min-height: 62px;
+    }
+    &.n5 {
+      min-height: 80px;
+    }
+    &.n6 {
+      min-height: 80px;
+    }
+  }
 
   .spinner-container {
     border-radius: 10px;

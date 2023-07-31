@@ -113,6 +113,11 @@ export default {
       );
     },
     isLiked() {
+      if (
+        !this.$store.state.likedSongs ||
+        this.$store.state.likedSongs.length === 0
+      )
+        return false;
       return this.$store.state.likedSongs.some(
         (item) => item.track.id === this.id
       );
