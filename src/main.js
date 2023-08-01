@@ -38,6 +38,8 @@ const store = createStore({
       userInfo: "",
       cancel: false,
       openModal: false,
+      openLoginModal: false,
+      clickedImage: "",
       currentSongInfo: "{}",
       clientID: "b022c35e77404e43b5c82be9bc4cee67",
       clientSecret: "84ea6f3098a64a1ca8980a5e8f5a5bc2",
@@ -105,10 +107,22 @@ const store = createStore({
     setOpenModal(state, value) {
       state.openModal = value;
     },
+    setOpenLoginModal(state, value) {
+      state.openLoginModal = value;
+    },
+    setClickedImage(state, value) {
+      state.clickedImage = value;
+    },
   },
   actions: {
     SET_OPEN_MODAL({ commit }, value) {
       commit("setOpenModal", value);
+    },
+    SET_OPEN_LOGIN_MODAL({ commit }, value) {
+      commit("setOpenLoginModal", value);
+    },
+    set_clicked_image({ commit }, value) {
+      commit("setClickedImage", value);
     },
     updateInput({ commit }, value) {
       commit("updateInput", value);

@@ -25,6 +25,20 @@
           type="Playlist"
           :isMine="true"
         />
+
+        <AllPurposeCard
+          v-else-if="!$store.state.authToken && playlistsHome[0]"
+          v-for="(item, i) in playlistsHome[0]"
+          :name="item.name"
+          :image="item.images[0].url"
+          :desc="item.description"
+          :key="item.id"
+          :id="item.id"
+          :owner="item.owner.display_name"
+          :total="item.tracks.total"
+          :uri="item.uri"
+          type="Playlist"
+        />
       </div>
     </article>
 
@@ -66,7 +80,6 @@ export default {
   components: {
     AllPurposeCard,
     SpotifyFooter,
-    AllPurposeCard,
     Loader,
   },
   methods: {

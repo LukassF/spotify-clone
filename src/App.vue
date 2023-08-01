@@ -1,8 +1,12 @@
 <template>
   <main class="main-layout">
+    <LoginModal v-if="$store.state.openLoginModal && !$store.state.authToken" />
     <Modal v-show="$store.state.openModal" />
-    <LoginPage v-if="!$store.state.userInfo.display_name" />
-    <Loader v-if="!connected || !$store.state.userPlaylists" />
+    <Loader
+      v-if="
+        $store.state.authToken && (!connected || !$store.state.userPlaylists)
+      "
+    />
     <AlertLite
       v-if="this.$store.state.alert.show"
       :addedTo="this.$store.state.alert.addedTo"
@@ -13,34 +17,19 @@
         <router-link to="/search"
           ><i class="fa fa-magnifying-glass"></i>Search</router-link
         >
-        <router-link to="/library"
+        <router-link
+          to="/library"
+          :style="{
+            pointerEvents: `${isDisabled ? 'none' : ''}`,
+          }"
           ><i class="fa-solid fa-layer-group"></i>Your Library</router-link
         >
         <div class="nav-buttons">
-          <div @click="() => this.$store.dispatch('SET_OPEN_MODAL', true)">
+          <div @click="createPlaylistCheck()">
             <p><i class="fa fa-plus"></i></p>
             Create Playlist
           </div>
-          <div
-            @click="
-              routeToPlaylist({
-                name: 'Liked Songs',
-                description: '',
-                images: [
-                  {
-                    url: 'https://s3.ap-south-1.amazonaws.com/discovery-prod-arsenal/ziegel/liked-songs.png',
-                  },
-                ],
-                owner: {
-                  display_name: this.$store.state.userInfo.display_name,
-                },
-                id: '',
-                tracks: { total: 2 },
-                uri: '',
-                isMine: true,
-              })
-            "
-          >
+          <div @click="likedSongsCheck()">
             <p>
               <i class="fa fa-heart"></i>
             </p>
@@ -79,9 +68,9 @@ import axios from "axios";
 import Header from "./components/Header.vue";
 import Loader from "./components/Loader.vue";
 import Footer from "./components/Footer.vue";
-import LoginPage from "./components/LoginPage.vue";
 import AlertLite from "./components/AlertLite.vue";
 import Modal from "./components/Modal.vue";
+import LoginModal from "./components/LoginModal.vue";
 import Swal from "sweetalert2";
 
 export default {
@@ -101,58 +90,35 @@ export default {
     reloadUserPlaylists() {
       return this.$store.state.reloadUserPlaylists;
     },
+    isDisabled() {
+      return this.$store.state.authToken === "";
+    },
   },
   components: {
     Header,
     Loader,
     Footer,
-    LoginPage,
     AlertLite,
+    LoginModal,
     Modal,
   },
   async mounted() {
     //redeeming authToken
     // let expiration;
-    const hash = window.location.hash;
-    const _token = hash.split("&")[0].split("=")[1];
-    this.$store.dispatch("redeemAuthToken", _token);
-
-    // if (
-    //   !window.localStorage.getItem("authToken") ||
-    //   parseInt(expiration) < 60
-    // ) {
-    //   const hash = window.location.hash;
-    //   if (hash) {
-    //     const _token = hash.split("&")[0].split("=")[1];
-    //     expiration = hash.split("&")[2].split("=")[1];
-    //     this.$store.dispatch("redeemAuthToken", _token);
-    //     window.localStorage.setItem("authToken", _token);
-    //   }
-    // } else {
-    //   this.$store.dispatch(
-    //     "redeemAuthToken",
-    //     window.localStorage.getItem("authToken")
-    //   );
-    // }
-    // window.location.hash = "";
-
-    // window.localStorage.setItem("authToken", _token);
-
-    // if (!window.localStorage.getItem("authToken")) {
-
-    // } else {
-
-    // this.$store.dispatch(
-    //   "redeemAuthToken",
-    //   window.localStorage.getItem("authToken")
-    // );
-    // }
-
-    if (this.$store.state.authToken) {
-      await this.$store.dispatch("redeemTokenAsync");
-      this.connectToPlayer();
+    await this.$store.dispatch("redeemTokenAsync");
+    if (this.$store.state.token) {
       await this.getGenres();
       await this.getPlaylistsHome([this.genres[1].id, this.genres[2].id]);
+    }
+
+    const hash = window.location.hash;
+    if (hash) {
+      const _token = hash.split("&")[0].split("=")[1];
+      this.$store.dispatch("redeemAuthToken", _token);
+    }
+
+    if (this.$store.state.authToken) {
+      this.connectToPlayer();
       await this.$store.dispatch("GET_USER_PLAYLISTS");
       await this.$store.dispatch("GET_USER_INFO");
       await this.$store.dispatch("get_liked");
@@ -174,6 +140,45 @@ export default {
           type: "Playlist",
         },
       });
+    },
+
+    createPlaylistCheck() {
+      if (this.$store.state.authToken)
+        this.$store.dispatch("SET_OPEN_MODAL", true);
+      else {
+        this.$store.dispatch(
+          "set_clicked_image",
+          "https://play-lh.googleusercontent.com/cShys-AmJ93dB0SV8kE6Fl5eSaf4-qMMZdwEDKI5VEmKAXfzOqbiaeAsqqrEBCTdIEs"
+        );
+        this.$store.dispatch("SET_OPEN_LOGIN_MODAL", true);
+      }
+    },
+
+    likedSongsCheck() {
+      if (this.$store.state.authToken)
+        this.routeToPlaylist({
+          name: "Liked Songs",
+          description: "",
+          images: [
+            {
+              url: "https://s3.ap-south-1.amazonaws.com/discovery-prod-arsenal/ziegel/liked-songs.png",
+            },
+          ],
+          owner: {
+            display_name: this.$store.state.userInfo.display_name,
+          },
+          id: "",
+          tracks: { total: 2 },
+          uri: "",
+          isMine: true,
+        });
+      else {
+        this.$store.dispatch(
+          "set_clicked_image",
+          "https://play-lh.googleusercontent.com/cShys-AmJ93dB0SV8kE6Fl5eSaf4-qMMZdwEDKI5VEmKAXfzOqbiaeAsqqrEBCTdIEs"
+        );
+        this.$store.dispatch("SET_OPEN_LOGIN_MODAL", true);
+      }
     },
 
     async getGenres() {

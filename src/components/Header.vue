@@ -29,9 +29,8 @@
       </div>
     </div>
 
-    <div>
+    <div v-if="$store.state.userInfo.display_name">
       <a
-        v-if="$store.state.userInfo.display_name"
         :href="$store.state.userInfo.external_urls.spotify"
         target="_blank"
         class="profile-link"
@@ -52,6 +51,10 @@
       <div class="log-out-container" @click="logOut()">
         <p>Log out</p>
       </div>
+    </div>
+
+    <div v-else>
+      <a class="log-in" :href="this.$store.state.loginEndpoint">Log In</a>
     </div>
   </header>
 </template>

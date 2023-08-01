@@ -82,9 +82,12 @@ export default {
   },
   methods: {
     playCurrentSong(e) {
-      console.log(e.target);
-
-      // console.log(e.target, e.currentTarget);
+      //Not logged in safety
+      if (!this.$store.state.authToken) {
+        this.$store.dispatch("set_clicked_image", this.image);
+        this.$store.dispatch("SET_OPEN_LOGIN_MODAL", true);
+        return;
+      }
       if (e.target.localName == "li" || e.target.localName == "i") return;
       this.$store.dispatch("playSong", this.uri);
 

@@ -56,7 +56,12 @@ export default {
         });
     },
     async playCurrentCollection() {
-      console.log(this.uri);
+      //Not logged in safety
+      if (!this.$store.state.authToken) {
+        this.$store.dispatch("set_clicked_image", this.image);
+        this.$store.dispatch("SET_OPEN_LOGIN_MODAL", true);
+        return;
+      }
       await this.$store.dispatch("PLAY_COLLECTION", this.uri);
 
       await this.$store.dispatch("getCurrentSongInfo");

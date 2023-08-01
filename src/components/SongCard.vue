@@ -108,14 +108,16 @@ export default {
     },
 
     availablePlaylists() {
-      return this.$store.state.userPlaylists.filter(
-        (item) => item.id !== this.playlistId
-      );
+      if (this.$store.state.authToken && this.$store.state.userPlaylists)
+        return this.$store.state.userPlaylists.filter(
+          (item) => item.id !== this.playlistId
+        );
     },
     isLiked() {
       if (
-        !this.$store.state.likedSongs ||
-        this.$store.state.likedSongs.length === 0
+        !this.$store.state.authToken &&
+        (!this.$store.state.likedSongs ||
+          this.$store.state.likedSongs.length === 0)
       )
         return false;
       return this.$store.state.likedSongs.some(
@@ -125,7 +127,12 @@ export default {
   },
   methods: {
     playCurrentSong(e) {
-      console.log(e.target);
+      //Not logged in safety
+      if (!this.$store.state.authToken) {
+        this.$store.dispatch("set_clicked_image", this.image);
+        this.$store.dispatch("SET_OPEN_LOGIN_MODAL", true);
+        return;
+      }
       if (e.target.localName == "li" || e.target.localName == "i") return;
       this.$store.dispatch("playSong", this.uri);
 

@@ -48,7 +48,7 @@
           <h1>{{ artists[0].name }}</h1>
           <a>Artist</a>
 
-          <button @click="playCurrentSong()">
+          <button @click="playCurrentArtist()">
             <i class="fa fa-play"></i>
           </button>
         </div>
@@ -263,7 +263,18 @@ export default {
           break;
       }
     },
-    async playCurrentSong() {
+    async playCurrentArtist() {
+      //Not logged in safety
+      if (!this.$store.state.authToken) {
+        this.$store.dispatch(
+          "set_clicked_image",
+          this.artists[0].images[0]
+            ? this.artists[0].images[0].url
+            : "https://cdn-icons-png.flaticon.com/512/149/149071.png"
+        );
+        this.$store.dispatch("SET_OPEN_LOGIN_MODAL", true);
+        return;
+      }
       await this.$store.dispatch("PLAY_COLLECTION", this.artists[0].uri);
 
       await this.$store.dispatch("getCurrentSongInfo");
