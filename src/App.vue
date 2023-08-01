@@ -84,6 +84,7 @@ export default {
       tracks: [],
       connected: false,
       player: null,
+      expiration: null,
     };
   },
   computed: {
@@ -103,20 +104,35 @@ export default {
     Modal,
   },
   async mounted() {
-    //redeeming authToken
-    // let expiration;
     await this.$store.dispatch("redeemTokenAsync");
     if (this.$store.state.token) {
       await this.getGenres();
       await this.getPlaylistsHome([this.genres[1].id, this.genres[2].id]);
     }
 
+    //redeeming authToken
     const hash = window.location.hash;
-    if (hash) {
+    if (
+      (hash && !window.localStorage.getItem("authToken")) ||
+      parseInt(this.expiration) < 100
+    ) {
       const _token = hash.split("&")[0].split("=")[1];
+      this.expiration = hash.split("&")[2].split("=")[1];
       this.$store.dispatch("redeemAuthToken", _token);
+      window.localStorage.setItem("authToken", _token);
+    } else if (window.localStorage.getItem("authToken")) {
+      this.$store.dispatch(
+        "redeemAuthToken",
+        window.localStorage.getItem("authToken")
+      );
+    } else {
+      console.error("ERROR");
+      return;
     }
 
+    console.log(this.expiration);
+
+    //------------------------------------
     if (this.$store.state.authToken) {
       this.connectToPlayer();
       await this.$store.dispatch("GET_USER_PLAYLISTS");

@@ -201,7 +201,10 @@ export default {
         this.$store.dispatch("SET_OPEN_LOGIN_MODAL", true);
         return;
       }
-      await this.$store.dispatch("PLAY_COLLECTION", this.uri);
+      await this.$store.dispatch(
+        "PLAY_COLLECTION",
+        this.playlistTracks[0] ? this.playlistTracks[0].uri : ""
+      );
 
       await this.$store.dispatch("getCurrentSongInfo");
 

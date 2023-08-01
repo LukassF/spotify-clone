@@ -4,8 +4,29 @@
       class="login-modal"
       :style="`background-image:url('${$store.state.clickedImage}')`"
     >
-      <div>
-        <img :src="$store.state.clickedImage" />
+      <div class="overlay">
+        <article>
+          <div>
+            <img :src="$store.state.clickedImage" />
+          </div>
+        </article>
+        <article>
+          <h1>Listen to and save songs, create playlists and much more!</h1>
+
+          <p>
+            Due to the Spotify policy, access to the Web Player and logged in
+            user info is enabled only for designated users, therefore if you
+            want to experience the app in its fullest, send me an email on
+            <a href="mailto:szkulkerolf@gmail.com">szkulkerolf@gmail.com</a>
+            containing your full name, surname and email, and I will grant you
+            the permission within 1 day. After you've received a positive
+            feedback from me, log in below!
+          </p>
+
+          <a :href="this.$store.state.loginEndpoint" class="log-in-modal-a">
+            I've been authorized, log In
+          </a>
+        </article>
       </div>
     </article>
   </section>

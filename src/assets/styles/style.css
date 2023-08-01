@@ -2453,13 +2453,20 @@ article.artist main.scrollable-artist .artist-info article .related-artists .ima
 .modal-container {
   width: 100%;
   height: 100%;
-  position: fixed;
-  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.8);
   z-index: 100;
   left: 0;
   top: 0;
   display: grid;
   place-content: center;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+@media screen and (max-width: 810px) {
+  .modal-container {
+    min-width: 810px;
+  }
 }
 .modal-container .modal {
   width: 560px;
@@ -2470,11 +2477,6 @@ article.artist main.scrollable-artist .artist-info article .related-artists .ima
   display: grid;
   grid-template-rows: 1fr 4fr 1fr;
   gap: 20px;
-}
-@media screen and (max-width: 616px) {
-  .modal-container .modal {
-    width: 90vw;
-  }
 }
 .modal-container .modal header {
   display: flex;
@@ -2566,37 +2568,127 @@ article.artist main.scrollable-artist .artist-info article .related-artists .ima
   border-radius: 500px;
   cursor: pointer;
 }
+.modal-container .modal footer button:hover {
+  background-color: #25ff75;
+}
 
 .login-modal-container {
   width: 100%;
   height: 100%;
-  position: fixed;
-  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.8);
   z-index: 100;
   left: 0;
   top: 0;
   display: grid;
   place-content: center;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+@media screen and (max-width: 810px) {
+  .login-modal-container {
+    min-width: 810px;
+  }
 }
 .login-modal-container .login-modal {
   border-radius: 10px;
   width: 900px;
-  aspect-ratio: 5/3;
+  aspect-ratio: 6/3;
   background-size: 200%;
   background-position: center;
 }
-.login-modal-container .login-modal div {
-  width: calc(100% - 40px);
-  height: calc(100% - 40px);
+@media screen and (max-width: 990px) {
+  .login-modal-container .login-modal {
+    width: 90vw;
+  }
+}
+@media screen and (max-width: 810px) {
+  .login-modal-container .login-modal {
+    min-width: 729px;
+  }
+}
+.login-modal-container .login-modal .overlay {
+  width: calc(100% - 120px);
+  height: calc(100% - 120px);
   -webkit-backdrop-filter: blur(60px);
           backdrop-filter: blur(60px);
-  background-color: rgba(41, 41, 41, 0.2);
+  background: rgba(41, 41, 41, 0.5);
   border-radius: inherit;
-  padding: 20px;
+  padding: 60px;
+  display: grid;
+  grid-template-columns: 5fr 6fr;
+  gap: 20px;
+  place-content: center;
 }
-.login-modal-container .login-modal div img {
-  width: 100px;
-  height: 100px;
+.login-modal-container .login-modal .overlay article:first-child div {
+  width: 90%;
+  aspect-ratio: 1/1;
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 3px 3px 40px 3px rgba(0, 0, 0, 0.5);
+}
+.login-modal-container .login-modal .overlay article:first-child div img {
+  width: 100%;
+}
+.login-modal-container .login-modal .overlay article:last-child {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+.login-modal-container .login-modal .overlay article:last-child h1 {
+  color: white;
+  font-size: 1.8em;
+  margin: 0;
+}
+@media screen and (max-width: 1100px) {
+  .login-modal-container .login-modal .overlay article:last-child h1 {
+    font-size: 1.5em;
+  }
+}
+@media screen and (max-width: 900px) {
+  .login-modal-container .login-modal .overlay article:last-child h1 {
+    font-size: 1.2em;
+  }
+}
+.login-modal-container .login-modal .overlay article:last-child p {
+  color: rgb(214, 212, 212);
+  font-size: 0.9em;
+  margin: 0;
+}
+@media screen and (max-width: 1100px) {
+  .login-modal-container .login-modal .overlay article:last-child p {
+    font-size: 0.8em;
+  }
+}
+@media screen and (max-width: 900px) {
+  .login-modal-container .login-modal .overlay article:last-child p {
+    font-size: 0.7em;
+  }
+}
+.login-modal-container .login-modal .overlay article:last-child p a {
+  color: #1fdf64;
+  cursor: pointer;
+}
+.login-modal-container .login-modal .overlay article:last-child p a:hover {
+  color: #25ff75;
+}
+.login-modal-container .login-modal .overlay article:last-child .log-in-modal-a {
+  font-size: 1.2em;
+  padding: 10px 30px;
+  border-radius: 500px;
+  border: none;
+  background-color: #1fdf64;
+  cursor: pointer;
+  color: black;
+}
+@media screen and (max-width: 900px) {
+  .login-modal-container .login-modal .overlay article:last-child .log-in-modal-a {
+    font-size: 0.9em;
+  }
+}
+.login-modal-container .login-modal .overlay article:last-child .log-in-modal-a:hover {
+  background-color: #25ff75;
 }
 
 @font-face {

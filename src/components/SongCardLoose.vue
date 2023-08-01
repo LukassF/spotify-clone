@@ -88,7 +88,8 @@ export default {
         this.$store.dispatch("SET_OPEN_LOGIN_MODAL", true);
         return;
       }
-      if (e.target.localName == "li" || e.target.localName == "i") return;
+      if (e.target.localName == "li" || e.target.classList.contains("fa-heart"))
+        return;
       this.$store.dispatch("playSong", this.uri);
 
       this.$store.dispatch("getCurrentSongInfo");
@@ -122,6 +123,7 @@ export default {
       });
     },
     async toggleLikeSong() {
+      if (!this.$store.state.authToken) return;
       if (!this.isLiked) {
         await this.$store.dispatch("like_song", this.id);
         await this.$store.dispatch("SET_ALERT_LITE", {

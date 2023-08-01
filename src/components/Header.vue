@@ -54,7 +54,7 @@
     </div>
 
     <div v-else>
-      <a class="log-in" :href="this.$store.state.loginEndpoint">Log In</a>
+      <a @click="openLoginModal()" class="log-in">Log In</a>
     </div>
   </header>
 </template>
@@ -84,8 +84,16 @@ export default {
     logOut() {
       this.$store.dispatch("redeemAuthToken", null);
       window.location.hash = "";
+
       window.localStorage.removeItem("authToken");
       window.location.reload();
+    },
+    openLoginModal() {
+      this.$store.dispatch(
+        "set_clicked_image",
+        "https://play-lh.googleusercontent.com/cShys-AmJ93dB0SV8kE6Fl5eSaf4-qMMZdwEDKI5VEmKAXfzOqbiaeAsqqrEBCTdIEs"
+      );
+      this.$store.dispatch("SET_OPEN_LOGIN_MODAL", true);
     },
   },
 

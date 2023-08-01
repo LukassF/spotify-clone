@@ -11,10 +11,16 @@
         </div>
         <div>
           <p>Profile</p>
-          <h1>{{ $store.state.userInfo.display_name }}</h1>
+          <h1 v-if="$store.state.userInfo">
+            {{ $store.state.userInfo.display_name }}
+          </h1>
           <ul>
-            <li>{{ $store.state.userPlaylists.length }} public playlists</li>
-            <li>{{ $store.state.userInfo.followers.total }} followers</li>
+            <li v-if="$store.state.userPlaylists">
+              {{ $store.state.userPlaylists.length }} public playlists
+            </li>
+            <li v-if="$store.state.userInfo">
+              {{ $store.state.userInfo.followers.total }} followers
+            </li>
             <li>1 following</li>
           </ul>
         </div>
@@ -114,20 +120,27 @@ export default {
     SongCard,
     Loader,
   },
+  created() {
+    if (!this.$store.state.authToken) this.$router.push("/");
+  },
   async mounted() {
     this.myTopArtists = await this.getUserTop("artists");
     this.myTopTracks = await this.getUserTop("tracks");
   },
   methods: {
     async getUserTop(type) {
-      const result = await axios.get(
-        `https://api.spotify.com/v1/me/top/${type}`,
-        {
-          headers: { Authorization: `Bearer ${this.$store.state.authToken}` },
-        }
-      );
-      console.log(result.data.items);
-      return result.data.items;
+      try {
+        const result = await axios.get(
+          `https://api.spotify.com/v1/me/top/${type}`,
+          {
+            headers: { Authorization: `Bearer ${this.$store.state.authToken}` },
+          }
+        );
+        console.log(result.data.items);
+        return result.data.items;
+      } catch (err) {
+        console.log(err);
+      }
     },
   },
 };
