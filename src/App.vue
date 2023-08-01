@@ -112,12 +112,17 @@ export default {
 
     //redeeming authToken
     const hash = window.location.hash;
+
     if (
-      (hash && !window.localStorage.getItem("authToken")) ||
-      parseInt(this.expiration) < 100
+      hash &&
+      (!window.localStorage.getItem("authToken") ||
+        window.localStorage.getItem("expiration") < 100)
     ) {
       const _token = hash.split("&")[0].split("=")[1];
-      this.expiration = hash.split("&")[2].split("=")[1];
+      window.localStorage.setItem(
+        "expiration",
+        parseInt(hash.split("&")[2].split("=")[1])
+      );
       this.$store.dispatch("redeemAuthToken", _token);
       window.localStorage.setItem("authToken", _token);
     } else if (window.localStorage.getItem("authToken")) {
@@ -130,7 +135,10 @@ export default {
       return;
     }
 
-    console.log(this.expiration);
+    setInterval(() => {
+      const prev = window.localStorage.getItem("expiration");
+      window.localStorage.setItem("expiration", prev - 5);
+    }, 5000);
 
     //------------------------------------
     if (this.$store.state.authToken) {
