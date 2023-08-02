@@ -2535,6 +2535,9 @@ article.artist main.scrollable-artist .artist-info article .related-artists .ima
   font-size: 4em;
   color: rgb(196, 195, 195);
 }
+.modal-container .modal .content div:first-child button span {
+  font-size: 0.7em;
+}
 .modal-container .modal .content div:last-child {
   display: flex;
   flex-direction: column;
@@ -2635,8 +2638,23 @@ article.artist main.scrollable-artist .artist-info article .related-artists .ima
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  position: relative;
+}
+.login-modal-container .login-modal .overlay article:last-child span {
+  position: absolute;
+  text-decoration: underline overline;
+  right: -65px;
+  top: 50%;
+  transform: rotate(90deg) translateY(-50%);
+  color: rgb(255, 255, 255);
+}
+@media screen and (max-width: 900px) {
+  .login-modal-container .login-modal .overlay article:last-child span {
+    font-size: 0.8em;
+  }
 }
 .login-modal-container .login-modal .overlay article:last-child h1 {
+  font-family: spotifyFontBold;
   color: white;
   font-size: 1.8em;
   margin: 0;
@@ -2669,6 +2687,7 @@ article.artist main.scrollable-artist .artist-info article .related-artists .ima
 .login-modal-container .login-modal .overlay article:last-child p a {
   color: #1fdf64;
   cursor: pointer;
+  font-family: spotifyFontLight;
 }
 .login-modal-container .login-modal .overlay article:last-child p a:hover {
   color: #25ff75;
@@ -2681,6 +2700,7 @@ article.artist main.scrollable-artist .artist-info article .related-artists .ima
   background-color: #1fdf64;
   cursor: pointer;
   color: black;
+  font-family: spotifyFontLight;
 }
 @media screen and (max-width: 900px) {
   .login-modal-container .login-modal .overlay article:last-child .log-in-modal-a {

@@ -21,7 +21,11 @@
               playlistCover ? playlistCover : ''
             }')`"
           >
-            <div><i class="fa fa-music"></i>Choose an image</div>
+            <div>
+              <i class="fa fa-music"></i>Choose an image<span
+                >Up to 256 KB</span
+              >
+            </div>
           </button>
         </div>
         <div>

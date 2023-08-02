@@ -112,11 +112,12 @@ export default {
 
     //redeeming authToken
     const hash = window.location.hash;
+    let interval;
 
     if (
       hash &&
       (!window.localStorage.getItem("authToken") ||
-        window.localStorage.getItem("expiration") < 100)
+        window.localStorage.getItem("expiration") < 300)
     ) {
       const _token = hash.split("&")[0].split("=")[1];
       window.localStorage.setItem(
@@ -134,8 +135,9 @@ export default {
       console.error("ERROR");
       return;
     }
+    clearInterval(interval);
 
-    setInterval(() => {
+    interval = setInterval(() => {
       const prev = window.localStorage.getItem("expiration");
       window.localStorage.setItem("expiration", prev - 5);
     }, 5000);
@@ -287,7 +289,11 @@ export default {
           Swal.fire("Error!", message, "error");
         });
         this.player.addListener("account_error", ({ message }) => {
-          Swal.fire("Account Error!", message, "error");
+          Swal.fire(
+            "Account Error!",
+            "Make sure you have a premium Spotify plan, and have been authorised by me to use the app!",
+            "error"
+          );
         });
         this.player.addListener("playback_error", ({ message }) => {
           Swal.fire("Error!", message, "error");
