@@ -36,7 +36,7 @@
     .overlay {
       width: calc(100% - 120px);
       height: calc(100% - 120px);
-      backdrop-filter: blur(60px);
+      backdrop-filter: blur(30px);
       background: rgba(41, 41, 41, 0.5);
       border-radius: inherit;
       padding: 60px;
@@ -64,17 +64,6 @@
           @include flex(column, space-between, center);
           position: relative;
 
-          span {
-            position: absolute;
-            text-decoration: underline overline;
-            right: -65px;
-            top: 50%;
-            transform: rotate(90deg) translateY(-50%);
-            color: rgb(255, 255, 255);
-            @media screen and (max-width: 900px) {
-              font-size: 0.8em;
-            }
-          }
           h1 {
             font-family: spotifyFontBold;
             color: white;

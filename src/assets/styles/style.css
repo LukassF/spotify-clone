@@ -2613,8 +2613,8 @@ article.artist main.scrollable-artist .artist-info article .related-artists .ima
 .login-modal-container .login-modal .overlay {
   width: calc(100% - 120px);
   height: calc(100% - 120px);
-  -webkit-backdrop-filter: blur(60px);
-          backdrop-filter: blur(60px);
+  -webkit-backdrop-filter: blur(30px);
+          backdrop-filter: blur(30px);
   background: rgba(41, 41, 41, 0.5);
   border-radius: inherit;
   padding: 60px;
@@ -2639,19 +2639,6 @@ article.artist main.scrollable-artist .artist-info article .related-artists .ima
   justify-content: space-between;
   align-items: center;
   position: relative;
-}
-.login-modal-container .login-modal .overlay article:last-child span {
-  position: absolute;
-  text-decoration: underline overline;
-  right: -65px;
-  top: 50%;
-  transform: rotate(90deg) translateY(-50%);
-  color: rgb(255, 255, 255);
-}
-@media screen and (max-width: 900px) {
-  .login-modal-container .login-modal .overlay article:last-child span {
-    font-size: 0.8em;
-  }
 }
 .login-modal-container .login-modal .overlay article:last-child h1 {
   font-family: spotifyFontBold;

@@ -60,7 +60,11 @@
             v-if="this.$store.state.userPlaylists"
             v-for="(item, i) in this.$store.state.userPlaylists.slice(0, 6)"
             :name="item.name"
-            :image="item.images[0] ? item.images[0].url : ''"
+            :image="
+              item.images[0]
+                ? item.images[0].url
+                : 'https://static.vecteezy.com/system/resources/previews/000/421/044/original/music-note-icon-vector-illustration.jpg'
+            "
             :desc="item.description"
             :key="i"
             :id="item.id"

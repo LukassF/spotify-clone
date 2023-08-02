@@ -11,7 +11,6 @@
           </div>
         </article>
         <article>
-          <span>IMPORTANT</span>
           <h1>Listen to songs, create playlists and much more!</h1>
 
           <p>
