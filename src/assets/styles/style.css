@@ -2597,7 +2597,7 @@ article.artist main.scrollable-artist .artist-info article .related-artists .ima
   border-radius: 10px;
   width: 900px;
   aspect-ratio: 6/3;
-  background-size: 200%;
+  background-size: 150%;
   background-position: center;
 }
 @media screen and (max-width: 990px) {
@@ -2613,9 +2613,9 @@ article.artist main.scrollable-artist .artist-info article .related-artists .ima
 .login-modal-container .login-modal .overlay {
   width: calc(100% - 120px);
   height: calc(100% - 120px);
-  -webkit-backdrop-filter: blur(30px);
-          backdrop-filter: blur(30px);
-  background: linear-gradient(rgba(41, 41, 41, 0.2), rgba(41, 41, 41, 0.5), black);
+  -webkit-backdrop-filter: blur(50px);
+          backdrop-filter: blur(50px);
+  background: rgba(0, 0, 0, 0.5);
   border-radius: inherit;
   padding: 60px;
   display: grid;
@@ -2658,13 +2658,8 @@ article.artist main.scrollable-artist .artist-info article .related-artists .ima
 }
 .login-modal-container .login-modal .overlay article:last-child p {
   color: rgb(214, 212, 212);
-  font-size: 0.9em;
+  font-size: 0.8em;
   margin: 0;
-}
-@media screen and (max-width: 1100px) {
-  .login-modal-container .login-modal .overlay article:last-child p {
-    font-size: 0.8em;
-  }
 }
 @media screen and (max-width: 900px) {
   .login-modal-container .login-modal .overlay article:last-child p {
@@ -2674,7 +2669,6 @@ article.artist main.scrollable-artist .artist-info article .related-artists .ima
 .login-modal-container .login-modal .overlay article:last-child p a {
   color: #1fdf64;
   cursor: pointer;
-  font-family: spotifyFontLight;
 }
 .login-modal-container .login-modal .overlay article:last-child p a:hover {
   color: #25ff75;
