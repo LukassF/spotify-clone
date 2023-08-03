@@ -280,7 +280,7 @@ table {
           left: 10px;
 
           &.fas {
-            color: #1fdf64;
+            color: vars.$theme-color;
           }
         }
         &:last-child {

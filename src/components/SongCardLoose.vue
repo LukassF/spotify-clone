@@ -15,7 +15,7 @@
           !this.$store.state.currentSongInfo.item ||
           this.id !== this.$store.state.currentSongInfo.item.id
             ? ''
-            : '#1fdf64'
+            : '#ef4d63'
         }`"
       >
         {{ name }}

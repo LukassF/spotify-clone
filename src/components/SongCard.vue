@@ -19,7 +19,7 @@
       </div>
       <h4
         :style="`color:${
-          !this.$store.state.currentSongInfo.item || !isActive ? '' : '#1fdf64'
+          !this.$store.state.currentSongInfo.item || !isActive ? '' : '#ef4d63'
         }`"
       >
         {{ name }}
