@@ -91,7 +91,7 @@ export default {
     openLoginModal() {
       this.$store.dispatch(
         "set_clicked_image",
-        "https://play-lh.googleusercontent.com/cShys-AmJ93dB0SV8kE6Fl5eSaf4-qMMZdwEDKI5VEmKAXfzOqbiaeAsqqrEBCTdIEs"
+        "https://cdn.jim-nielsen.com/watchos/512/apple-music-2020-09-29.png"
       );
       this.$store.dispatch("SET_OPEN_LOGIN_MODAL", true);
     },

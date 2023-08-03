@@ -15,7 +15,7 @@
 
           <div class="playlist-stats">
             <img
-              src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Spotify_icon.svg/1982px-Spotify_icon.svg.png"
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Apple_Music_icon.svg/1200px-Apple_Music_icon.svg.png"
               alt="spotify-logo"
               style="width: 25px"
             />

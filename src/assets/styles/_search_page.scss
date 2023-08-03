@@ -177,7 +177,7 @@ section.search {
           border: none;
           aspect-ratio: 1/1;
           border-radius: 50%;
-          background-color: #1fdf64;
+          background-color: vars.$theme-color;
           display: grid;
           place-content: center;
           font-size: 1.2em;

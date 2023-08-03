@@ -596,7 +596,7 @@ footer#song-player section#song-player div:last-child .input-container div {
   z-index: -1;
 }
 footer#song-player section#song-player div:last-child .input-container:hover div {
-  background-color: #1fdf64;
+  background-color: #ef4d63;
 }
 footer#song-player section#song-player div:last-child .input-container:hover input[type=range]::-moz-range-thumb {
   opacity: 1;
@@ -659,7 +659,7 @@ footer#song-player section#song-options .input-container div {
   z-index: -1;
 }
 footer#song-player section#song-options .input-container:hover div {
-  background-color: #1fdf64;
+  background-color: #ef4d63;
 }
 footer#song-player section#song-options .input-container:hover input[type=range]::-moz-range-thumb {
   opacity: 1;
@@ -818,7 +818,7 @@ progress[value]::-webkit-progress-value {
   width: 100%;
 }
 progress[value]::-webkit-progress-value:hover {
-  background: #1fdf64;
+  background: #ef4d63;
 }
 
 progress::-moz-progress-bar {
@@ -827,7 +827,7 @@ progress::-moz-progress-bar {
   width: 100%;
 }
 progress::-moz-progress-bar:hover {
-  background: #1fdf64;
+  background: #ef4d63;
 }
 
 .home {
@@ -942,7 +942,7 @@ progress::-moz-progress-bar:hover {
   border: none;
   aspect-ratio: 1/1;
   border-radius: 50%;
-  background-color: #1fdf64;
+  background-color: #ef4d63;
   display: grid;
   place-content: center;
   font-size: 1.2em;
@@ -1322,7 +1322,7 @@ section.song-section .song-section-header .play-button-playlist {
   color: black;
   aspect-ratio: 1/1;
   border-radius: 50%;
-  background-color: #1fdf64;
+  background-color: #ef4d63;
   display: grid;
   place-content: center;
   font-size: 1.3em;
@@ -1476,7 +1476,7 @@ table tbody td:first-child .playing div {
   width: 3px;
   height: 100%;
   border-radius: 500px;
-  background-color: #1fdf64;
+  background-color: #ef4d63;
   animation: playSong 0.8s alternate infinite;
   transform-origin: bottom;
 }
@@ -1648,7 +1648,7 @@ table tbody:last-child .options ul li:hover {
   color: black;
   aspect-ratio: 1/1;
   border-radius: 50%;
-  background-color: #1fdf64;
+  background-color: #ef4d63;
   display: grid;
   place-content: center;
   font-size: 1.3em;
@@ -1882,7 +1882,7 @@ section.search .top-results.artist div button {
   border: none;
   aspect-ratio: 1/1;
   border-radius: 50%;
-  background-color: #1fdf64;
+  background-color: #ef4d63;
   display: grid;
   place-content: center;
   font-size: 1.2em;
@@ -2025,7 +2025,7 @@ section.search .search-result-section article.search-result-section-artists .ima
   left: 10px;
 }
 .song-card-loose span i:first-child.fas {
-  color: #1fdf64;
+  color: #ef4d63;
 }
 .song-card-loose span .fa-ellipsis {
   position: absolute;
@@ -2565,14 +2565,14 @@ article.artist main.scrollable-artist .artist-info article .related-artists .ima
   align-items: center;
 }
 .modal-container .modal footer button {
-  background-color: #1fdf64;
+  background-color: #ef4d63;
   border: none;
   padding: 10px 20px;
   border-radius: 500px;
   cursor: pointer;
 }
 .modal-container .modal footer button:hover {
-  background-color: #25ff75;
+  background-color: #f33a53;
 }
 
 .login-modal-container {
@@ -2667,18 +2667,18 @@ article.artist main.scrollable-artist .artist-info article .related-artists .ima
   }
 }
 .login-modal-container .login-modal .overlay article:last-child p a {
-  color: #1fdf64;
+  color: #ef4d63;
   cursor: pointer;
 }
 .login-modal-container .login-modal .overlay article:last-child p a:hover {
-  color: #25ff75;
+  color: #ef4d63;
 }
 .login-modal-container .login-modal .overlay article:last-child .log-in-modal-a {
   font-size: 1.2em;
   padding: 10px 30px;
   border-radius: 500px;
   border: none;
-  background-color: #1fdf64;
+  background-color: #ef4d63;
   cursor: pointer;
   color: black;
   font-family: spotifyFontLight;
@@ -2689,7 +2689,7 @@ article.artist main.scrollable-artist .artist-info article .related-artists .ima
   }
 }
 .login-modal-container .login-modal .overlay article:last-child .log-in-modal-a:hover {
-  background-color: #25ff75;
+  background-color: #f33a53;
 }
 
 @font-face {
@@ -2813,7 +2813,7 @@ body {
   width: 13px;
   height: 13px;
   border-radius: 50%;
-  background: #1fdf64;
+  background: #ef4d63;
   animation-timing-function: cubic-bezier(0, 1, 1, 0);
 }
 .loader-container .lds-ellipsis div:nth-child(1) {

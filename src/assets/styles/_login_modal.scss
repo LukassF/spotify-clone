@@ -89,11 +89,11 @@
             }
 
             a {
-              color: #1fdf64;
+              color: $theme-color;
               cursor: pointer;
 
               &:hover {
-                color: #25ff75;
+                color: $theme-color;
               }
               //   text-decoration: underline;
             }
@@ -104,7 +104,7 @@
             padding: 10px 30px;
             border-radius: 500px;
             border: none;
-            background-color: #1fdf64;
+            background-color: $theme-color;
             cursor: pointer;
             color: black;
             font-family: spotifyFontLight;
@@ -114,7 +114,7 @@
             }
 
             &:hover {
-              background-color: #25ff75;
+              background-color: $theme-color-hover;
             }
             // color: white;
           }

@@ -31,7 +31,7 @@ section.song-section {
       color: black;
       aspect-ratio: 1/1;
       border-radius: 50%;
-      background-color: #1fdf64;
+      background-color: vars.$theme-color;
       display: grid;
       place-content: center;
       font-size: 1.3em;
@@ -197,7 +197,7 @@ table {
             width: 3px;
             height: 100%;
             border-radius: 500px;
-            background-color: #1fdf64;
+            background-color: vars.$theme-color;
             -webkit-animation: playSong 0.8s alternate infinite;
             animation: playSong 0.8s alternate infinite;
             transform-origin: bottom;
@@ -400,7 +400,7 @@ table {
     color: black;
     aspect-ratio: 1/1;
     border-radius: 50%;
-    background-color: #1fdf64;
+    background-color: vars.$theme-color;
     display: grid;
     place-content: center;
     font-size: 1.3em;
