@@ -112,35 +112,37 @@ export default {
 
     //redeeming authToken
     const hash = window.location.hash;
-    let interval;
+     const _token = hash.split("&")[0].split("=")[1];
+    this.$store.dispatch("redeemAuthToken", _token);
 
-    if (
-      hash &&
-      (!window.localStorage.getItem("authToken") ||
-        window.localStorage.getItem("expiration") < 300)
-    ) {
-      const _token = hash.split("&")[0].split("=")[1];
-      window.localStorage.setItem(
-        "expiration",
-        parseInt(hash.split("&")[2].split("=")[1])
-      );
-      this.$store.dispatch("redeemAuthToken", _token);
-      window.localStorage.setItem("authToken", _token);
-    } else if (window.localStorage.getItem("authToken")) {
-      this.$store.dispatch(
-        "redeemAuthToken",
-        window.localStorage.getItem("authToken")
-      );
-    } else {
-      console.error("ERROR");
-      return;
-    }
-    clearInterval(interval);
 
-    interval = setInterval(() => {
-      const prev = window.localStorage.getItem("expiration");
-      window.localStorage.setItem("expiration", prev - 5);
-    }, 5000);
+    // if (
+    //   hash &&
+    //   (!window.localStorage.getItem("authToken") ||
+    //     window.localStorage.getItem("expiration") < 300)
+    // ) {
+     
+    //   window.localStorage.setItem(
+    //     "expiration",
+    //     parseInt(hash.split("&")[2].split("=")[1])
+    //   );
+      
+    //   window.localStorage.setItem("authToken", _token);
+    // } else if (window.localStorage.getItem("authToken")) {
+    //   this.$store.dispatch(
+    //     "redeemAuthToken",
+    //     window.localStorage.getItem("authToken")
+    //   );
+    // } else {
+    //   console.error("ERROR");
+    //   return;
+    // }
+    // clearInterval(interval);
+
+    // interval = setInterval(() => {
+    //   const prev = window.localStorage.getItem("expiration");
+    //   window.localStorage.setItem("expiration", prev - 5);
+    // }, 5000);
 
     //------------------------------------
     if (this.$store.state.authToken) {
