@@ -17,7 +17,7 @@
         <p>{{ this.$store.state.currentSongInfo.item.artists[0].name }}</p>
       </div>
 
-      <div><i class="far fa-heart"></i></div>
+      
     </section>
     <section id="song-player">
       <div>
