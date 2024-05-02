@@ -7,7 +7,22 @@
   >
     <div class="title-and-artist">
       <div>
-        <img :src="image" />
+        <div class="song-loader" v-if="!isLoadedImage">
+          <div class="lds-ellipsis">
+            <div></div>
+          </div>
+        </div>
+        <img
+          v-show="isLoadedImage"
+          ref="imageRef"
+          :src="
+            image
+              ? image
+              : 'https://static.vecteezy.com/system/resources/previews/000/421/044/original/music-note-icon-vector-illustration.jpg'
+          "
+          @error="onImageError(image)"
+          @load="onImageLoad()"
+        />
         <i v-show="isHovering" class="fa fa-play"></i>
       </div>
       <h4
@@ -58,6 +73,7 @@ export default {
   data() {
     return {
       isHovering: false,
+      isLoadedImage: false,
     };
   },
   props: ["name", "artists", "duration", "image", "uri", "id"],
@@ -136,11 +152,23 @@ export default {
       await this.$store.dispatch("get_liked");
       this.$store.commit("setReloadSongs");
     },
+    onImageLoad() {
+      this.isLoadedImage = true;
+    },
+    onImageError(image) {
+      if (this.imageRef) {
+        this.isLoadedImage = true;
+        this.imageRef.src =
+          "https://static.vecteezy.com/system/resources/previews/000/421/044/original/music-note-icon-vector-illustration.jpg";
+      }
+    },
   },
   setup() {
     const likeRef = ref(null);
+    const imageRef = ref(null);
     return {
       likeRef,
+      imageRef,
     };
   },
   mounted() {

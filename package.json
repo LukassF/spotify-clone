@@ -12,6 +12,7 @@
     "gsap": "^3.12.2",
     "normalize-scss": "^7.0.1",
     "normalize.css": "^8.0.1",
+    "primevue": "^3.52.0",
     "sweetalert2": "^11.7.20",
     "vue": "^3.2.13",
     "vue-router": "^4.0.3",

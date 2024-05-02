@@ -2,7 +2,20 @@
   <div @click="routeWithData()" class="playlist-card">
     <div class="image-container">
       <div>
-        <img :src="image" />
+        <!-- <div class="playlist-loader">
+          <div></div>
+        </div> -->
+        <img
+          v-show="isImageLoaded"
+          ref="imageRef"
+          :src="
+            image
+              ? image
+              : 'https://static.vecteezy.com/system/resources/previews/000/421/044/original/music-note-icon-vector-illustration.jpg'
+          "
+          @error="onImageError(image)"
+          @load="onImageLoad()"
+        />
       </div>
       <button class="play-button-home" @click="playCurrentCollection()">
         <i class="fa fa-play"></i>
@@ -14,8 +27,15 @@
 </template>
 
 <script>
+import { ref } from "vue";
+
 export default {
   name: "PlaylistCard",
+  data() {
+    return {
+      isImageLoaded: false,
+    };
+  },
   props: [
     "name",
     "image",
@@ -27,6 +47,9 @@ export default {
     "uri",
     "isMine",
   ],
+  mounted() {
+    console.log(this.image);
+  },
   methods: {
     routeWithData() {
       if (this.type !== "Artist")
@@ -55,8 +78,13 @@ export default {
           },
         });
     },
+    onImageError(image) {
+      if (this.imageRef)
+        this.imageRef.src =
+          "https://static.vecteezy.com/system/resources/previews/000/421/044/original/music-note-icon-vector-illustration.jpg";
+    },
     async playCurrentCollection() {
-      //Not logged in safety
+      // Not logged in safety
       if (!this.$store.state.authToken) {
         this.$store.dispatch("set_clicked_image", this.image);
         this.$store.dispatch("SET_OPEN_LOGIN_MODAL", true);
@@ -72,6 +100,16 @@ export default {
         this.$store.dispatch("changeClickedOnSong", false);
       }, 200);
     },
+    onImageLoad() {
+      this.isImageLoaded = true;
+    },
+  },
+  setup() {
+    const imageRef = ref(null);
+
+    return {
+      imageRef,
+    };
   },
 };
 </script>

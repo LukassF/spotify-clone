@@ -36,11 +36,7 @@
             v-for="(item, i) in myTopArtists.slice(0, 6)"
             :key="i"
             :name="item.name"
-            :image="
-              item.images[0]
-                ? item.images[0].url
-                : 'https://cdn-icons-png.flaticon.com/512/149/149071.png'
-            "
+            :image="imageGuard(item)"
             desc="Artist"
             :id="item.id"
             :uri="item.uri"
@@ -60,11 +56,7 @@
             v-if="this.$store.state.userPlaylists"
             v-for="(item, i) in this.$store.state.userPlaylists.slice(0, 6)"
             :name="item.name"
-            :image="
-              item.images[0]
-                ? item.images[0].url
-                : 'https://static.vecteezy.com/system/resources/previews/000/421/044/original/music-note-icon-vector-illustration.jpg'
-            "
+            :image="imageGuard(item)"
             :desc="item.description"
             :key="i"
             :id="item.id"
@@ -140,11 +132,15 @@ export default {
             headers: { Authorization: `Bearer ${this.$store.state.authToken}` },
           }
         );
-        console.log(result.data.items);
+        console.log(type, result.data.items);
         return result.data.items;
       } catch (err) {
         console.log(err);
       }
+    },
+
+    imageGuard(item) {
+      return item.images && item.images[0] ? item.images[0].url : null;
     },
   },
 };

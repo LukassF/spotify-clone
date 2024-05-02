@@ -15,7 +15,22 @@
     </td>
     <td class="title-and-artist">
       <div v-if="type === 'Playlist' || type === 'Artist'">
-        <img :src="image" />
+        <div class="song-loader" v-if="!isLoadedImage">
+          <div class="lds-ellipsis">
+            <div></div>
+          </div>
+        </div>
+        <img
+          v-show="isLoadedImage"
+          ref="imageRef"
+          :src="
+            image
+              ? image
+              : 'https://static.vecteezy.com/system/resources/previews/000/421/044/original/music-note-icon-vector-illustration.jpg'
+          "
+          @error="onImageError(image)"
+          @load="onImageLoad()"
+        />
       </div>
       <h4
         :style="`color:${
@@ -34,7 +49,7 @@
           }}
         </span>
         <span v-else-if="type === 'Album'">{{ artists[0].name }}</span>
-        <spam v-else></spam>
+        <span v-else></span>
       </p>
     </td>
     <td class="album" v-if="type !== 'Album'">
@@ -73,6 +88,7 @@ export default {
   data() {
     return {
       isHovering: false,
+      isLoadedImage: false,
     };
   },
   props: [
@@ -193,12 +209,24 @@ export default {
 
       if (!this.playlistId) this.$store.commit("setReloadSongs");
     },
+    onImageLoad() {
+      this.isLoadedImage = true;
+    },
+    onImageError(image) {
+      if (this.imageRef) {
+        this.isLoadedImage = true;
+        this.imageRef.src =
+          "https://static.vecteezy.com/system/resources/previews/000/421/044/original/music-note-icon-vector-illustration.jpg";
+      }
+    },
   },
 
   setup() {
     const likeRef = ref(null);
+    const imageRef = ref(null);
     return {
       likeRef,
+      imageRef,
     };
   },
   mounted() {

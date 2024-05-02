@@ -11,11 +11,7 @@
           v-if="this.$store.state.userPlaylists"
           v-for="(item, i) in this.$store.state.userPlaylists"
           :name="item.name"
-          :image="
-            item.images[0]
-              ? item.images[0].url
-              : 'https://static.vecteezy.com/system/resources/previews/000/421/044/original/music-note-icon-vector-illustration.jpg'
-          "
+          :image="imageGuard(item)"
           :desc="item.description"
           :key="i"
           :id="item.id"
@@ -30,7 +26,7 @@
           v-else-if="!$store.state.authToken && playlistsHome[0]"
           v-for="(item, i) in playlistsHome[0]"
           :name="item.name"
-          :image="item.images[0].url"
+          :image="imageGuard(item)"
           :desc="item.description"
           :key="item.id"
           :id="item.id"
@@ -52,7 +48,7 @@
           v-if="playlistsHome[1]"
           v-for="(item, i) in playlistsHome[1]"
           :name="item.name"
-          :image="item.images[0].url"
+          :image="imageGuard(item)"
           :desc="item.description"
           :key="i"
           :id="item.id"
@@ -96,6 +92,10 @@ export default {
         default:
           break;
       }
+    },
+
+    imageGuard(item) {
+      return item.images && item.images[0] ? item.images[0].url : null;
     },
   },
   setup() {
