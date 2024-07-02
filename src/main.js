@@ -137,7 +137,6 @@ const store = createStore({
           headers: { Authorization: "Bearer " + this.state.authToken },
         })
         .then((res) => {
-          console.log(res.data.items);
           commit("getUserPlaylists", res.data.items);
         })
         .catch((err) => console.log(err));
@@ -172,9 +171,7 @@ const store = createStore({
             description: props.description,
           }),
         }
-      )
-        .then((res) => console.log(res))
-        .catch((err) => console.log(err));
+      ).catch((err) => console.log(err));
 
       commit("createPlaylist");
     },
@@ -293,7 +290,6 @@ const store = createStore({
       commit("addToQueue");
     },
     async ADD_TO_PLAYLIST({ commit }, params) {
-      console.log(params.playlist_id, params.song_uri);
       await axios(
         `https://api.spotify.com/v1/playlists/${params.playlist_id}/tracks?uris=${params.song_uri}`,
         {
@@ -329,7 +325,6 @@ const store = createStore({
       commit("likeSong");
     },
     async REMOVE_FROM_PLAYLIST({ commit }, params) {
-      console.log(params);
       await fetch(
         `https://api.spotify.com/v1/playlists/${params.playlist_id}/tracks`,
         {
@@ -352,7 +347,6 @@ const store = createStore({
           headers: { Authorization: `Bearer ${this.state.authToken}` },
         })
         .then((userRes) => {
-          console.log(userRes.data);
           commit("getUserInfo", userRes.data);
         })
         .catch((err) => console.log(err));
@@ -366,7 +360,6 @@ const store = createStore({
       })
         .then((res) => res.json())
         .then((result) => {
-          // console.log(result);
           commit("getCurrentSongInfo", result);
         })
         .catch((err) => console.log(err));

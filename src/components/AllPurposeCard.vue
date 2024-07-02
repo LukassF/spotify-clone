@@ -47,9 +47,7 @@ export default {
     "uri",
     "isMine",
   ],
-  mounted() {
-    console.log(this.image);
-  },
+
   methods: {
     routeWithData() {
       if (this.type !== "Artist")

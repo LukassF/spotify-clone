@@ -151,7 +151,6 @@ export default {
               else if (item === "albums")
                 this.artistWork.albums = artistRes.data.items;
               else this.artistWork.related = artistRes.data.artists;
-              console.log(this.artistWork);
             });
         })
       );

@@ -130,8 +130,6 @@ export default {
               (item) => item.track
             );
 
-            console.log(this.playlistTracks);
-
             this.playlistTracks.forEach(
               (item) => (this.totalDuration += item.track.duration_ms)
             );
@@ -153,8 +151,6 @@ export default {
             this.playlistTracks = tracksResult.data.items.filter(
               (item) => item.track
             );
-
-            console.log(this.playlistTracks);
 
             this.playlistTracks.forEach(
               (item) => (this.totalDuration += item.track.duration_ms)
@@ -179,7 +175,6 @@ export default {
           );
 
           this.playlistTracks = tracksResult.data.items;
-          console.log(this.playlistTracks);
 
           this.playlistTracks.forEach(
             (item) => (this.totalDuration += item.duration_ms)
@@ -202,7 +197,6 @@ export default {
         return;
       }
 
-      console.log(this.playlistTracks[0].track.uri);
       if (this.uri) await this.$store.dispatch("PLAY_COLLECTION", this.uri);
       else
         await this.$store.dispatch(

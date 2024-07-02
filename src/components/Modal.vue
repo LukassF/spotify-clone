@@ -91,8 +91,6 @@ export default {
       await new Promise((resolve) => (reader.onloadend = () => resolve()));
 
       this.playlistCoverEncoded = reader.result.split(",")[1];
-
-      console.log(this.playlistCoverEncoded);
     },
 
     async createPlaylist() {
@@ -106,7 +104,6 @@ export default {
       });
 
       await this.$store.dispatch("GET_USER_PLAYLISTS");
-      console.log(this.playlistCoverEncoded);
 
       if (this.playlistCoverEncoded) {
         try {

@@ -132,7 +132,6 @@ export default {
             headers: { Authorization: `Bearer ${this.$store.state.authToken}` },
           }
         );
-        console.log(type, result.data.items);
         return result.data.items;
       } catch (err) {
         console.log(err);

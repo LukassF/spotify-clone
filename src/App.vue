@@ -112,21 +112,20 @@ export default {
 
     //redeeming authToken
     const hash = window.location.hash;
-     const _token = hash.split("&")[0].split("=")[1];
+    const _token = hash.split("&")[0].split("=")[1];
     this.$store.dispatch("redeemAuthToken", _token);
-
 
     // if (
     //   hash &&
     //   (!window.localStorage.getItem("authToken") ||
     //     window.localStorage.getItem("expiration") < 300)
     // ) {
-     
+
     //   window.localStorage.setItem(
     //     "expiration",
     //     parseInt(hash.split("&")[2].split("=")[1])
     //   );
-      
+
     //   window.localStorage.setItem("authToken", _token);
     // } else if (window.localStorage.getItem("authToken")) {
     //   this.$store.dispatch(
@@ -154,7 +153,6 @@ export default {
   },
   methods: {
     routeToPlaylist(playlist) {
-      console.log(playlist);
       this.$router.push({
         name: "playlist",
         query: {
@@ -236,7 +234,6 @@ export default {
         )
         .then((res) => {
           res.map((dataItem) => {
-            // console.log(dataItem);
             this.playlistsHome.push(dataItem.data.playlists.items);
             this.playlistsHomeAll = this.playlistsHome[0].concat(
               this.playlistsHome[1]
@@ -262,10 +259,7 @@ export default {
         });
 
         this.player.addListener("ready", ({ device_id }) => {
-          console.log("Ready with Device ID", device_id);
-
           const connect_to_device = () => {
-            console.log("Changing to device");
             let change_device = fetch("https://api.spotify.com/v1/me/player", {
               method: "PUT",
               body: JSON.stringify({

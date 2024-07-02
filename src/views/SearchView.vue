@@ -195,8 +195,6 @@ export default {
           this.playlists = searchResponse.data.playlists.items;
 
           this.showLoader = false;
-
-          console.log(searchResponse.data);
         } catch (err) {
           console.error(err);
           Swal.fire("Error!", "Could not found, try something else.", "error");

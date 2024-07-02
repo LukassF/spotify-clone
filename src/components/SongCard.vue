@@ -230,7 +230,6 @@ export default {
     };
   },
   mounted() {
-    console.log(this.playlistId);
     this.likeRef.classList.toggle("far", !this.isLiked);
     this.likeRef.classList.toggle("fas", this.isLiked);
   },

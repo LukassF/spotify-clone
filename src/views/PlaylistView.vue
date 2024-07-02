@@ -79,15 +79,9 @@ export default {
     SongSection,
   },
   mounted() {
-    console.log(this.dataObject);
     this.chosenColor = this.colors[Math.floor(Math.random() * 6)];
     this.gradientBackground =
       "background:linear-gradient(" + this.chosenColor + ",transparent);";
   },
-  // watch: {
-  //   dataObject: function () {
-  //     console.log(this.dataObject);
-  //   },
-  // },
 };
 </script>
